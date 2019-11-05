@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="dialog_items">
+        <item>同意</item>
+        <item>拒绝</item>
+        <item>有意向</item>
+        <item>未接通</item>
+        <item>其它</item>
+    </string-array>
+</resources>

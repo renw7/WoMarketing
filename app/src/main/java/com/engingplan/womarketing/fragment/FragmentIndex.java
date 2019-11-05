@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.engingplan.womarketing.ui.activity.R;
 import com.github.mikephil.charting.charts.BarChart;
@@ -25,6 +26,8 @@ import java.util.Random;
 
 
 public class FragmentIndex extends Fragment {
+    SwipeRefreshLayout swipeRefresh;
+
 
     public static FragmentIndex newInstance(String name) {
         Bundle args = new Bundle();
@@ -56,6 +59,15 @@ public class FragmentIndex extends Fragment {
         barChart.invalidate();//在柱状图填充数据以后进行刷新
         barChart1.invalidate();//在柱状图填充数据以后进行刷新
 
+
+        swipeRefresh = view.findViewById(R.id.swipeRefresh);
+        swipeRefresh.setColorSchemeResources(R.color.colorPrimary, R.color.colorAccent, R.color.white, R.color.white);
+        swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                swipeRefresh.setRefreshing(false);
+            }
+        });
     }
 
 

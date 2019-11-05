@@ -20,7 +20,7 @@ import java.util.Map;
 public class FragmentMe extends Fragment {
     private TextView tv;
 
-    public static FragmentMe newInstance(String name, Map param) {
+    public static FragmentMe newInstance(String name) {
 
         Bundle args = new Bundle();
         args.putString("name", name);

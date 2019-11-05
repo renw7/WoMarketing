@@ -24,6 +24,12 @@
     <!--处理拨出电话，允许程序监视,修改或放弃播出电话-->
     <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS" />
 
+    <!-- 拨打电话、发送短信 -->
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.SEND_SMS" />
+    <!-- 读取通讯录 -->
+    <uses-permission android:name="android.permission.READ_CALL_LOG" />
+
     <application
         android:icon="@mipmap/ic_launcher"
         android:roundIcon="@mipmap/ic_launcher_round"
@@ -50,6 +56,25 @@
 
         <activity
             android:name=".TabLayoutActivity"
+            android:alwaysRetainTaskState="true"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".TaskListActivity"
+            android:alwaysRetainTaskState="true"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"/>
+
+
+        <activity android:name=".TaskDetailsActivity"
+            android:alwaysRetainTaskState="true"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".DialActivity"
             android:alwaysRetainTaskState="true"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:launchMode="singleTask"

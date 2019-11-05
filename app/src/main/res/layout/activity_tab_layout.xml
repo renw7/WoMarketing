@@ -6,14 +6,6 @@
     android:layout_weight="1">
 
 
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        xmlns:app = "http://schemas.android.com/apk/res-auto"
-        xmlns:tools = "http://schemas.android.com/tools"
-        android:id = "@+id/swipeRefresh"
-        android:layout_width = "match_parent"
-        android:layout_height = "match_parent"
-        tools:context = ".activity.TabLayoutActivity">
-
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
@@ -61,13 +53,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
             </LinearLayout>
-
-
-
-
-
         </FrameLayout>
     </LinearLayout>
-
-    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </TabHost>
