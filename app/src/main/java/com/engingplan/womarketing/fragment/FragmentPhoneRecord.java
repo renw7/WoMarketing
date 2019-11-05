@@ -23,7 +23,7 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.engingplan.womarketing.bl.TabLayoutBL;
-import com.engingplan.womarketing.ui.R;
+import com.engingplan.womarketing.ui.activity.R;
 import com.engingplan.womarketing.util.ConstantsUtil;
 
 import java.util.HashMap;

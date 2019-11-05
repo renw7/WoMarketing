@@ -11,7 +11,6 @@ import android.widget.SimpleAdapter;
 import android.widget.TabHost;
 
 import com.engingplan.womarketing.bl.TabLayoutBL;
-import com.engingplan.womarketing.ui.R;
 
 import java.util.HashMap;
 import java.util.List;

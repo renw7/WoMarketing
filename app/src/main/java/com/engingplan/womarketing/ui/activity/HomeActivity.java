@@ -13,7 +13,6 @@ import com.engingplan.womarketing.fragment.FragmentMe;
 import com.engingplan.womarketing.fragment.FragmentPhoneRecord;
 import com.engingplan.womarketing.fragment.FragmentTask;
 import com.engingplan.womarketing.common.ViewPagerAdapter;
-import com.engingplan.womarketing.ui.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;

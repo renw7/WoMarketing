@@ -9,7 +9,7 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.engingplan.womarketing.ui.R;
+import com.engingplan.womarketing.ui.activity.R;
 
 
 public class FragmentPhoneRecordBak extends Fragment {

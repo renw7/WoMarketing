@@ -15,7 +15,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
-import com.engingplan.womarketing.ui.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;
