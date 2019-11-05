@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:background="@mipmap/background"
-    tools:context=".ui.LoginActivity">
+    tools:context=".LoginActivity">
 
     <ImageView
         android:id="@+id/iv_login_logo"
