@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
@@ -27,18 +28,32 @@
         android:hint="@string/input_username"
         android:textColor="#F0F7F2F2" />
 
-    <EditText
-        android:id="@+id/et_login_password"
-        style="@style/EditTextStyle"
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="40dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginRight="40dp"
-        android:hint="@string/input_pwd"
-        android:maxLength="20"
-        android:maxLines="1"
-        android:textColor="#FFFFFF" />
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/et_login_password"
+            style="@style/EditTextStyle"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="0dp"
+            android:hint="@string/input_pwd"
+            android:maxLength="20"
+            android:maxLines="1"
+            android:textColor="#F0F7F2F2" />
+
+        <ToggleButton
+            android:id="@+id/pwd_show"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/pwd_hidden" />
+    </LinearLayout>
 
     <TextView
         android:id="@+id/tv_login_forget"
@@ -63,4 +78,5 @@
         android:text="@string/login_text"
         android:textColor="#F3FFFFFF"
         android:textSize="18sp" />
+
 </LinearLayout>

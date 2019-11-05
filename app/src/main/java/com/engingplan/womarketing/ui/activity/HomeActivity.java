@@ -22,7 +22,7 @@ import java.util.Map;
 
 public class HomeActivity extends AppCompatActivity {
 
-    private ViewPager mViewPager;//
+    private ViewPager mViewPager;
     private BottomNavigationView bottomNavigationView;
     private ViewPagerAdapter viewPagerAdapter;
     private MenuItem menuItem;
@@ -33,10 +33,8 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.bv_home_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-//        BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
         mViewPager = (ViewPager) findViewById(R.id.vp_home_pager);//获取到ViewPager
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override

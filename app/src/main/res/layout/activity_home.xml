@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.HomeActivity">
+    tools:context=".HomeActivity">
 
 
 
@@ -18,7 +18,7 @@
     <View
         android:layout_width="match_parent"
         android:background="#3399cc"
-        android:layout_height="1dp" />>
+        android:layout_height="1dp" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bv_home_navigation"

@@ -7,13 +7,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Looper;
 import android.text.TextUtils;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Toast;
-
-
+import android.widget.ToggleButton;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -21,7 +22,6 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
-
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -39,6 +39,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText staffusername;
     private EditText staffpwd;
     private Button btnlogin;
+    private ToggleButton toggleButton;
     private String path = "http://119.29.106.248:80/tblstaffinfo/checkuser";
 
 
@@ -49,6 +50,20 @@ public class LoginActivity extends AppCompatActivity {
 
         staffusername = (EditText) findViewById(R.id.et_login_phone);
         staffpwd = (EditText) findViewById(R.id.et_login_password);
+
+        toggleButton = (ToggleButton) findViewById(R.id.pwd_show);
+        toggleButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                if (isChecked) {
+                    //如果选中，显示密码
+                    staffpwd.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                } else {
+                    //否则隐藏密码
+                    staffpwd.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                }
+            }
+        });
 
         btnlogin = (Button) findViewById(R.id.btn_login_commit);
         btnlogin.setOnClickListener(view -> {
@@ -85,9 +100,9 @@ public class LoginActivity extends AppCompatActivity {
                     //请求接口地址
                     .url(path)
                     .build();
-            //4.创建call对象
+            //创建call对象
             Call call = client.newCall(request);
-            //5.使用call调用 enqueue完成网络请求
+            //使用call调用 enqueue完成网络请求
             call.enqueue(new Callback() {
                 //请求失败时调用此方法
                 @Override
@@ -101,11 +116,9 @@ public class LoginActivity extends AppCompatActivity {
                 public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
 
                     Log.i(TAG, "请求成功......");
-
                     ResponseBody responseBody = response.body();
                     // 获得JSON字符串
                     final String responseString = responseBody.string();
-
                     Log.i(TAG, responseString);
 
                     try {
@@ -126,12 +139,12 @@ public class LoginActivity extends AppCompatActivity {
                                 username = record.getString("staffUsrname");
                                 password = record.getString("staffPwd");
                             }
-                            Log.i(TAG,"登录成功");
-                            Intent intent = new Intent(LoginActivity.this,HomeActivity.class);
-                            intent.putExtra("staffname",staffname);
-                            intent.putExtra("staffno",staffno);
-                            intent.putExtra("username",username);
-                            intent.putExtra("password",password);
+                            Log.i(TAG, "登录成功");
+                            Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                            intent.putExtra("staffname", staffname);
+                            intent.putExtra("staffno", staffno);
+                            intent.putExtra("username", username);
+                            intent.putExtra("password", password);
                             startActivity(intent);
                         } else {
                             staffusername.setText("");
