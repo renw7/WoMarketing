@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:background="@mipmap/background"
+    tools:context=".ui.LoginActivity">
+
+    <ImageView
+        android:id="@+id/iv_login_logo"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="30dp"
+        android:src="@mipmap/logo" />
+
+    <EditText
+        android:id="@+id/et_login_phone"
+        style="@style/EditTextStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="40dp"
+        android:hint="@string/input_username"
+        android:textColor="#F0F7F2F2" />
+
+    <EditText
+        android:id="@+id/et_login_password"
+        style="@style/EditTextStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="40dp"
+        android:hint="@string/input_pwd"
+        android:maxLength="20"
+        android:maxLines="1"
+        android:textColor="#FFFFFF" />
+
+    <TextView
+        android:id="@+id/tv_login_forget"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="60dp"
+        android:text="@string/login_forget"
+        android:textColor="#F01808" />
+
+    <Button
+        android:id="@+id/btn_login_commit"
+        style="@style/ButtonStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginRight="40dp"
+        android:background="@drawable/btlogon_shape"
+        android:text="@string/login_text"
+        android:textColor="#F3FFFFFF"
+        android:textSize="18sp" />
+</LinearLayout>

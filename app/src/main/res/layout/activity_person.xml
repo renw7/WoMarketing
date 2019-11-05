@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#DEE0DE"
+    android:orientation="vertical">
+
+
+    <FrameLayout
+        android:id="@+id/fl_person_data_head"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#FBF4ECEC"
+        android:paddingStart="20dp"
+        android:paddingTop="20dp"
+        android:paddingEnd="20dp"
+        android:paddingBottom="20dp">
+
+        <TextView
+            android:id="@+id/person_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="工号:0886666"
+            android:textColor="#3C3B3B"
+            android:textSize="30sp" />
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="110dp"
+            android:layout_height="110dp"
+            android:layout_gravity="end|center_vertical"
+            android:src="@mipmap/hdemoji" />
+    </FrameLayout>
+
+
+    <FrameLayout
+        android:id="@+id/fl_person_data_changepwd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/selector"
+        android:clickable="true"
+        android:paddingStart="20dp"
+        android:paddingTop="10dp"
+        android:paddingEnd="20dp"
+        android:paddingBottom="10dp">
+
+        <TextView
+            android:id="@+id/changepwd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="修改密码"
+            android:textColor="#3C3B3B"
+            android:textSize="30sp" />
+
+        <ImageView
+            android:id="@+id/rightpoint_1"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_gravity="end|center_vertical"
+            android:src="@mipmap/rightpoint" />
+    </FrameLayout>
+
+
+
+
+
+    <FrameLayout
+        android:id="@+id/fl_person_data_help"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:background="@drawable/selector"
+        android:clickable="true"
+        android:paddingStart="20dp"
+        android:paddingTop="10dp"
+        android:paddingEnd="20dp"
+        android:paddingBottom="10dp">
+
+        <TextView
+            android:id="@+id/help"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="帮助"
+            android:textColor="#3C3B3B"
+            android:textSize="30sp" />
+
+        <ImageView
+            android:id="@+id/rightpoint_2"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_gravity="end|center_vertical"
+            android:src="@mipmap/rightpoint" />
+    </FrameLayout>
+
+
+    <FrameLayout
+        android:id="@+id/fl_person_data_about"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:background="@drawable/selector"
+        android:clickable="true"
+        android:paddingStart="20dp"
+        android:paddingTop="10dp"
+        android:paddingEnd="20dp"
+        android:paddingBottom="10dp">
+
+        <TextView
+            android:id="@+id/about"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="关于"
+            android:textColor="#3C3B3B"
+            android:textSize="30sp" />
+
+        <ImageView
+            android:id="@+id/rightpoint_3"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_gravity="end|center_vertical"
+            android:src="@mipmap/rightpoint" />
+    </FrameLayout>
+
+
+
+    <FrameLayout
+        android:id="@+id/fl_person_data_exit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/selector"
+        android:clickable="true"
+        android:paddingStart="20dp"
+        android:paddingTop="10dp"
+        android:paddingEnd="20dp"
+        android:paddingBottom="10dp">
+
+        <TextView
+            android:id="@+id/exit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|center_vertical"
+            android:text="退出登录"
+            android:textColor="#3C3B3B"
+            android:textSize="30sp" />
+
+    </FrameLayout>
+
+
+</LinearLayout>

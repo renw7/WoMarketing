@@ -1,0 +1,73 @@
+<TabHost
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@android:id/tabhost"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_weight="1">
+
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        xmlns:app = "http://schemas.android.com/apk/res-auto"
+        xmlns:tools = "http://schemas.android.com/tools"
+        android:id = "@+id/swipeRefresh"
+        android:layout_width = "match_parent"
+        android:layout_height = "match_parent"
+        tools:context = ".activity.TabLayoutActivity">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <!-- TabWidget组件id值不可变-->
+        <TabWidget
+            android:id="@android:id/tabs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </TabWidget>
+
+
+        <!-- FrameLayout布局，id值不可变-->
+        <FrameLayout
+            android:id="@android:id/tabcontent"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_above="@android:id/tabs">
+
+
+            <!-- 第一个tab的布局 -->
+            <LinearLayout
+                android:id="@+id/tab1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
+
+
+                <ListView android:id="@+id/listview1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+
+
+            <!-- 第二个tab的布局 -->
+            <LinearLayout
+                android:id="@+id/tab2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
+
+
+
+                <ListView android:id="@+id/listview2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+
+
+
+
+
+        </FrameLayout>
+    </LinearLayout>
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+</TabHost>

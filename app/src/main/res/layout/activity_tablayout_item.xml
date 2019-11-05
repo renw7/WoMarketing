@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="8dp"
+    android:paddingBottom="8dp"
+    android:paddingLeft="8dp"
+    android:paddingRight="8dp"
+    android:background="@color/white">
+
+    <!-- 最上层控制item 的间隔的 -->
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        >
+
+    <TextView android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:padding="10px"
+        android:layout_weight="1"
+        android:id="@+id/userId"
+        />
+    <TextView android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:padding="10px"
+        android:layout_weight="1"
+        android:id="@+id/userName"
+        />
+    <TextView android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:padding="10px"
+        android:layout_weight="1"
+
+        android:id="@+id/userSex"/>
+    <TextView android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:padding="10px"
+        android:layout_weight="1"
+        android:id="@+id/userBirthday"/>
+
+
+    </LinearLayout>
+</LinearLayout>
