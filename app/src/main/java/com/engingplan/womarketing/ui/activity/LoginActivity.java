@@ -6,6 +6,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Looper;
+import android.text.Selection;
+import android.text.Spannable;
 import android.text.TextUtils;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
@@ -41,6 +43,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText staffPwd;
     private Button buttonLogin;
     private ToggleButton toggleButton;
+    private boolean isChecked = true;
     private String path = "http://119.29.106.248:80/tblstaffinfo/checkuser";
 
     @Override
@@ -52,19 +55,33 @@ public class LoginActivity extends AppCompatActivity {
         staffPwd = (EditText) findViewById(R.id.et_login_password);
 
         toggleButton = (ToggleButton) findViewById(R.id.pwd_show);
-        toggleButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-
+        toggleButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+            public void onClick(View v) {
                 if (isChecked) {
-                    //如果选中，显示密码
-                    staffPwd.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
-                } else {
-                    //否则隐藏密码
+                    //隐藏密码
                     staffPwd.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                } else {
+                    //选中，显示密码
+                    staffPwd.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                }
+                staffPwd.postInvalidate();
+                //切换后将EditText光标置于末尾
+                CharSequence charSequence = staffPwd.getText();
+                if (charSequence instanceof Spannable) {
+                    Spannable spanText = (Spannable) charSequence;
+                    Selection.setSelection(spanText, charSequence.length());
                 }
             }
         });
+//        toggleButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//
+//            @Override
+//            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+//
+//
+//            }
+//        });
 
         buttonLogin = (Button) findViewById(R.id.btn_login_commit);
         buttonLogin.setOnClickListener(new View.OnClickListener() {
@@ -130,7 +147,7 @@ public class LoginActivity extends AppCompatActivity {
                         ResponseBody responseBody = response.body();
                         // 获得JSON字符串
                         final String responseString = responseBody.string();
-                        
+
                         Log.i(TAG, responseString);
 
                         try {
