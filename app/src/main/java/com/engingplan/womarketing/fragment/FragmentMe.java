@@ -21,11 +21,7 @@ public class FragmentMe extends Fragment {
     private TextView tv;
 
     public static FragmentMe newInstance(String name) {
-
-        Bundle args = new Bundle();
-        args.putString("name", name);
         FragmentMe fragment = new FragmentMe();
-        fragment.setArguments(args);
         return fragment;
     }
 
