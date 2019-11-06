@@ -24,4 +24,14 @@
     <string name="dial_dial">打电话</string>
     <string name="dial_sms">发短信</string>
     <string name="dial_complete">完成</string>
+
+    <!-- 通话详情 -->
+    <string name="detail_name">记录详情</string>
+    <string name="num_name">用户号码：</string>
+    <string name="task_name">任务名：</string>
+    <string name="startime">通话开始时间：</string>
+    <string name="endtime">通话结束时间：</string>
+    <string name="result">沟通结果：</string>
+    <string name="remark">备注：</string>
+
 </resources>

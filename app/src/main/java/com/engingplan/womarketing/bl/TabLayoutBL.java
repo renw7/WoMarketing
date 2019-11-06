@@ -45,14 +45,13 @@ public class TabLayoutBL {
             @Override
             public void onSuccess(String response) {
                 ArrayList<Map> list = json2List(response);
-
-
+                System.out.println("onsucc list.size="+list.size());
                 //下面通过异常方式返回给ui层
-                Intent intent = new Intent("abc");
+                Intent intent = new Intent(ConstantsUtil.ACTION_APP_INNER_BROADCAST);
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("list", list);
                 intent.putExtras(bundle);       //向广播接收器传递数据
-                context.sendBroadcast(intent);
+                LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
             }
 
             @Override
@@ -106,10 +105,10 @@ public class TabLayoutBL {
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject record = jsonArray.getJSONObject(i);
                     Map map = new HashMap();
-                    map.put("staffId", record.getString("recordId"));
-                    map.put("staffName", record.getString("serialNumber"));
-                    map.put("staffNo", record.getString("taskId"));
-                    map.put("staffPwd", record.getString("startTime"));
+                    map.put("recordId", record.getString("recordId"));
+                    map.put("serialNumber", record.getString("serialNumber"));
+                    map.put("taskId", record.getString("taskId"));
+                    map.put("startTime", record.getString("startTime"));
                     recordList.add(map);
                 }
             }
