@@ -19,11 +19,7 @@ public class FragmentTask extends Fragment {
     private TextView tv;
 
     public static FragmentTask newInstance(String name) {
-
-        Bundle args = new Bundle();
-        args.putString("name", name);
         FragmentTask fragment = new FragmentTask();
-        fragment.setArguments(args);
         return fragment;
     }
 

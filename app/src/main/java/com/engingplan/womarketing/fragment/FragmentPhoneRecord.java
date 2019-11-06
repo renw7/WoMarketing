@@ -41,10 +41,7 @@ public class FragmentPhoneRecord extends Fragment {
     SwipeRefreshLayout swipeRefresh;
 
     public static FragmentPhoneRecord newInstance(String name) {
-        Bundle args = new Bundle();
-        args.putString("name", name);
         FragmentPhoneRecord fragment = new FragmentPhoneRecord();
-        fragment.setArguments(args);
         return fragment;
     }
 

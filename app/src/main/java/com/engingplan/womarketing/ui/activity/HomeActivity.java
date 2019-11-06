@@ -59,18 +59,26 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
-        Map m = new HashMap<>();
-        m.put("staffName", "张三");
-        m.put("staffNo", "123");
-        m.put("staffPwd", "123456");
+        // 获取传来页面的参数
+        Bundle bundle = this.getIntent().getExtras();
 
         viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
         mViewPager.setAdapter(viewPagerAdapter);
+
+        FragmentIndex fragmentIndex = FragmentIndex.newInstance("首页");
+        FragmentTask fragmentTask = FragmentTask.newInstance("任务管理");
+        FragmentPhoneRecord fragmentPhoneRecord = FragmentPhoneRecord.newInstance("通话记录");
+        FragmentMe fragmentMe = FragmentMe.newInstance("我的");
+        fragmentIndex.setArguments(bundle);
+        fragmentTask.setArguments(bundle);
+        fragmentPhoneRecord.setArguments(bundle);
+        fragmentMe.setArguments(bundle);
+
         List<Fragment> list = new ArrayList<>();
-        list.add(FragmentIndex.newInstance("首页"));
-        list.add(FragmentTask.newInstance("任务"));
-        list.add(FragmentPhoneRecord.newInstance("通话记录"));
-        list.add(FragmentMe.newInstance("我的"));
+        list.add(fragmentIndex);
+        list.add(fragmentTask);
+        list.add(fragmentPhoneRecord);
+        list.add(fragmentMe);
         viewPagerAdapter.setList(list);
     }
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
