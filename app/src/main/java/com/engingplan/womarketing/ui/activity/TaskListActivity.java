@@ -69,7 +69,7 @@ public class TaskListActivity extends Activity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 System.out.println("The item setOnItemClickListener id" + i);
 
-                Intent it = new Intent(TaskListActivity.this, TaskDetailsActivity.class);
+                Intent it = new Intent(TaskListActivity.this, DialActivity.class);
                 int weishu = i + 1;
                 int liebiaotask_id = Integer.valueOf(String.valueOf(task_type) + "0" + String.valueOf(weishu));
                 it.putExtra("taskid", liebiaotask_id);

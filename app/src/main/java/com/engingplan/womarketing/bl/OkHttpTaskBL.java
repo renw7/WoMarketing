@@ -16,9 +16,9 @@ import java.util.Map;
 
 public class OkHttpTaskBL {
     //云服务器地址
-    private String url1 = "http://10.52.200.154/tbltaskinfo/postInfoPage1";
+    private String url1 = "http://119.29.106.248/tbltaskinfo/postInfoPage1";
 
-    private String url2 = "http://10.52.200.154/tbltaskinfo/postInfoPage2";
+    private String url2 = "http://119.29.106.248/tbltaskinfo/postInfoPage2";
 
     //本机测试地址
 //    private String url = "http://119.29.106.248/tbluserinfo/page";

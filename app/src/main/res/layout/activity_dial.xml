@@ -5,9 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.chinaunicom.marketing.ui.activity.DialActivity">
+    tools:context="com.engingplan.womarketing.ui.activity.DialActivity">
 
-    <com.hjq.bar.TitleBar
+    <!--com.hjq.bar.TitleBar-->
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:title="@string/dial_title" />

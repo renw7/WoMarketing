@@ -70,7 +70,7 @@ public class HomeActivity extends AppCompatActivity {
         list.add(FragmentIndex.newInstance("首页"));
         list.add(FragmentTask.newInstance("任务"));
         list.add(FragmentPhoneRecord.newInstance("通话记录"));
-        list.add(FragmentMe.newInstance("我的", m));
+        list.add(FragmentMe.newInstance("我的"));
         viewPagerAdapter.setList(list);
     }
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {

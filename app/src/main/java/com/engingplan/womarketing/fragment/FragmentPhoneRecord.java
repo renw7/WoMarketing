@@ -69,15 +69,15 @@ public class FragmentPhoneRecord extends Fragment {
         listview1 = view.findViewById(R.id.listview1);//获取列表视图
         listview2 = view.findViewById(R.id.listview2);//获取列表视图
 
-        swipeRefresh = view.findViewById(R.id.swipeRefresh);
-        swipeRefresh.setColorSchemeResources(R.color.colorPrimary, R.color.colorAccent, R.color.white, R.color.white);
-        swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                loadData();
-                swipeRefresh.setRefreshing(false);
-            }
-        });
+//        swipeRefresh = view.findViewById(R.id.swipeRefresh);
+//        swipeRefresh.setColorSchemeResources(R.color.colorPrimary, R.color.colorAccent, R.color.white, R.color.white);
+//        swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+//            @Override
+//            public void onRefresh() {
+//                loadData();
+//                swipeRefresh.setRefreshing(false);
+//            }
+//        });
 
         // 动态注册
         broadcastManager = LocalBroadcastManager.getInstance(getActivity());
@@ -90,12 +90,17 @@ public class FragmentPhoneRecord extends Fragment {
         listview1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                int id = view.getId();
+                System.out.println("id="+id);
                 if (view instanceof TextView){
                     System.out.println("点击文本");
                 }
                 else if (view instanceof ImageView){
                     System.out.println("点击图片");
                 }
+                else
+                    System.out.println("都不是");
+
                 Toast.makeText(getActivity(), "第" + i + "行", Toast.LENGTH_LONG).show();
             }
         });
@@ -115,7 +120,7 @@ public class FragmentPhoneRecord extends Fragment {
 //        //传递参数
         Map param = new HashMap<>();
         param.put("resultCode", "2");
-        okHttpDemoBL.getUserInfoAllAsyn(param, this.getContext());
+        okHttpDemoBL.getUserInfoAllAsyn(param, getContext());
     }
 
 
@@ -126,7 +131,7 @@ public class FragmentPhoneRecord extends Fragment {
             System.out.println("size="+list.size());
 
             SimpleAdapter adapter = new SimpleAdapter(getContext(), list, R.layout.activity_tablayout_item,
-                    new String[]{"staffId", "staffName", "staffNo", "staffPwd"}, new int[]{R.id.userId, R.id.userName, R.id.userSex, R.id.userBirthday});
+                    new String[]{"recordId", "serialNumber", "taskId", "startTime"}, new int[]{R.id.userId, R.id.userName, R.id.userSex, R.id.userBirthday});
             listview1.setAdapter(adapter);
             listview2.setAdapter(adapter);
         }
@@ -137,5 +142,8 @@ public class FragmentPhoneRecord extends Fragment {
         super.onDestroy();
         broadcastManager.unregisterReceiver(mReceiver);
     }
+
+
+
 
 }
