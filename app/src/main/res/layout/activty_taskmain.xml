@@ -15,8 +15,8 @@
             android:id="@+id/imageFourg"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="40dp"
-            android:layout_marginTop="50dp"
+            android:layout_marginLeft="60dp"
+            android:layout_marginTop="30dp"
             app:srcCompat="@drawable/fourg" />
 
         <ImageView
@@ -24,7 +24,7 @@
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="70dp"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="30dp"
             app:srcCompat="@drawable/flow" />
 
     </LinearLayout>
@@ -38,7 +38,7 @@
             android:id="@+id/textView1"
             android:layout_width="100dp"
             android:layout_height="50dp"
-            android:layout_marginLeft="40dp"
+            android:layout_marginLeft="60dp"
             android:gravity="center"
             android:text="4G套餐"
             android:textSize="18sp"
@@ -64,7 +64,7 @@
             android:id="@+id/imageWideband"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="40dp"
+            android:layout_marginLeft="60dp"
             android:layout_marginTop="50dp"
             app:srcCompat="@drawable/wideband" />
 
@@ -85,7 +85,7 @@
             android:id="@+id/taskStatus"
             android:layout_width="100dp"
             android:layout_height="50dp"
-            android:layout_marginLeft="40dp"
+            android:layout_marginLeft="60dp"
             android:gravity="center"
             android:text="宽带套餐"
             android:textSize="18sp"
