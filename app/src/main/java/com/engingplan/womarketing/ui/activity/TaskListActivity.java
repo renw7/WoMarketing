@@ -70,11 +70,11 @@ public class TaskListActivity extends Activity {
                 System.out.println("The item setOnItemClickListener id" + i);
 
                 Intent it = new Intent(TaskListActivity.this, DialActivity.class);
-                int weishu = i + 1;
-                int liebiaotask_id = Integer.valueOf(String.valueOf(task_type) + "0" + String.valueOf(weishu));
-                it.putExtra("taskid", liebiaotask_id);
+                int weiShu = i + 1;
+                long lieBiaoTask_id = Integer.valueOf(String.valueOf(task_type) + "0" + String.valueOf(weiShu));
+                it.putExtra("taskId", lieBiaoTask_id);
                 it.putExtra("number", "1");
-                System.out.println("task_id:" + liebiaotask_id);
+                System.out.println("task_id:" + lieBiaoTask_id);
                 startActivity(it);
             }
         });
