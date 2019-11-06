@@ -30,10 +30,7 @@ public class FragmentIndex extends Fragment {
 
 
     public static FragmentIndex newInstance(String name) {
-        Bundle args = new Bundle();
-        args.putString("name", name);
         FragmentIndex fragment = new FragmentIndex();
-        fragment.setArguments(args);
         return fragment;
     }
 
@@ -47,6 +44,13 @@ public class FragmentIndex extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        Bundle bundle = this.getArguments();
+        String staffName = null;
+        if (bundle != null){
+            staffName = bundle.getString("staffname");
+            TextView textView= view.findViewById(R.id.textView3);
+            textView.setText(staffName);
+        }
 
         BarChart barChart = view.findViewById(R.id.ChartTest);//定义界面控件
         BarChart barChart1 = view.findViewById(R.id.ChartTest1);//定义界面控件

@@ -10,22 +10,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TabHost;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import com.engingplan.womarketing.bl.TabLayoutBL;
+import com.engingplan.womarketing.bl.OkHttpDemoBL;
+import com.engingplan.womarketing.ui.activity.CallDetailActivity;
 import com.engingplan.womarketing.ui.activity.R;
-import com.engingplan.womarketing.util.ConstantsUtil;
+import com.engingplan.womarketing.ui.activity.TabLayoutActivity;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -41,10 +40,7 @@ public class FragmentPhoneRecord extends Fragment {
     SwipeRefreshLayout swipeRefresh;
 
     public static FragmentPhoneRecord newInstance(String name) {
-        Bundle args = new Bundle();
-        args.putString("name", name);
         FragmentPhoneRecord fragment = new FragmentPhoneRecord();
-        fragment.setArguments(args);
         return fragment;
     }
 
@@ -52,6 +48,7 @@ public class FragmentPhoneRecord extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_tab_layout, container, false);
+        broadcastManager = LocalBroadcastManager.getInstance(getContext());
         return view;
     }
 
@@ -59,83 +56,123 @@ public class FragmentPhoneRecord extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         TabHost tab = view.findViewById(android.R.id.tabhost);
-
         //初始化TabHost容器
         tab.setup();
         //在TabHost创建标签，然后设置：标题／图标／标签页布局
-        tab.addTab(tab.newTabSpec("tab1").setIndicator("全部通话" , null).setContent(R.id.tab1));
-        tab.addTab(tab.newTabSpec("tab2").setIndicator("意向通话" , null).setContent(R.id.tab2));
+        tab.addTab(tab.newTabSpec("tab1").setIndicator("全部通话", null).setContent(R.id.tab1));
+        tab.addTab(tab.newTabSpec("tab2").setIndicator("意向通话", null).setContent(R.id.tab2));
+
 
         listview1 = view.findViewById(R.id.listview1);//获取列表视图
         listview2 = view.findViewById(R.id.listview2);//获取列表视图
 
-//        swipeRefresh = view.findViewById(R.id.swipeRefresh);
-//        swipeRefresh.setColorSchemeResources(R.color.colorPrimary, R.color.colorAccent, R.color.white, R.color.white);
-//        swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+
+        listview2.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> var1, View view, int pos, long l) {
+                Map<String, String> map = new HashMap();
+//                Map<String,String> map2= new HashMap();
+                map = (Map) var1.getItemAtPosition(pos);
+//                map2.put("createUser",map.get("createUser"));
+
+                Intent it = new Intent(
+                        getContext(),
+                        CallDetailActivity.class);
+                it.putExtra("recordId", map.get("recordId"));
+//                it.putExtra("taskId", map.get("taskId"));
+//                it.putExtra("startTime", map.get("startTime"));
+//                it.putExtra("endTime", map.get("endTime"));
+//                it.putExtra("resultCode", map.get("resultCode"));
+//                it.putExtra("remark", map.get("remark"));
+                startActivity(it);
+            }
+        });
+        listview1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> var1, View view, int pos, long l) {
+                Map<String, String> map = new HashMap();
+//                Map<String,String> map2= new HashMap();
+                map = (Map) var1.getItemAtPosition(pos);
+//                map2.put("createUser",map.get("createUser"));
+
+                Intent it = new Intent(
+                        getContext(),
+                        CallDetailActivity.class);
+                it.putExtra("recordId", map.get("recordId"));
+//                it.putExtra("taskId", map.get("taskId"));
+//                it.putExtra("startTime", map.get("startTime"));
+//                it.putExtra("endTime", map.get("endTime"));
+//                it.putExtra("resultCode", map.get("resultCode"));
+//                it.putExtra("remark", map.get("remark"));
+                startActivity(it);
+            }
+        });
+        //使用Selected未能实现
+//        listview1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
 //            @Override
-//            public void onRefresh() {
-//                loadData();
-//                swipeRefresh.setRefreshing(false);
+//            public void onItemSelected(AdapterView<?> var1, View var2, int pos, long var4){
+//                Map<String,String> map = new HashMap();
+////                Map<String,String> map2= new HashMap();
+//                map=(Map)var1.getItemAtPosition(pos);
+////                map2.put("createUser",map.get("createUser"));
+//
+//                Intent it = new Intent(
+//                        TabLayoutActivity.this,
+//                        CallDetailActivity.class);
+//                it.putExtra("serialNumber", map.get("serialNumber"));
+//
+//                startActivity(it);
 //            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> var1){}
+//
 //        });
 
         // 动态注册
-        broadcastManager = LocalBroadcastManager.getInstance(getActivity());
         IntentFilter intentFilter = new IntentFilter();
-        intentFilter.addAction(ConstantsUtil.ACTION_APP_INNER_BROADCAST);
+        intentFilter.addAction("abc");
         broadcastManager.registerReceiver(mReceiver, intentFilter);
 
-        //监听listview
-        //item的点击事件，里面可以设置跳转并传值
-        listview1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                int id = view.getId();
-                System.out.println("id="+id);
-                if (view instanceof TextView){
-                    System.out.println("点击文本");
-                }
-                else if (view instanceof ImageView){
-                    System.out.println("点击图片");
-                }
-                else
-                    System.out.println("都不是");
 
-                Toast.makeText(getActivity(), "第" + i + "行", Toast.LENGTH_LONG).show();
-            }
-        });
-
-
-
-        loadData();
-    }
-
-
-    /**
-     * 调用后台数据
-     */
-    private void loadData(){
         //调逻辑层取后台数据
-        TabLayoutBL okHttpDemoBL = new TabLayoutBL();
-//        //传递参数
+        OkHttpDemoBL okHttpDemoBL = new OkHttpDemoBL();
+        //传递参数
         Map param = new HashMap<>();
-        param.put("resultCode", "2");
+//        param.put("username", "张三");
         okHttpDemoBL.getUserInfoAllAsyn(param, getContext());
     }
 
+    private BroadcastReceiver mReceiver = new DataReceiver();
 
-    private BroadcastReceiver mReceiver = new BroadcastReceiver(){
+    class DataReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
-            List<Map<String, String>> list = (List)intent.getExtras().get("list");
-            System.out.println("size="+list.size());
+            List<Map<String, String>> list = (List) intent.getExtras().get("list");
+            System.out.println("size=" + list.size());
 
-            SimpleAdapter adapter = new SimpleAdapter(getContext(), list, R.layout.activity_tablayout_item,
-                    new String[]{"recordId", "serialNumber", "taskId", "startTime"}, new int[]{R.id.userId, R.id.userName, R.id.userSex, R.id.userBirthday});
-            listview1.setAdapter(adapter);
-            listview2.setAdapter(adapter);
+            SimpleAdapter adapter1 = new SimpleAdapter(getContext(), list, R.layout.activity_record,
+                    new String[]{"serialNumber", "startTime"}, new int[]{R.id.call_number, R.id.call_time});
+
+            listview1.setAdapter(adapter1);
+
+
+            List<Map<String, String>> list2 = new ArrayList();
+
+            for (int i = 0; i < list.size(); i++) {
+
+                if ((list.get(i).get("resultCode") == "2") | (list.get(i).get("resultCode").equals("2"))) {
+
+                    list2.add(list.get(i));
+                }
+
+            }
+            SimpleAdapter adapter2 = new SimpleAdapter(getContext(), list2, R.layout.activity_record,
+                    new String[]{"serialNumber", "startTime"}, new int[]{R.id.call_number, R.id.call_time});
+
+            listview2.setAdapter(adapter2);
         }
-    };
+    }
 
     @Override
     public void onDestroy() {
