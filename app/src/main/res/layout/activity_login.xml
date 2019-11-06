@@ -54,7 +54,9 @@
             android:layout_gravity="center|right"
             android:background="@drawable/selector_login_toggle_button_color"
             android:checked="false"
-            android:gravity="right" />
+            android:gravity="right"
+            android:textOff=""
+            android:textOn=""/>
     </LinearLayout>
 
     <TextView

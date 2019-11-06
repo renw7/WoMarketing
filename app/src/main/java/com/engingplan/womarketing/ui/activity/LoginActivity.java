@@ -14,7 +14,6 @@ import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Toast;
 import android.widget.ToggleButton;
@@ -74,14 +73,6 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         });
-//        toggleButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-//
-//            @Override
-//            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-//
-//
-//            }
-//        });
 
         buttonLogin = (Button) findViewById(R.id.btn_login_commit);
         buttonLogin.setOnClickListener(new View.OnClickListener() {
