@@ -14,6 +14,7 @@ import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Toast;
 import android.widget.ToggleButton;
@@ -42,7 +43,6 @@ public class LoginActivity extends AppCompatActivity {
     private EditText staffPwd;
     private Button buttonLogin;
     private ToggleButton toggleButton;
-    private boolean isChecked = true;
     private String path = "http://119.29.106.248:80/tblstaffinfo/checkuser";
 
     @Override
@@ -54,15 +54,15 @@ public class LoginActivity extends AppCompatActivity {
         staffPwd = (EditText) findViewById(R.id.et_login_password);
 
         toggleButton = (ToggleButton) findViewById(R.id.pwd_show);
-        toggleButton.setOnClickListener(new View.OnClickListener() {
+        toggleButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onClick(View v) {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    //隐藏密码
-                    staffPwd.setTransformationMethod(PasswordTransformationMethod.getInstance());
-                } else {
-                    //选中，显示密码
+                    //如果选中，显示密码
                     staffPwd.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                } else {
+                    //否则隐藏密码
+                    staffPwd.setTransformationMethod(PasswordTransformationMethod.getInstance());
                 }
                 staffPwd.postInvalidate();
                 //切换后将EditText光标置于末尾
