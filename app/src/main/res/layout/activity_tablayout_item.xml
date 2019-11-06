@@ -42,12 +42,12 @@
         android:layout_weight="1"
         android:id="@+id/userBirthday"/>
 
-        <ImageView android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:padding="10px"
-            android:layout_weight="1"
-            android:onClick="getImage"
-            android:src="@mipmap/info"/>
+        <!--<ImageView android:layout_width="0dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:padding="10px"-->
+            <!--android:layout_weight="1"-->
+            <!--android:onClick="getImage"-->
+            <!--android:src="@mipmap/info"/>-->
 
     </LinearLayout>
 </LinearLayout>
