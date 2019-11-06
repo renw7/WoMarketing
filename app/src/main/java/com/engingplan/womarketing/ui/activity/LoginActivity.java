@@ -43,7 +43,6 @@ public class LoginActivity extends AppCompatActivity {
     private EditText staffPwd;
     private Button buttonLogin;
     private ToggleButton toggleButton;
-    private boolean isChecked = true;
     private String path = "http://119.29.106.248:80/tblstaffinfo/checkuser";
 
     @Override
