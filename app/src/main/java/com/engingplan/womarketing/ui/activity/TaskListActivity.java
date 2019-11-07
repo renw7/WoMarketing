@@ -55,7 +55,7 @@ public class TaskListActivity extends Activity {
         OkHttpTaskBL okHttpTaskBL = new OkHttpTaskBL();
         Map param = new HashMap<>();
         param.put("taskType", String.valueOf(taskType));
-        okHttpTaskBL.tasklistgetUserInfoAllAsyn(param, this.getApplicationContext());
+        okHttpTaskBL.tasklistPostUserInfoAllAsyn(param, this.getApplicationContext());
 
         //返回对应上级页面
         ImageButton back = findViewById(R.id.ImageButton);
@@ -90,7 +90,7 @@ public class TaskListActivity extends Activity {
             List<Map<String, String>> list = (List<Map<String, String>>) intent.getExtras().get("list");
             listView = findViewById(R.id.listView);
             listView.setAdapter(new SimpleAdapter(TaskListActivity.this, list,
-                    R.layout.activity_tasklist_item, new String[]{"taskName"}, new int[]{R.id.textView}));
+                    R.layout.activity_tasklist_item, new String[]{"taskName","taskStatus"}, new int[]{R.id.textViewTaskName,R.id.textViewTaskStatus}));
 
         }
     };
