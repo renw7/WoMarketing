@@ -11,6 +11,6 @@
     <item android:color="@color/white" android:state_focused="true" />
 
     <!-- 默认状态 -->
-    <item android:color="@color/tab_checked" />
+    <item android:color="@color/colorCall" />
 
 </selector>
