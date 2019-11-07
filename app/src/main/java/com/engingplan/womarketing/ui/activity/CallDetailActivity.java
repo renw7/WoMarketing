@@ -27,6 +27,8 @@ public class CallDetailActivity extends Activity {
     String  taskId=null;
     String  serialNumber=null;
     String  dataId=null;
+    String  staffId=null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,7 +41,8 @@ public class CallDetailActivity extends Activity {
        remark = findViewById(R.id.detail_remark);
 
         Bundle bundle = this.getIntent().getExtras();
-        String recordId=bundle.getString("recordId");
+        String recordId = bundle.getString("recordId");
+        System.out.println("recordId="+recordId);
         //        返回键
         Button btn1 = findViewById(R.id.detail_return);
         btn1.setOnClickListener(new View.OnClickListener() {
@@ -56,10 +59,10 @@ public class CallDetailActivity extends Activity {
             public void onClick(View view) {
                 Intent it = new Intent(CallDetailActivity.this, DialActivity.class);
 
-                it.putExtra("serialNumber",serialNumber);
+                it.putExtra("number","2");
                 it.putExtra("taskId",Long.parseLong(taskId));
-                it.putExtra("dataId",Long.parseLong(dataId));
-               //it.putExtra("taskId",Long.parseLong(staffId));
+                it.putExtra("dataId",dataId);
+                it.putExtra("staffId",Long.parseLong(staffId));
                 startActivity(it);
             }
 
@@ -93,7 +96,7 @@ public class CallDetailActivity extends Activity {
             serialNumber=list.get(0).get("serialNumber");
             taskId=list.get(0).get("taskId");
             dataId=list.get(0).get("dataId");
-            dataId=list.get(0).get("staffId");
+            staffId=list.get(0).get("staffId");
         }
     }
     }
