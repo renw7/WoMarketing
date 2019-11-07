@@ -80,6 +80,12 @@
             android:launchMode="singleTask"
             android:screenOrientation="portrait"/>
 
+        <activity android:name=".CallDetailActivity"
+            android:alwaysRetainTaskState="true"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"/>
+
 
 
     </application>

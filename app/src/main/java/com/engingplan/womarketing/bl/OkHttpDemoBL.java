@@ -28,9 +28,6 @@ public class OkHttpDemoBL {
     //云服务器地址
     private String url = "http://119.29.106.248/tblcallrecord/page";
 
-
-
-
     //本机测试地址
 //    private String url = "http://10.52.200.150/tbluserinfo/page";
 
@@ -117,7 +114,7 @@ public class OkHttpDemoBL {
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("list", list);
                 intent.putExtras(bundle);       //向广播接收器传递数据
-                LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
+               context.sendBroadcast(intent);
             }
 
             @Override
