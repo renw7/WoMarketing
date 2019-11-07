@@ -37,7 +37,7 @@ public class TaskDetailsActivity extends AppCompatActivity {
         OkHttpTaskBL okHttpTaskBL = new OkHttpTaskBL();
         Map param = new HashMap<>();
         param.put("taskId",String.valueOf(taskId));
-        okHttpTaskBL.taskdetailgetUserInfoAllAsyn(param, this.getApplicationContext());
+        okHttpTaskBL.taskdetailPostUserInfoAllAsyn(param, this.getApplicationContext());
     }
 
     private BroadcastReceiver myReceiver = new BroadcastReceiver() {

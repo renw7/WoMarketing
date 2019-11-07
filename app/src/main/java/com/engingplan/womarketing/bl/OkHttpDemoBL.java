@@ -89,6 +89,7 @@ public class OkHttpDemoBL {
                     map.put("staffId", record.getString("staffId"));
                     map.put("resultDesc", record.getString("resultDesc"));
                     map.put("taskName", record.getString("taskName"));
+                    map.put("dataId", record.getString("dataId"));
                     recordList.add(map);
                 }
             }

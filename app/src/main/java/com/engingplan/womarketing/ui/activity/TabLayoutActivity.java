@@ -43,68 +43,32 @@ public class TabLayoutActivity extends Activity {
         listview1 = findViewById(R.id.listview1);//获取列表视图
         listview2 = findViewById(R.id.listview2);//获取列表视图
 
-
+//点击item跳转到详情页面
         listview2.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> var1, View view, int pos, long l) {
-                Map<String, String> map = new HashMap();
-//                Map<String,String> map2= new HashMap();
-                map = (Map) var1.getItemAtPosition(pos);
-//                map2.put("createUser",map.get("createUser"));
+                Map<String, String> map = (Map) var1.getItemAtPosition(pos);
 
                 Intent it = new Intent(
                         TabLayoutActivity.this,
                         CallDetailActivity.class);
                 it.putExtra("recordId", map.get("recordId"));
-//                it.putExtra("taskId", map.get("taskId"));
-//                it.putExtra("startTime", map.get("startTime"));
-//                it.putExtra("endTime", map.get("endTime"));
-//                it.putExtra("resultCode", map.get("resultCode"));
-//                it.putExtra("remark", map.get("remark"));
                 startActivity(it);
             }
         });
+
         listview1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> var1, View view, int pos, long l) {
-                Map<String, String> map = new HashMap();
-//                Map<String,String> map2= new HashMap();
-                map = (Map) var1.getItemAtPosition(pos);
-//                map2.put("createUser",map.get("createUser"));
+                Map<String, String> map = (Map) var1.getItemAtPosition(pos);
 
                 Intent it = new Intent(
                         TabLayoutActivity.this,
                         CallDetailActivity.class);
-                it.putExtra("recordId", map.get("recordId"));
-//                it.putExtra("taskId", map.get("taskId"));
-//                it.putExtra("startTime", map.get("startTime"));
-//                it.putExtra("endTime", map.get("endTime"));
-//                it.putExtra("resultCode", map.get("resultCode"));
-//                it.putExtra("remark", map.get("remark"));
+                it.putExtra("recordId", map.get("recordId"));;
                 startActivity(it);
             }
         });
-        //使用Selected未能实现
-//        listview1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
-//            @Override
-//            public void onItemSelected(AdapterView<?> var1, View var2, int pos, long var4){
-//                Map<String,String> map = new HashMap();
-////                Map<String,String> map2= new HashMap();
-//                map=(Map)var1.getItemAtPosition(pos);
-////                map2.put("createUser",map.get("createUser"));
-//
-//                Intent it = new Intent(
-//                        TabLayoutActivity.this,
-//                        CallDetailActivity.class);
-//                it.putExtra("serialNumber", map.get("serialNumber"));
-//
-//                startActivity(it);
-//            }
-//
-//            @Override
-//            public void onNothingSelected(AdapterView<?> var1){}
-//
-//        });
 
         // 动态注册
         IntentFilter intentFilter = new IntentFilter();
@@ -118,7 +82,6 @@ public class TabLayoutActivity extends Activity {
         Map param = new HashMap<>();
 //        param.put("username", "张三");
         okHttpDemoBL.getUserInfoAllAsyn(param, this.getApplicationContext());
-
 
     }
 

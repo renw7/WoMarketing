@@ -20,18 +20,20 @@ public class OkHttpTaskBL {
 
     private String url2 = "http://119.29.106.248/tbltaskinfo/postInfoPage2";
 
+    private String taskStatus;
+
 
     /**
      * TASKLISTACTIVITY异步http调用
      * @param param
      */
-    public void tasklistgetUserInfoAllAsyn(Map param, Context context){
+    public void tasklistPostUserInfoAllAsyn(Map param, Context context){
         //无需再用变量接一下param,直接传递就可以。
         OkHttpClientUtils.getInstance().doPostAsyn(url1,param,new OkHttpClientUtils.NetWorkCallBack(){
             @Override
             //返回结果是一个字符串类型的response
             public void onSuccess(String response) {
-                ArrayList<Map> list = json2List(response);
+                ArrayList<Map> list = jsonList(response);
                 //下面通过异常方式返回给ui层
                 Intent intent = new Intent("TASK_LIST_ACTIVITY_RECEIVER");
                 Bundle bundle = new Bundle();
@@ -52,7 +54,7 @@ public class OkHttpTaskBL {
      * TASKDETAILSACTIVITY异步http调用
      * @param param
      */
-    public void taskdetailgetUserInfoAllAsyn(Map param, Context context){
+    public void taskdetailPostUserInfoAllAsyn(Map param, Context context){
         //无需再用变量接一下param,直接传递就可以。
         OkHttpClientUtils.getInstance().doPostAsyn(url2,param,new OkHttpClientUtils.NetWorkCallBack(){
             @Override
@@ -75,7 +77,7 @@ public class OkHttpTaskBL {
 
     }
 
-    private ArrayList<Map> json2List(String result){
+    private ArrayList<Map> jsonList(String result){
         ArrayList<Map> recordList = new ArrayList<>();
 
         try {
@@ -88,6 +90,14 @@ public class OkHttpTaskBL {
                     JSONObject record = jsonArray.getJSONObject(i);
                     Map map = new HashMap();
                     map.put("taskName", record.getString("taskName"));
+                    taskStatus=record.getString("taskStatus");
+                    //数值转换
+                    if(taskStatus.equals("5")){
+                        taskStatus="未完成";
+                    }else if(taskStatus.equals("6")) {
+                        taskStatus="已完成";
+                    }
+                    map.put("taskStatus",taskStatus);
                     recordList.add(map);
                 }
             }

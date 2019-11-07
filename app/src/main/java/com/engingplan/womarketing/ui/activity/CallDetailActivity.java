@@ -26,20 +26,23 @@ public class CallDetailActivity extends Activity {
     TextView remark =null;
     String  taskId=null;
     String  serialNumber=null;
+    String  dataId=null;
+    String  staffId=null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_call_detail);
        detail_nun = findViewById(R.id.detail_nun);
        task_name = findViewById(R.id.detail_task);
-         detail_startime = findViewById(R.id.detail_startime);
-        detail_endtime = findViewById(R.id.detail_endtime);
-        detail_result = findViewById(R.id.detail_result);
+       detail_startime = findViewById(R.id.detail_startime);
+       detail_endtime = findViewById(R.id.detail_endtime);
+       detail_result = findViewById(R.id.detail_result);
        remark = findViewById(R.id.detail_remark);
 
         Bundle bundle = this.getIntent().getExtras();
-        String recordId=bundle.getString("recordId");
-
+        String recordId = bundle.getString("recordId");
+        System.out.println("recordId="+recordId);
         //        返回键
         Button btn1 = findViewById(R.id.detail_return);
         btn1.setOnClickListener(new View.OnClickListener() {
@@ -56,13 +59,15 @@ public class CallDetailActivity extends Activity {
             public void onClick(View view) {
                 Intent it = new Intent(CallDetailActivity.this, DialActivity.class);
 
-                it.putExtra("serialNumber",serialNumber);
-                it.putExtra("taskId",Long.parseLong(taskId));
                 it.putExtra("number","2");
+                it.putExtra("taskId",Long.parseLong(taskId));
+                it.putExtra("dataId",dataId);
+                it.putExtra("staffId",Long.parseLong(staffId));
                 startActivity(it);
             }
 
         });
+
         //接收
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction("det");
@@ -73,7 +78,6 @@ public class CallDetailActivity extends Activity {
         Map param = new HashMap<>();
 //        param.put("username", "张三");
         String url="http://119.29.106.248/tblcallrecord/info?recordId="+recordId;
-        System.out.println(url);
         okHttpDemoBL.getUserInfoAllAsyn2(param, url,this.getApplicationContext());
         }
 
@@ -91,8 +95,8 @@ public class CallDetailActivity extends Activity {
             remark.setText(list.get(0).get("remark"));
             serialNumber=list.get(0).get("serialNumber");
             taskId=list.get(0).get("taskId");
-
-
+            dataId=list.get(0).get("dataId");
+            staffId=list.get(0).get("staffId");
         }
     }
     }
