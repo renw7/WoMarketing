@@ -20,8 +20,6 @@ public class OkHttpTaskBL {
 
     private String url2 = "http://119.29.106.248/tbltaskinfo/postInfoPage2";
 
-    //本机测试地址
-//    private String url = "http://119.29.106.248/tbluserinfo/page";
 
     /**
      * TASKLISTACTIVITY异步http调用
@@ -76,9 +74,6 @@ public class OkHttpTaskBL {
         });
 
     }
-
-
-
 
     private ArrayList<Map> json2List(String result){
         ArrayList<Map> recordList = new ArrayList<>();

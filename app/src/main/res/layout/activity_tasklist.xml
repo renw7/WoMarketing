@@ -2,16 +2,18 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorButtonDisable"
     android:orientation="vertical">
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:layout_gravity="right"
-        android:text="Back"
-        android:textColor="#ffffff"
-        android:textSize="20sp" />
+    <ImageButton
+        android:id="@+id/ImageButton"
+        android:layout_width="43dp"
+        android:layout_height="33dp"
+        android:layout_gravity="left"
+        android:layout_marginTop="6dp"
+        android:layout_marginBottom="6dp"
+        android:background="@color/colorButtonDisable"
+        android:src="@drawable/back" />
 
     <ListView
         android:id="@+id/listView"

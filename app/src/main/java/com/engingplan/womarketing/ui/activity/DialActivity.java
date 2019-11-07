@@ -40,7 +40,7 @@ import java.util.Map;
  */
 public final class DialActivity extends AppCompatActivity {
 
-    String staffId;//员工ID
+    long staffId;//员工ID
     String number;//标记从哪个页面跳转到此页面 1表示任务界面
 
     long taskId;//任务ID
@@ -96,7 +96,7 @@ public final class DialActivity extends AppCompatActivity {
 
         //网络请求
         //networkRequestOne();
-        networkRequestTaskInfo();
+        //networkRequestTaskInfo();
         networkRequestTaskData();
 
         //获取页面的控件
@@ -214,10 +214,10 @@ public final class DialActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         number = bundle.getString("number");
         taskId = bundle.getLong("taskId");
-        staffId = "133333";//= bundle.getString("staffId");
+        staffId = bundle.getLong("staffId");
 
         if ("2".equals(number)) {
-            serialNumber = bundle.getString("serialNumber");
+            dataId = bundle.getString("dataId");
         }
 
         //taskId = "301";
@@ -240,9 +240,12 @@ public final class DialActivity extends AppCompatActivity {
     void networkRequestTaskData() {
 
         Map param = new HashMap<>();
-        param.put("taskId", taskId);
         if ("1".equals(number)) {
-            param.put("serialNumber", serialNumber);
+            param.put("taskId", taskId);
+        }
+
+        if ("2".equals(number)) {
+            param.put("staffId", staffId);
         }
         dialHttpBL.getTaskDataAsyn(param, this.getApplicationContext(), number);
     }
