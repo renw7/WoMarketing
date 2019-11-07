@@ -24,4 +24,8 @@
     <color name="colorButtonDisable">#BBBBBB</color>
     <!-- 分割线的颜色 -->
     <color name="colorLine">#ECECEC</color>
+
+
+    <color name="select">#FBF4ECEC</color>
+    <color name="select_transparent">#FF5722</color>
 </resources>
