@@ -22,39 +22,44 @@ import java.util.Map;
  */
 public class DialHttpBL {
 
+    //本机
+    public static String URL="http://10.52.200.149";
+
+    //服务器
+    //public static String URL="http://119.29.106.248";
+
     //任务数据表
-    private String url_task_data = "http://10.52.200.150/tblstaffinfo/page";
+    //private String url_task_data = "http://10.52.200.150/tblstaffinfo/page";
 
     //任务信息表
-    private String url_task_info = "http://10.52.200.150/tblstaffinfo/page";
+    //private String url_task_info = "http://10.52.200.150/tblstaffinfo/page";
 
-    //获取任务数据 本机测试地址
+    //获取任务数据
     //get方式
     private String url_task_data_local_get = "http://10.52.200.149/tbltaskdata/selectOneGet?taskId=101";
     //post方式
-    private String url_task_data_local_post = "http://10.52.200.149/tbltaskdata/selectOnePost";
+    private String url_task_data =URL+"/tbltaskdata/selectOnePost";
+    //获取指定任务数据
+    //private String url_task_data_spe =URL+"/tbltaskdata/selectSpePost";
 
-    //修改任务数据 本机测试地址
+    //修改任务数据
     //post方式
-    private String url_taskdata_update_local_post = "http://10.52.200.149/tbltaskdata/update";
+    private String url_taskdata_update = URL+"/tbltaskdata/update";
 
-    //获取任务信息 本机测试地址
+    //获取任务信息
     //get方式
     private String url_task_info_local_get = "http://10.52.200.149/tbltaskinfo/selectOneGet?taskId=101";
     //post方式
-    private String url_task_info_local_post = "http://10.52.200.149/tbltaskinfo/selectOnePost";
+    private String url_task_info=URL+ "/tbltaskinfo/selectOnePost";
 
-    //通话记录表 本机测试地址
-    //post方式
-    private String url_call_record_local_post = "http://10.52.200.149/tblcallrecord/saveCall";
+    //通话记录表 post方式
+    private String url_call_record = URL+ "/tblcallrecord/saveCall";
 
-    //通话记录表 本机测试地址  修改记录
-    //post方式
-    private String url_call_update_local_post = "http://10.52.200.149/tblcallrecord/updateCall";
+    //通话记录表 post方式  修改记录
+    private String url_call_update = URL+ "/tblcallrecord/updateCall";
 
-    //短信记录表 本机测试地址
-    //post方式
-    private String url_sms_local_post = "http://10.52.200.149/tblsmsinfo/saveSms";
+    //短信记录表 post方式
+    private String url_sms_info = URL+ "/tblsmsinfo/saveSms";
 
 
     /**
@@ -62,9 +67,13 @@ public class DialHttpBL {
      *
      * @param param
      */
-    public void getTaskDataAllAsyn(Map param, Context context) {
-        //OkHttpClientUtils.getInstance().doGetAsyn(url_task_data_local_get ,new OkHttpClientUtils.NetWorkCallBack() {
-        OkHttpClientUtils.getInstance().doPostAsyn(url_task_data_local_post, param, new OkHttpClientUtils.NetWorkCallBack() {
+    public void getTaskDataAsyn(Map param, Context context,String number) {
+
+        if("2".equals(number)){
+            url_task_data=URL+"/tbltaskdata/selectSpePost";
+        }
+
+        OkHttpClientUtils.getInstance().doPostAsyn(url_task_data, param, new OkHttpClientUtils.NetWorkCallBack() {
 
             @Override
             public void onSuccess(String response) {
@@ -112,7 +121,6 @@ public class DialHttpBL {
                 } finally {
 
                 }
-
 
 
                 //下面通过异常方式返回给ui层
@@ -178,9 +186,9 @@ public class DialHttpBL {
      *
      * @param param
      */
-    public void getTaskInfoAllAsyn(Map param, Context context) {
-        //OkHttpClientUtils.getInstance().doGetAsyn(url_task_info_local_get ,new OkHttpClientUtils.NetWorkCallBack() {
-        OkHttpClientUtils.getInstance().doPostAsyn(url_task_info_local_post, param, new OkHttpClientUtils.NetWorkCallBack() {
+    public void getTaskInfoAsyn(Map param, Context context) {
+
+        OkHttpClientUtils.getInstance().doPostAsyn(url_task_info, param, new OkHttpClientUtils.NetWorkCallBack() {
 
             @Override
             public void onSuccess(String response) {
@@ -234,7 +242,7 @@ public class DialHttpBL {
      */
     public void putCallRecordAsyn(Map param, Context context) {
 
-        OkHttpClientUtils.getInstance().doPostAsyn(url_call_record_local_post, param, new OkHttpClientUtils.NetWorkCallBack() {
+        OkHttpClientUtils.getInstance().doPostAsyn(url_call_record, param, new OkHttpClientUtils.NetWorkCallBack() {
 
             @Override
             public void onSuccess(String response) {
@@ -259,13 +267,13 @@ public class DialHttpBL {
     }
 
     /**
-     * 点击完成，通话记录表记录用户意向
+     * 点击完成，通话记录表记录用户意向  不需要了
      *
      * @param param
      */
     public void putCallResultAsyn(Map param, Context context) {
 
-        OkHttpClientUtils.getInstance().doPostAsyn(url_call_update_local_post, param, new OkHttpClientUtils.NetWorkCallBack() {
+        OkHttpClientUtils.getInstance().doPostAsyn(url_call_update, param, new OkHttpClientUtils.NetWorkCallBack() {
 
             @Override
             public void onSuccess(String response) {
@@ -288,7 +296,7 @@ public class DialHttpBL {
      */
     public void putSmsAsyn(Map param, Context context) {
 
-        OkHttpClientUtils.getInstance().doPostAsyn(url_sms_local_post, param, new OkHttpClientUtils.NetWorkCallBack() {
+        OkHttpClientUtils.getInstance().doPostAsyn(url_sms_info, param, new OkHttpClientUtils.NetWorkCallBack() {
 
             @Override
             public void onSuccess(String response) {
@@ -311,7 +319,7 @@ public class DialHttpBL {
      */
     public void updateCallStatesAsyn(Map param, Context context) {
 
-        OkHttpClientUtils.getInstance().doPostAsyn(url_taskdata_update_local_post, param, new OkHttpClientUtils.NetWorkCallBack() {
+        OkHttpClientUtils.getInstance().doPostAsyn(url_taskdata_update, param, new OkHttpClientUtils.NetWorkCallBack() {
 
             @Override
             public void onSuccess(String response) {

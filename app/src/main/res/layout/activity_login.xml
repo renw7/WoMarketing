@@ -25,22 +25,23 @@
         android:layout_marginLeft="40dp"
         android:layout_marginTop="10dp"
         android:layout_marginRight="40dp"
+        android:layout_marginBottom="20dp"
         android:hint="@string/input_username"
         android:textColor="#F0F7F2F2" />
 
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp">
 
         <EditText
             android:id="@+id/et_login_password"
             style="@style/EditTextStyle"
-            android:layout_width="300dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="40dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginRight="0dp"
+            android:layout_weight="6"
             android:hint="@string/input_pwd"
             android:maxLength="20"
             android:maxLines="1"
@@ -48,11 +49,13 @@
 
         <ToggleButton
             android:id="@+id/pwd_show"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginRight="80dp"
-            android:background="@drawable/selector_login_toggle_button_color" />
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_gravity="center|right"
+            android:background="@drawable/selector_login_toggle_button_color"
+            android:gravity="right"
+            android:textOff=""
+            android:textOn=""/>
     </LinearLayout>
 
     <TextView

@@ -37,7 +37,7 @@
             android:layout_marginLeft="20dp"
             android:layout_marginRight="10dp"
             android:layout_weight="1"
-
+            android:textColor="@color/white"
             android:text="@string/dial_cust_info_btn"
             android:textSize="18sp" />
 
@@ -50,7 +50,8 @@
             android:layout_marginRight="20dp"
             android:layout_weight="1"
             android:text="@string/dial_voice_content_btn"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            android:textColor="@color/white"/>
 
     </LinearLayout>
 

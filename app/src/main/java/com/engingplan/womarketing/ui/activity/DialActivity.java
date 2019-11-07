@@ -40,15 +40,17 @@ import java.util.Map;
  */
 public final class DialActivity extends AppCompatActivity {
 
-    String staffId = "1001";//员工ID
-    int number;//标记从哪个页面跳转到此页面 1表示任务界面
+    String staffId;//员工ID
+    String number;//标记从哪个页面跳转到此页面 1表示任务界面
 
-    String taskId = "";//任务ID
+    long taskId;//任务ID
 
     String dataId;//任务数据ID
     String serialNumber = "";//用户手机号码
     String custInfo = "用户画像";
 
+
+    boolean haveCAll = false;//是否点击拨打按钮打过电话
     String startTime = "";//通话开始时间
     String endTime = "";//通话结束时间
     String resultCode = "-1";//沟通结果，即用户意向 1-同意，2-拒绝，3-有意向，4-未接通 -5其他  -1表示没有进行选择
@@ -93,7 +95,9 @@ public final class DialActivity extends AppCompatActivity {
         registerReceiver(mReceiver, intentFilter);
 
         //网络请求
-        networkRequest();
+        //networkRequestOne();
+        networkRequestTaskInfo();
+        networkRequestTaskData();
 
         //获取页面的控件
         serialNumberView = findViewById(R.id.serial_number);
@@ -131,6 +135,7 @@ public final class DialActivity extends AppCompatActivity {
         //打电话按钮
         dialDial.setOnClickListener((view) -> {
                     dial(serialNumber);
+                    haveCAll = true;
                 }
         );
 
@@ -142,7 +147,6 @@ public final class DialActivity extends AppCompatActivity {
 
         //完成按钮
         dialComplete.setOnClickListener((view) -> {
-
 
                     //获取用户输入的备注
                     remark = remarkContent.getText().toString();
@@ -158,30 +162,43 @@ public final class DialActivity extends AppCompatActivity {
                             + "用户意向:" + resultCode + "拨打次数:" + callTimes
                             + "备注:" + remark);
 
-                    //判断是否选择用户意向,若没有选择则提示选择用户意向，若选择则写入数据库
-                    if (resultCode == "-1") {  //-1表示未选择
-
-                        Toast.makeText(this, "请选择用户订购意向", Toast.LENGTH_LONG).show();
+                    //判断客服是否已拨打过电话
+                    if (haveCAll == false) {
+                        Toast.makeText(this, "您还未拨打电话与用户沟通", Toast.LENGTH_LONG).show();
                     } else {
 
-                        //获取通话开始结束时间
-                        getTime();
+                        //判断是否选择用户意向,若没有选择则提示选择用户意向，若选择则写入数据库
+                        if (resultCode == "-1") {  //-1表示未选择
 
-                        //在这里插入数据
-                        insertCallRecord();
+                            Toast.makeText(this, "请选择用户订购意向", Toast.LENGTH_LONG).show();
+                        } else {
 
-                        //若未接通，不修改任务数据，若接通，修改任务数据  修改是否被打状态，添加员工id
-                        //如果没有接通，开始时间和结束时间一致
-                        if (!endTime.equals(startTime)) {
-                            updateDataInfo();
+                            //获取通话开始结束时间
+                            getTime();
+
+                            //在这里插入数据
+                            insertCallRecord();
+
+                            //若未接通，不修改任务数据，若接通，修改任务数据  修改是否被打状态，添加员工id  更新时间
+                            //如果没有接通，开始时间和结束时间一致
+                            if (!endTime.equals(startTime)) {
+                                updateDataInfo();
+                            }
+
+                            //修改通话记录，记录用户意向
+                            //updateCallRecord();
+
+                            if ("1".equals(number)) {
+                                //刷新显示下一条数据
+                                networkRequestTaskInfo();
+                                networkRequestTaskData();
+                                initActivity();
+                            }else if ("2".equals(number)){
+                                //有意向的拨打完成，返回有意向列表
+                                finish();
+                            }
+
                         }
-
-                        //修改通话记录，记录用户意向
-                        //updateCallRecord();
-
-                        //刷新显示下一条数据
-                        networkRequest();
-                        initActivity();
                     }
                 }
         );
@@ -195,21 +212,39 @@ public final class DialActivity extends AppCompatActivity {
     void getPara() {
 
         Bundle bundle = getIntent().getExtras();
-        // taskId = bundle.getString("task_id");
-        //number=bundle.getString("number");
-        taskId = "301";
-        number = 1;
-        callTimes = 1;
+        number = bundle.getString("number");
+        taskId = bundle.getLong("taskId");
+        staffId = "133333";//= bundle.getString("staffId");
+
+        if ("2".equals(number)) {
+            serialNumber = bundle.getString("serialNumber");
+        }
+
+        //taskId = "301";
+        //number = 1;
+        callTimes = Long.parseLong(number);
     }
 
     /**
-     * 网络请求 请求任务数据和任务信息
+     * 网络请求 请求任务信息
      */
-    void networkRequest() {
+    void networkRequestTaskInfo() {
         Map param = new HashMap<>();
         param.put("taskId", taskId);
-        dialHttpBL.getTaskDataAllAsyn(param, this.getApplicationContext());
-        dialHttpBL.getTaskInfoAllAsyn(param, this.getApplicationContext());
+        dialHttpBL.getTaskInfoAsyn(param, this.getApplicationContext());
+    }
+
+    /**
+     * 网络请求 请求任务数据
+     */
+    void networkRequestTaskData() {
+
+        Map param = new HashMap<>();
+        param.put("taskId", taskId);
+        if ("1".equals(number)) {
+            param.put("serialNumber", serialNumber);
+        }
+        dialHttpBL.getTaskDataAsyn(param, this.getApplicationContext(), number);
     }
 
     /**
@@ -228,14 +263,16 @@ public final class DialActivity extends AppCompatActivity {
                 System.out.println("任务数据size====" + list.size());
 
                 Map map = list.get(0);
-                String isnull=(String) map.get("isnull");
-                if(isnull==null){
+                //String isnull = (String) map.get("isnull");
+                //if (isnull == null) {
                     dataId = (String) map.get("dataId");
                     serialNumber = (String) map.get("serialNumber");
                     custInfo = (String) map.get("custInfo");
-                }else{
-                    DialActivity.this.finish();
-                }
+                //} else {
+                //    DialActivity.this.finish();
+                //}
+            }else if(list != null){
+                Toast.makeText(DialActivity.this, "该任务已完成", Toast.LENGTH_LONG).show();
             }
 
             //获取任务信息
@@ -279,6 +316,7 @@ public final class DialActivity extends AppCompatActivity {
         resultCode = "-1";
         remarkContent.setText("");
         remarkContent.clearFocus();
+        haveCAll = false;
 
     }
 
