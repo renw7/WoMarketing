@@ -20,6 +20,7 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.engingplan.womarketing.ui.activity.LoginActivity;
 import com.engingplan.womarketing.ui.activity.R;
 import com.engingplan.womarketing.ui.dialog.ConfirmDialog;
 
@@ -70,8 +71,8 @@ public class FragmentMe extends Fragment {
         mContext=getContext();
         Intent intentf=getActivity().getIntent();
         Bundle bundle=intentf.getExtras();
-        Integer staffno_intent = bundle.getInt("staffno");
-        this.password = bundle.getString("password");
+        Integer staffno_intent = bundle.getInt("staffNo");
+        this.password = bundle.getString("passWord");
         this.staffno=staffno_intent.toString();
         TextView staffNo_textview=view.findViewById(R.id.person_id);
         this.staffno_text="工号:"+staffno;
@@ -155,6 +156,7 @@ public class FragmentMe extends Fragment {
             @Override
             public void onClick(View view) {
                 getActivity().finish();
+                getContext().startActivity(new Intent(getContext(), LoginActivity.class));
                 dialog.dismiss();
             }
         });
