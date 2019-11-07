@@ -151,7 +151,7 @@ public class LoginActivity extends AppCompatActivity {
                                 int staffNo = 0;
                                 String userName = "";
                                 String passWord = "";
-                                String staffId = "";
+                                int staffId = 0;
                                 JSONArray jsonArray = jsonObject1.getJSONObject("data").getJSONArray("records");
                                 for (int i = 0; i < jsonArray.length(); i++) {
                                     JSONObject record = jsonArray.getJSONObject(i);
@@ -159,7 +159,7 @@ public class LoginActivity extends AppCompatActivity {
                                     staffNo = record.getInt("staffNo");
                                     userName = record.getString("staffUsrname");
                                     passWord = record.getString("staffPwd");
-                                    staffId = record.getString("staffId");
+                                    staffId = record.getInt("staffId");
                                 }
                                 Log.i(TAG, "登录成功");
                                 Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
