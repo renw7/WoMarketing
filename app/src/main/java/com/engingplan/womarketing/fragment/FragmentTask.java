@@ -17,6 +17,7 @@ import com.engingplan.womarketing.ui.activity.TaskListActivity;
 
 public class FragmentTask extends Fragment {
     private TextView tv;
+    private int staffId;
 
     public static FragmentTask newInstance(String name) {
         FragmentTask fragment = new FragmentTask();
@@ -33,14 +34,19 @@ public class FragmentTask extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        //获取staffId，给坤神套传
+        Bundle bundle = getActivity().getIntent().getExtras();
+        staffId=bundle.getInt("staffId");
+        System.out.println("staffId"+staffId);
         //4G业务对应任务页面
         ImageView imageFourg = view.findViewById(R.id.imageFourg);
         imageFourg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent it = new Intent(getContext(), TaskListActivity.class);
-
-                it.putExtra("task_type","1");
+                it.putExtra("taskType","1");
+                it.putExtra("staffId",staffId);
                 startActivity(it);
             }
         });
@@ -51,8 +57,8 @@ public class FragmentTask extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent it = new Intent(getContext(), TaskListActivity.class);
-
-                it.putExtra("task_type","2");
+                it.putExtra("staffId",staffId);
+                it.putExtra("taskType","2");
                 startActivity(it);
             }
         });
@@ -63,8 +69,8 @@ public class FragmentTask extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent it = new Intent(getContext(), TaskListActivity.class);
-
-                it.putExtra("task_type","3");
+                it.putExtra("staffId",staffId);
+                it.putExtra("taskType","3");
                 startActivity(it);
             }
         });
@@ -75,8 +81,8 @@ public class FragmentTask extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent it = new Intent(getContext(), TaskListActivity.class);
-
-                it.putExtra("task_type","4");
+                it.putExtra("staffId",staffId);
+                it.putExtra("taskType","4");
                 startActivity(it);
             }
         });

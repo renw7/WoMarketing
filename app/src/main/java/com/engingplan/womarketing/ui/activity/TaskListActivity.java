@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
@@ -25,14 +26,14 @@ public class TaskListActivity extends Activity {
 
 
     private ListView listView;
-    public int task_type;
+    public int taskType;
+    public long staffId;
 
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tasklist);
-
         listView = findViewById(R.id.listView);
 
         //动态注册广播接收器
@@ -45,17 +46,19 @@ public class TaskListActivity extends Activity {
 
         // 获取传来页面的参数
         Bundle bundle = this.getIntent().getExtras();
-        task_type = Integer.valueOf(bundle.getString("task_type"));
-        System.out.println("task_type:" + task_type);
+        System.out.println(bundle.getString("taskType"));
+        staffId=(long)bundle.getInt("staffId");
+        taskType = Integer.valueOf(bundle.getString("taskType"));
+        System.out.println("taskType:" + taskType+"staffId"+staffId);
 
         //实例化bl对象，调用bl对象的getUserInfoAllAsyn方法。
         OkHttpTaskBL okHttpTaskBL = new OkHttpTaskBL();
         Map param = new HashMap<>();
-        param.put("taskType", String.valueOf(task_type));
+        param.put("taskType", String.valueOf(taskType));
         okHttpTaskBL.tasklistgetUserInfoAllAsyn(param, this.getApplicationContext());
 
         //返回对应上级页面
-        Button back = findViewById(R.id.button);
+        ImageButton back = findViewById(R.id.ImageButton);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -63,18 +66,18 @@ public class TaskListActivity extends Activity {
             }
         });
 
-        //跳坤神的页面，并传递task_id
+        //跳坤神的页面，并传递taskId,staffId
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 System.out.println("The item setOnItemClickListener id" + i);
-
                 Intent it = new Intent(TaskListActivity.this, DialActivity.class);
                 int weiShu = i + 1;
-                long lieBiaoTask_id = Integer.valueOf(String.valueOf(task_type) + "0" + String.valueOf(weiShu));
+                long lieBiaoTask_id = (long)Integer.valueOf(String.valueOf(taskType) + "0" + String.valueOf(weiShu));
                 it.putExtra("taskId", lieBiaoTask_id);
                 it.putExtra("number", "1");
-                System.out.println("task_id:" + lieBiaoTask_id);
+                it.putExtra("staffId", staffId);
+                System.out.println("taskId:" + lieBiaoTask_id);
                 startActivity(it);
             }
         });
@@ -97,9 +100,9 @@ public class TaskListActivity extends Activity {
 
         Intent it = new Intent(TaskListActivity.this, TaskDetailsActivity.class);
         int weishu = listView.getPositionForView(v) + 1;
-        int xiangqingtask_id = Integer.valueOf(String.valueOf(task_type) + "0" + String.valueOf(weishu));
-        it.putExtra("taskid", xiangqingtask_id);
-        System.out.println("task_id:" + xiangqingtask_id);
+        int xiangqingtask_id = Integer.valueOf(String.valueOf(taskType) + "0" + String.valueOf(weishu));
+        it.putExtra("taskId", xiangqingtask_id);
+        System.out.println("taskId:" + xiangqingtask_id);
         startActivity(it);
 
     }
