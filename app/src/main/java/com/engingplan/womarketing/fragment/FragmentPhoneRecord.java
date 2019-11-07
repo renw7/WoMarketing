@@ -56,6 +56,7 @@ public class FragmentPhoneRecord extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         TabHost tab = view.findViewById(android.R.id.tabhost);
+
         //初始化TabHost容器
         tab.setup();
         //在TabHost创建标签，然后设置：标题／图标／标签页布局
@@ -79,11 +80,7 @@ public class FragmentPhoneRecord extends Fragment {
                         getContext(),
                         CallDetailActivity.class);
                 it.putExtra("recordId", map.get("recordId"));
-//                it.putExtra("taskId", map.get("taskId"));
-//                it.putExtra("startTime", map.get("startTime"));
-//                it.putExtra("endTime", map.get("endTime"));
-//                it.putExtra("resultCode", map.get("resultCode"));
-//                it.putExtra("remark", map.get("remark"));
+
                 startActivity(it);
             }
         });
@@ -99,35 +96,9 @@ public class FragmentPhoneRecord extends Fragment {
                         getContext(),
                         CallDetailActivity.class);
                 it.putExtra("recordId", map.get("recordId"));
-//                it.putExtra("taskId", map.get("taskId"));
-//                it.putExtra("startTime", map.get("startTime"));
-//                it.putExtra("endTime", map.get("endTime"));
-//                it.putExtra("resultCode", map.get("resultCode"));
-//                it.putExtra("remark", map.get("remark"));
                 startActivity(it);
             }
         });
-        //使用Selected未能实现
-//        listview1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
-//            @Override
-//            public void onItemSelected(AdapterView<?> var1, View var2, int pos, long var4){
-//                Map<String,String> map = new HashMap();
-////                Map<String,String> map2= new HashMap();
-//                map=(Map)var1.getItemAtPosition(pos);
-////                map2.put("createUser",map.get("createUser"));
-//
-//                Intent it = new Intent(
-//                        TabLayoutActivity.this,
-//                        CallDetailActivity.class);
-//                it.putExtra("serialNumber", map.get("serialNumber"));
-//
-//                startActivity(it);
-//            }
-//
-//            @Override
-//            public void onNothingSelected(AdapterView<?> var1){}
-//
-//        });
 
         // 动态注册
         IntentFilter intentFilter = new IntentFilter();
@@ -137,8 +108,10 @@ public class FragmentPhoneRecord extends Fragment {
 
         //调逻辑层取后台数据
         OkHttpDemoBL okHttpDemoBL = new OkHttpDemoBL();
+
         //传递参数
         Map param = new HashMap<>();
+     //   Map param = list.get(0).get("staffId");
 //        param.put("username", "张三");
         okHttpDemoBL.getUserInfoAllAsyn(param, getContext());
     }

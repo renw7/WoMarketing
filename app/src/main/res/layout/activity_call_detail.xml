@@ -6,7 +6,7 @@
     android:orientation="vertical">
 
 
-    <TextView
+    <Button
         android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -16,27 +16,34 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:orientation="horizontal">
 
-        <TextView
+        <Button
             android:id="@+id/num_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@color/white80"
+            android:radius="5dp"
             android:text="@string/num_name" />
         <TextView
             android:id="@+id/detail_nun"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            />
     </LinearLayout>
     <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+        android:layout_weight="1"
     android:orientation="horizontal">
 
-    <TextView
+    <Button
         android:id="@+id/task_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@color/white80"
+        android:radius="5dp"
         android:text="@string/task_name" />
     <TextView
         android:id="@+id/detail_task"
@@ -46,12 +53,15 @@
 <LinearLayout
 android:layout_width="match_parent"
 android:layout_height="wrap_content"
+    android:layout_weight="1"
 android:orientation="horizontal">
 
-<TextView
+<Button
     android:id="@+id/startime"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:background="@color/white80"
+    android:radius="5dp"
     android:text="@string/startime" />
 <TextView
     android:id="@+id/detail_startime"
@@ -61,12 +71,15 @@ android:orientation="horizontal">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:orientation="horizontal">
 
-        <TextView
+        <Button
             android:id="@+id/endtime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@color/white80"
+            android:radius="5dp"
             android:text="@string/endtime" />
         <TextView
             android:id="@+id/detail_endtime"
@@ -77,12 +90,16 @@ android:orientation="horizontal">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
+
         android:orientation="horizontal">
 
-        <TextView
+        <Button
             android:id="@+id/result"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@color/white80"
+            android:radius="5dp"
             android:text="@string/result" />
         <TextView
             android:id="@+id/detail_result"
@@ -92,12 +109,15 @@ android:orientation="horizontal">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:orientation="horizontal">
 
-        <TextView
+        <Button
             android:id="@+id/remark"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@color/white80"
+            android:radius="5dp"
             android:text="@string/remark" />
         <TextView
             android:id="@+id/detail_remark"
@@ -109,6 +129,8 @@ android:orientation="horizontal">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
+
         android:orientation="horizontal">
 
 
