@@ -27,7 +27,6 @@ public class CallDetailActivity extends Activity {
     String  taskId=null;
     String  serialNumber=null;
     String  dataId=null;
-    String  staffId=null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,8 +58,8 @@ public class CallDetailActivity extends Activity {
 
                 it.putExtra("serialNumber",serialNumber);
                 it.putExtra("taskId",Long.parseLong(taskId));
-                it.putExtra("taskId",Long.parseLong(dataId));
-                it.putExtra("taskId",Long.parseLong(staffId));
+                it.putExtra("dataId",Long.parseLong(dataId));
+               //it.putExtra("taskId",Long.parseLong(staffId));
                 startActivity(it);
             }
 
@@ -95,7 +94,6 @@ public class CallDetailActivity extends Activity {
             taskId=list.get(0).get("taskId");
             dataId=list.get(0).get("dataId");
             dataId=list.get(0).get("staffId");
-            System.out.println(dataId);
         }
     }
     }
