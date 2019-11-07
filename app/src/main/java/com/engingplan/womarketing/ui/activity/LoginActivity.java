@@ -147,24 +147,27 @@ public class LoginActivity extends AppCompatActivity {
                             String code = jsonObject1.getString("code");
 
                             if ("200".equals(code)) {
-                                String staffname = "";
-                                int staffno = 0;
-                                String username = "";
-                                String password = "";
+                                String staffName = "";
+                                int staffNo = 0;
+                                String userName = "";
+                                String passWord = "";
+                                String staffId = "";
                                 JSONArray jsonArray = jsonObject1.getJSONObject("data").getJSONArray("records");
                                 for (int i = 0; i < jsonArray.length(); i++) {
                                     JSONObject record = jsonArray.getJSONObject(i);
-                                    staffname = record.getString("staffName");
-                                    staffno = record.getInt("staffNo");
-                                    username = record.getString("staffUsrname");
-                                    password = record.getString("staffPwd");
+                                    staffName = record.getString("staffName");
+                                    staffNo = record.getInt("staffNo");
+                                    userName = record.getString("staffUsrname");
+                                    passWord = record.getString("staffPwd");
+                                    staffId = record.getString("staffId");
                                 }
                                 Log.i(TAG, "登录成功");
                                 Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-                                intent.putExtra("staffname", staffname);
-                                intent.putExtra("staffno", staffno);
-                                intent.putExtra("username", username);
-                                intent.putExtra("password", password);
+                                intent.putExtra("staffName", staffName);
+                                intent.putExtra("staffNo", staffNo);
+                                intent.putExtra("userName", userName);
+                                intent.putExtra("passWord", passWord);
+                                intent.putExtra("staffId", staffId);
                                 startActivity(intent);
                             } else {
                                 staffUsername.setText("");
