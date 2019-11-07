@@ -40,7 +40,6 @@ public class CallDetailActivity extends Activity {
         Bundle bundle = this.getIntent().getExtras();
         String recordId=bundle.getString("recordId");
 
-
         //        返回键
         Button btn1 = findViewById(R.id.detail_return);
         btn1.setOnClickListener(new View.OnClickListener() {
@@ -58,15 +57,11 @@ public class CallDetailActivity extends Activity {
                 Intent it = new Intent(CallDetailActivity.this, DialActivity.class);
 
                 it.putExtra("serialNumber",serialNumber);
-                it.putExtra("taskId",taskId);
+                it.putExtra("taskId",Long.parseLong(taskId));
                 it.putExtra("number","2");
                 startActivity(it);
             }
 
-          //  @Override
-           // public void onClick(View view) {
-              //  finish();
-            //}
         });
         //接收
         IntentFilter intentFilter = new IntentFilter();
