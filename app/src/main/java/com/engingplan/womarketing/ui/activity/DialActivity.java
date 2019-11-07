@@ -96,7 +96,7 @@ public final class DialActivity extends AppCompatActivity {
 
         //网络请求
         //networkRequestOne();
-        //networkRequestTaskInfo();
+        networkRequestTaskInfo();
         networkRequestTaskData();
 
         //获取页面的控件
@@ -245,7 +245,7 @@ public final class DialActivity extends AppCompatActivity {
         }
 
         if ("2".equals(number)) {
-            param.put("staffId", staffId);
+            param.put("staffId", 5l);
         }
         dialHttpBL.getTaskDataAsyn(param, this.getApplicationContext(), number);
     }
@@ -465,6 +465,7 @@ public final class DialActivity extends AppCompatActivity {
         putparam.put("callTimes", callTimes);
         putparam.put("remark", remark);
         putparam.put("staffId", staffId);
+        putparam.put("dataId", dataId);
         dialHttpBL.putCallRecordAsyn(putparam, DialActivity.this.getApplicationContext());
     }
 
