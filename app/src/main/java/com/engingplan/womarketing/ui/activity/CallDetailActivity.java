@@ -40,14 +40,6 @@ public class CallDetailActivity extends Activity {
         Bundle bundle = this.getIntent().getExtras();
         String recordId=bundle.getString("recordId");
 
-//        detail_nun.setText(bundle.getString("serialNumber"));
-//        task_name.setText(bundle.getString("taskId"));
-//        detail_startime.setText(bundle.getString("startTime"));
-//        detail_endtime.setText(bundle.getString("endTime"));
-//        detail_result.setText(bundle.getString("resultCode"));
-//        remark.setText(bundle.getString("remark"));
-
-
 
         //        返回键
         Button btn1 = findViewById(R.id.detail_return);
@@ -67,6 +59,7 @@ public class CallDetailActivity extends Activity {
 
                 it.putExtra("serialNumber",serialNumber);
                 it.putExtra("taskId",taskId);
+                it.putExtra("number","2");
                 startActivity(it);
             }
 
