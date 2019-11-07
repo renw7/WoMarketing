@@ -13,46 +13,48 @@
 
         <ImageView
             android:id="@+id/imageFourg"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="60dp"
-            android:layout_marginTop="30dp"
+            android:layout_width="140dp"
+            android:layout_height="140dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="130dp"
+            android:background="@drawable/bg_boarder"
             app:srcCompat="@drawable/fourg" />
 
         <ImageView
             android:id="@+id/imageFlow"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="70dp"
-            android:layout_marginTop="30dp"
+            android:layout_width="140dp"
+            android:layout_height="140dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="130dp"
+            android:background="@drawable/bg_boarder"
             app:srcCompat="@drawable/flow" />
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="74dp"
+        android:layout_height="wrap_content"
         android:orientation="horizontal">
 
         <TextView
             android:id="@+id/textView1"
-            android:layout_width="100dp"
+            android:layout_width="140dp"
             android:layout_height="50dp"
-            android:layout_marginLeft="60dp"
+            android:layout_marginLeft="30dp"
             android:gravity="center"
             android:text="4G套餐"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+            android:textColor="@color/white80"
+            android:textSize="19sp" />
 
         <TextView
             android:id="@+id/taskType"
-            android:layout_width="100dp"
+            android:layout_width="140dp"
             android:layout_height="50dp"
-            android:layout_marginLeft="70dp"
+            android:layout_marginLeft="20dp"
             android:gravity="center"
             android:text="流量包"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+            android:textColor="@color/white80"
+            android:textSize="19sp" />
     </LinearLayout>
 
     <LinearLayout
@@ -62,18 +64,20 @@
 
         <ImageView
             android:id="@+id/imageWideband"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="60dp"
-            android:layout_marginTop="50dp"
+            android:layout_width="140dp"
+            android:layout_height="140dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/bg_boarder"
             app:srcCompat="@drawable/wideband" />
 
         <ImageView
             android:id="@+id/imageMix"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="70dp"
-            android:layout_marginTop="50dp"
+            android:layout_width="140dp"
+            android:layout_height="140dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/bg_boarder"
             app:srcCompat="@drawable/mix" />
     </LinearLayout>
     <LinearLayout
@@ -83,22 +87,22 @@
 
         <TextView
             android:id="@+id/taskStatus"
-            android:layout_width="100dp"
+            android:layout_width="140dp"
             android:layout_height="50dp"
-            android:layout_marginLeft="60dp"
+            android:layout_marginLeft="30dp"
             android:gravity="center"
             android:text="宽带套餐"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+            android:textColor="@color/white80"
+            android:textSize="19sp" />
 
         <TextView
             android:id="@+id/productId"
-            android:layout_width="100dp"
+            android:layout_width="140dp"
             android:layout_height="50dp"
-            android:layout_marginLeft="70dp"
+            android:layout_marginLeft="20dp"
             android:gravity="center"
             android:text="融合套餐"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+            android:textColor="@color/white80"
+            android:textSize="19sp" />
     </LinearLayout>
 </LinearLayout>

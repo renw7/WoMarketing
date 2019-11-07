@@ -1,49 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingTop="8dp"
-    android:paddingBottom="8dp"
+    android:orientation="horizontal"
     android:paddingLeft="8dp"
+    android:paddingTop="8dp"
     android:paddingRight="8dp"
-    >
+    android:paddingBottom="8dp">
 
     <!-- 最上层控制item 的间隔的 -->
     <LinearLayout
-        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="horizontal"
         android:padding="8dp"
 
         >
 
 
-    <TextView android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:padding="10px"
-        android:layout_weight="1"
-        android:id="@+id/serialNumber"
-        android:background="@color/black5"
-        />
-    <TextView android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:padding="10px"
-        android:layout_weight="1"
-        android:background="@color/black5"
-        android:id="@+id/taskId"/>
-    <TextView android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:padding="10px"
-        android:layout_weight="1"
-        android:background="@color/black5"
-        android:id="@+id/updateTime"/>
-
-        <ImageView android:layout_width="0dp"
+        <TextView
+            android:id="@+id/serialNumber"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:padding="10px"
             android:layout_weight="1"
-            android:src="@mipmap/info"/>
+            android:background="@color/black5"
+            android:padding="10px" />
+
+        <TextView
+        android:id="@+id/taskId"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="@color/black5"
+        android:padding="10px" />
+
+        <TextView
+            android:id="@+id/updateTime"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/black5"
+            android:padding="10px" />
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="10px"
+            android:src="@mipmap/info" />
 
     </LinearLayout>
 </LinearLayout>
