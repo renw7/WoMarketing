@@ -12,6 +12,7 @@ import android.content.IntentFilter;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.provider.CallLog;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -125,6 +126,9 @@ public final class DialActivity extends AppCompatActivity {
                     custInfoDetail.setText(voiceContent);
                 }
         );
+
+        //滑动显示画像话术全部内容
+        custInfoDetail.setMovementMethod(ScrollingMovementMethod.getInstance());
 
         //用户意向
         userIntention.setOnClickListener((view) -> {
