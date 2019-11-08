@@ -29,9 +29,9 @@
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="110dp"
-            android:layout_height="110dp"
+            android:layout_height="80dp"
             android:layout_gravity="end|center_vertical"
-            android:src="@mipmap/hdemoji" />
+            android:src="@mipmap/logo" />
     </FrameLayout>
 
 
