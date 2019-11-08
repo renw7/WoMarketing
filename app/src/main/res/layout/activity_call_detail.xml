@@ -11,141 +11,213 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
+        android:background="@color/white"
         android:text="@string/detail_name" />
 
     <LinearLayout
+        android:layout_height="40dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
         android:orientation="horizontal">
 
         <Button
             android:id="@+id/num_name"
-            android:layout_width="wrap_content"
+            android:layout_width="120dp"
             android:layout_height="wrap_content"
-            android:background="@color/white80"
+            android:background="@color/tab_checked"
             android:radius="5dp"
+            android:textSize="15sp"
             android:text="@string/num_name" />
         <TextView
             android:id="@+id/detail_nun"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="0dp"
+            android:background="@color/white85"
+            android:gravity="center_vertical|center_horizontal"
+            android:text="TextView"
+            android:textColor="@color/black"
+            android:textSize="13sp"
             />
     </LinearLayout>
     <LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
     android:orientation="horizontal">
 
     <Button
         android:id="@+id/task_name"
-        android:layout_width="wrap_content"
+        android:layout_width="120dp"
         android:layout_height="wrap_content"
-        android:background="@color/white80"
+        android:background="@color/tab_checked"
         android:radius="5dp"
+        android:textSize="15sp"
         android:text="@string/task_name" />
     <TextView
         android:id="@+id/detail_task"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="0dp"
+        android:background="@color/white85"
+        android:gravity="center_vertical|center_horizontal"
+        android:text="TextView"
+        android:textColor="@color/black"
+        android:textSize="13sp" />
 </LinearLayout>
-<LinearLayout
-android:layout_width="match_parent"
-android:layout_height="wrap_content"
-    android:layout_weight="1"
-android:orientation="horizontal">
 
-<Button
-    android:id="@+id/startime"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:background="@color/white80"
-    android:radius="5dp"
-    android:text="@string/startime" />
-<TextView
-    android:id="@+id/detail_startime"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content" />
-</LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
+        android:layout_height="40dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/startime"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:background="@color/tab_checked"
+            android:radius="5dp"
+            android:text="@string/startime"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/detail_startime"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="0dp"
+            android:background="@color/white85"
+            android:gravity="center_vertical|center_horizontal"
+            android:text="TextView"
+            android:textColor="@color/black"
+            android:textSize="13sp" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
         android:orientation="horizontal">
 
         <Button
             android:id="@+id/endtime"
-            android:layout_width="wrap_content"
+            android:layout_width="120dp"
             android:layout_height="wrap_content"
-            android:background="@color/white80"
+            android:background="@color/tab_checked"
             android:radius="5dp"
+            android:textSize="15sp"
             android:text="@string/endtime" />
         <TextView
             android:id="@+id/detail_endtime"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="0dp"
+            android:background="@color/white85"
+            android:gravity="center_vertical|center_horizontal"
+            android:text="TextView"
+            android:textColor="@color/black"
+            android:textSize="13sp" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
+        android:layout_height="40dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
 
         android:orientation="horizontal">
 
         <Button
             android:id="@+id/result"
-            android:layout_width="wrap_content"
+            android:layout_width="120dp"
             android:layout_height="wrap_content"
-            android:background="@color/white80"
+            android:background="@color/tab_checked"
             android:radius="5dp"
+            android:textSize="15sp"
             android:text="@string/result" />
         <TextView
             android:id="@+id/detail_result"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="0dp"
+            android:background="@color/white85"
+            android:gravity="center_vertical|center_horizontal"
+            android:text="TextView"
+            android:textColor="@color/black"
+            android:textSize="13sp" />
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
+        android:layout_height="40dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
         android:orientation="horizontal">
 
         <Button
             android:id="@+id/remark"
-            android:layout_width="wrap_content"
+            android:layout_width="120dp"
             android:layout_height="wrap_content"
-            android:background="@color/white80"
+            android:background="@color/tab_checked"
             android:radius="5dp"
+            android:textSize="15sp"
             android:text="@string/remark" />
         <TextView
             android:id="@+id/detail_remark"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="0dp"
+            android:background="@color/white85"
+            android:gravity="center_vertical|center_horizontal"
+            android:text="TextView"
+            android:textColor="@color/black"
+            android:textSize="13sp" />
     </LinearLayout>
 
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-
+        android:layout_height="500dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="5dp"
         android:orientation="horizontal">
 
 
         <Button
             android:id="@+id/detail_return"
-            android:layout_width="wrap_content"
+            android:layout_width="70dp"
             android:layout_height="wrap_content"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="50dp"
             android:layout_weight="1"
-            android:text="返回" />
+            android:background="@color/white"
+            android:text="返回"
+            android:textColor="@color/black" />
 
         <Button
             android:id="@+id/detail_recall"
-            android:layout_width="wrap_content"
+            android:layout_width="70dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:background="@color/white"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="50dp"
+            android:textColor="@color/black"
             android:text="再次拨打" />
     </LinearLayout>
 
