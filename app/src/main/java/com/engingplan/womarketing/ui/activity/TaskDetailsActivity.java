@@ -30,14 +30,13 @@ public class TaskDetailsActivity extends AppCompatActivity {
 
         //获取传来页面意图的参数
         Bundle bundle=this.getIntent().getExtras();
-        final int taskid=bundle.getInt("taskid");
-
-
+        //特别注意，一定要getLong要不取不出来数，getInt后，强制转换也不行，put(1,2),第二个值是什么类型，get什么。
+        long taskId=bundle.getLong("taskId");
         //实例化bl对象，调用bl对象的getUserInfoAllAsyn方法。
         OkHttpTaskBL okHttpTaskBL = new OkHttpTaskBL();
         Map param = new HashMap<>();
-        param.put("taskId",String.valueOf(taskid));
-        okHttpTaskBL.taskdetailgetUserInfoAllAsyn(param, this.getApplicationContext());
+        param.put("taskId",String.valueOf(taskId));
+        okHttpTaskBL.taskdetailPostUserInfoAllAsyn(param, this.getApplicationContext());
     }
 
     private BroadcastReceiver myReceiver = new BroadcastReceiver() {

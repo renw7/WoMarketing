@@ -25,10 +25,8 @@ import java.util.Map;
  */
 public class OkHttpDemoBL {
 
-    //云服务器地址
+    //云服务器地址  查询listview表单
     private String url = "http://119.29.106.248/tblcallrecord/page";
-
-
 
 
     //本机测试地址
@@ -75,23 +73,24 @@ public class OkHttpDemoBL {
                     JSONObject record = jsonArray.getJSONObject(i);
                     Map map = new HashMap();
                     map.put("createUser", record.getString("createUser"));
-                    map.put("recordId", record.getString("recordId"));
+                    map.put("recordId", String.valueOf(record.getInt("recordId")));
                     map.put("createTime", record.getString("createTime"));
                     map.put("updateUser", record.getString("updateUser"));
                     map.put("updateTime", record.getString("updateTime"));
                     map.put("status", record.getString("status"));
                     map.put("isDeleted", record.getString("isDeleted"));
                     map.put("serialNumber", record.getString("serialNumber"));
-                    map.put("taskId", record.getString("taskId"));
+                    map.put("taskId", String.valueOf(record.getInt("taskId")));
                     map.put("startTime", record.getString("startTime"));
                     map.put("endTime", record.getString("endTime"));
                     map.put("resultCode", record.getString("resultCode"));
                     map.put("productId", record.getString("productId"));
                     map.put("callTimes", record.getString("callTimes"));
                     map.put("remark", record.getString("remark"));
-                    map.put("staffId", record.getString("staffId"));
+                    map.put("staffId", String.valueOf(record.getInt("staffId")));
                     map.put("resultDesc", record.getString("resultDesc"));
                     map.put("taskName", record.getString("taskName"));
+                    map.put("dataId", String.valueOf(record.getInt("dataId")));
                     recordList.add(map);
                 }
             }
@@ -117,7 +116,7 @@ public class OkHttpDemoBL {
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("list", list);
                 intent.putExtras(bundle);       //向广播接收器传递数据
-                LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
+               context.sendBroadcast(intent);
             }
 
             @Override

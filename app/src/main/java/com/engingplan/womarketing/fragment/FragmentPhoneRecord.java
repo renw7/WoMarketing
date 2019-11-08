@@ -31,9 +31,10 @@ import java.util.Map;
 
 
 public class FragmentPhoneRecord extends Fragment {
-    private ListView listview1 = null;
 
+    private ListView listview1 = null;
     private ListView listview2 = null;
+    private int  staffId;
 
     LocalBroadcastManager broadcastManager;
 
@@ -56,37 +57,29 @@ public class FragmentPhoneRecord extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         TabHost tab = view.findViewById(android.R.id.tabhost);
+
         //初始化TabHost容器
         tab.setup();
         //在TabHost创建标签，然后设置：标题／图标／标签页布局
         tab.addTab(tab.newTabSpec("tab1").setIndicator("全部通话", null).setContent(R.id.tab1));
         tab.addTab(tab.newTabSpec("tab2").setIndicator("意向通话", null).setContent(R.id.tab2));
 
-
         listview1 = view.findViewById(R.id.listview1);//获取列表视图
         listview2 = view.findViewById(R.id.listview2);//获取列表视图
 
-
+//选择号码，跳转到详情
         listview2.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> var1, View view, int pos, long l) {
-                Map<String, String> map = new HashMap();
-//                Map<String,String> map2= new HashMap();
-                map = (Map) var1.getItemAtPosition(pos);
-//                map2.put("createUser",map.get("createUser"));
-
+                Map<String, String> map = (Map) var1.getItemAtPosition(pos);
                 Intent it = new Intent(
                         getContext(),
                         CallDetailActivity.class);
                 it.putExtra("recordId", map.get("recordId"));
-//                it.putExtra("taskId", map.get("taskId"));
-//                it.putExtra("startTime", map.get("startTime"));
-//                it.putExtra("endTime", map.get("endTime"));
-//                it.putExtra("resultCode", map.get("resultCode"));
-//                it.putExtra("remark", map.get("remark"));
                 startActivity(it);
             }
         });
+
         listview1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> var1, View view, int pos, long l) {
@@ -99,35 +92,13 @@ public class FragmentPhoneRecord extends Fragment {
                         getContext(),
                         CallDetailActivity.class);
                 it.putExtra("recordId", map.get("recordId"));
-//                it.putExtra("taskId", map.get("taskId"));
-//                it.putExtra("startTime", map.get("startTime"));
-//                it.putExtra("endTime", map.get("endTime"));
-//                it.putExtra("resultCode", map.get("resultCode"));
-//                it.putExtra("remark", map.get("remark"));
                 startActivity(it);
             }
         });
-        //使用Selected未能实现
-//        listview1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
-//            @Override
-//            public void onItemSelected(AdapterView<?> var1, View var2, int pos, long var4){
-//                Map<String,String> map = new HashMap();
-////                Map<String,String> map2= new HashMap();
-//                map=(Map)var1.getItemAtPosition(pos);
-////                map2.put("createUser",map.get("createUser"));
-//
-//                Intent it = new Intent(
-//                        TabLayoutActivity.this,
-//                        CallDetailActivity.class);
-//                it.putExtra("serialNumber", map.get("serialNumber"));
-//
-//                startActivity(it);
-//            }
-//
-//            @Override
-//            public void onNothingSelected(AdapterView<?> var1){}
-//
-//        });
+        //获取staffId，并给坤神
+        Bundle bundle = getActivity().getIntent().getExtras();
+        staffId=bundle.getInt("staffId");
+        System.out.println("staffId:"+staffId);
 
         // 动态注册
         IntentFilter intentFilter = new IntentFilter();
@@ -137,9 +108,10 @@ public class FragmentPhoneRecord extends Fragment {
 
         //调逻辑层取后台数据
         OkHttpDemoBL okHttpDemoBL = new OkHttpDemoBL();
+
         //传递参数
         Map param = new HashMap<>();
-//        param.put("username", "张三");
+        param.put("staffId", staffId+"");
         okHttpDemoBL.getUserInfoAllAsyn(param, getContext());
     }
 
@@ -155,8 +127,7 @@ public class FragmentPhoneRecord extends Fragment {
                     new String[]{"serialNumber", "startTime"}, new int[]{R.id.call_number, R.id.call_time});
 
             listview1.setAdapter(adapter1);
-
-
+            //判断
             List<Map<String, String>> list2 = new ArrayList();
 
             for (int i = 0; i < list.size(); i++) {
@@ -179,8 +150,6 @@ public class FragmentPhoneRecord extends Fragment {
         super.onDestroy();
         broadcastManager.unregisterReceiver(mReceiver);
     }
-
-
 
 
 }

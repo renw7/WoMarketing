@@ -20,20 +20,21 @@ public class OkHttpTaskBL {
 
     private String url2 = "http://119.29.106.248/tbltaskinfo/postInfoPage2";
 
-    //本机测试地址
-//    private String url = "http://119.29.106.248/tbluserinfo/page";
+    private String taskStatus;
+
 
     /**
      * TASKLISTACTIVITY异步http调用
+     *
      * @param param
      */
-    public void tasklistgetUserInfoAllAsyn(Map param, Context context){
+    public void tasklistPostUserInfoAllAsyn(Map param, Context context) {
         //无需再用变量接一下param,直接传递就可以。
-        OkHttpClientUtils.getInstance().doPostAsyn(url1,param,new OkHttpClientUtils.NetWorkCallBack(){
+        OkHttpClientUtils.getInstance().doPostAsyn(url1, param, new OkHttpClientUtils.NetWorkCallBack() {
             @Override
             //返回结果是一个字符串类型的response
             public void onSuccess(String response) {
-                ArrayList<Map> list = json2List(response);
+                ArrayList<Map> list = jsonList(response);
                 //下面通过异常方式返回给ui层
                 Intent intent = new Intent("TASK_LIST_ACTIVITY_RECEIVER");
                 Bundle bundle = new Bundle();
@@ -52,11 +53,12 @@ public class OkHttpTaskBL {
 
     /**
      * TASKDETAILSACTIVITY异步http调用
+     *
      * @param param
      */
-    public void taskdetailgetUserInfoAllAsyn(Map param, Context context){
+    public void taskdetailPostUserInfoAllAsyn(Map param, Context context) {
         //无需再用变量接一下param,直接传递就可以。
-        OkHttpClientUtils.getInstance().doPostAsyn(url2,param,new OkHttpClientUtils.NetWorkCallBack(){
+        OkHttpClientUtils.getInstance().doPostAsyn(url2, param, new OkHttpClientUtils.NetWorkCallBack() {
             @Override
             //返回结果是一个字符串类型的response
             public void onSuccess(String response) {
@@ -77,10 +79,7 @@ public class OkHttpTaskBL {
 
     }
 
-
-
-
-    private ArrayList<Map> json2List(String result){
+    private ArrayList<Map> jsonList(String result) {
         ArrayList<Map> recordList = new ArrayList<>();
 
         try {
@@ -92,12 +91,22 @@ public class OkHttpTaskBL {
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject record = jsonArray.getJSONObject(i);
                     Map map = new HashMap();
+                    //放入taskName键值对
                     map.put("taskName", record.getString("taskName"));
+                    taskStatus = record.getString("taskStatus");
+                    //数值转换后，放入taskStatus键值对
+                    if (taskStatus.equals("5")) {
+                        taskStatus = "未完成";
+                    } else if (taskStatus.equals("6")) {
+                        taskStatus = "已完成";
+                    }
+                    map.put("taskStatus", taskStatus);
+                    //放入map的顺序与taskId对应关系的键值对
+                    map.put(String.valueOf(i), record.getString("taskId"));
                     recordList.add(map);
                 }
-            }
-            else{
-                throw new Exception("连接异常["+code+"]");
+            } else {
+                throw new Exception("连接异常[" + code + "]");
             }
 
         } catch (Exception e) {
@@ -107,7 +116,7 @@ public class OkHttpTaskBL {
         }
     }
 
-    private HashMap jsonMap(String result){
+    private HashMap jsonMap(String result) {
 
         HashMap map = new HashMap();
         try {
@@ -125,9 +134,8 @@ public class OkHttpTaskBL {
                 map.put("updateTime", record.getString("updateTime"));
                 map.put("voiceContent", record.getString("voiceContent"));
                 map.put("smsContent", record.getString("smsContent"));
-            }
-            else{
-                throw new Exception("连接异常["+code+"]");
+            } else {
+                throw new Exception("连接异常[" + code + "]");
             }
 
         } catch (Exception e) {
