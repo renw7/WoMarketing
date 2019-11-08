@@ -173,6 +173,7 @@ public final class DialActivity extends AppCompatActivity {
                     if (haveCAll == false) {
                         Toast.makeText(this, "您还未拨打电话与用户沟通", Toast.LENGTH_LONG).show();
                     } else {
+
                         //判断是否选择用户意向,若没有选择则提示选择用户意向，若选择则写入数据库
                         if (resultCode == "-1") {  //-1表示未选择
                             Toast.makeText(this, "请选择用户订购意向", Toast.LENGTH_LONG).show();
@@ -186,11 +187,14 @@ public final class DialActivity extends AppCompatActivity {
 
                             //如果用户没有接通，开始时间和结束时间一致，不修改任务数据
                             //如果电话接通，修改任务数据（修改是否被打状态，添加员工id，更新时间）
+                            //修改任务数据成功之后再刷新显示下一条
                             if (!endTime.equals(startTime)) {
                                 updateDataInfo();
-                            }
+                            }else{
 
-                            //修改任务数据成功之后再刷新显示下一条
+                                //如果没有接通，修改数据锁定状态
+                                updateDataUnLock();
+                            }
 
                             //修改通话记录，记录用户意向
                             //updateCallRecord();
@@ -270,6 +274,7 @@ public final class DialActivity extends AppCompatActivity {
                         //Toast.makeText(DialActivity.this, "该任务已完成", Toast.LENGTH_LONG).show();
 
                         AlertDialog dialog=new AlertDialog.Builder(DialActivity.this)
+                                .setIcon(R.drawable.pointer)
                                 .setTitle("提示")
                                 .setMessage("当前任务已完成")
                                 .setPositiveButton("确定", new DialogInterface.OnClickListener() {
@@ -287,7 +292,6 @@ public final class DialActivity extends AppCompatActivity {
 
                     //获取插入通话记录的记录id
                     String recordIds = intent.getExtras().getString("recordId");
-
                     if (recordIds != null) {
                         recordId = recordIds;
                     }
@@ -373,8 +377,8 @@ public final class DialActivity extends AppCompatActivity {
 
         DialBL userBL = new DialBL();
         Intent intent = userBL.call(phoneno);
-        startTime = userBL.time();
-        System.out.println("开始时间" + startTime);
+        //startTime = userBL.time();
+        //System.out.println("开始时间" + startTime);
         startActivity(intent);
     }
 
@@ -499,11 +503,26 @@ public final class DialActivity extends AppCompatActivity {
         dialHttpBL.updateCallStatesAsyn(putparam, DialActivity.this.getApplicationContext());
     }
 
+    /**
+     * 解锁任务数据  情况一：点击用户未接通，点击完成  情况二：拨打界面返回
+     */
+    void updateDataUnLock() {
+        Map putparam = new HashMap<>();
+        putparam.put("dataId", dataId);
+        putparam.put("isLock", 0);
+        dialHttpBL.updateDataUnLockAsyn(putparam, DialActivity.this.getApplicationContext());
+    }
+
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        unregisterReceiver(mReceiver);     //注销广播接收器
+
+        //注销广播接收器
+        unregisterReceiver(mReceiver);
+
+        //任务解锁  没有打电话直接返回时解锁任务数据
+        updateDataUnLock();
     }
 
 }

@@ -24,7 +24,7 @@ public class DialHttpBL {
 
     //本机
     //public static String URL="http://10.52.200.149";
-    //public static String URL = "http://192.168.0.102";
+    //public static String URL = "http://192.168.0.104";
 
     //服务器
     public static String URL="http://119.29.106.248";
@@ -37,11 +37,15 @@ public class DialHttpBL {
 
     //获取任务数据
     private String url_task_data = URL + "/tbltaskdata/selectOnePost";
+
     //获取指定任务数据
     //private String url_task_data_spe =URL+"/tbltaskdata/selectSpePost";
 
     //修改任务数据
     private String url_taskdata_update = URL + "/tbltaskdata/update";
+
+    //解锁任务数据
+    private String url_taskdata_unlock = URL + "/tbltaskdata/updateUnLock";
 
     //获取任务信息
     private String url_task_info = URL + "/tbltaskinfo/selectOnePost";
@@ -113,7 +117,7 @@ public class DialHttpBL {
 
                 }
 
-                //下面通过异常方式返回给ui层
+                //返回给ui层
                 Intent intent = new Intent();
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("list", recordList);
@@ -219,7 +223,33 @@ public class DialHttpBL {
                 intent.setAction("UPDATETASKDATA");
                 context.sendBroadcast(intent);
 
-                System.out.println("putSmsSuccess"+response);
+                System.out.println("updateCallStatesAsyn"+response);
+            }
+
+            @Override
+            public void onFail(String response) {
+                System.out.println(response);
+            }
+        });
+    }
+
+    /**
+     * 解锁任务信息
+     *
+     * @param param
+     */
+    public void updateDataUnLockAsyn(Map param, Context context) {
+
+        OkHttpClientUtils.getInstance().doPostAsyn(url_taskdata_unlock, param, new OkHttpClientUtils.NetWorkCallBack() {
+
+            @Override
+            public void onSuccess(String response) {
+
+                Intent intent = new Intent();
+                intent.setAction("UPDATETASKDATAUNLOCK");
+                context.sendBroadcast(intent);
+
+                System.out.println("updateDataUnLockAsyn"+response);
             }
 
             @Override
