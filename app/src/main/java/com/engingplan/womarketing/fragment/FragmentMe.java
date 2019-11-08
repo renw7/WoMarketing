@@ -2,8 +2,10 @@ package com.engingplan.womarketing.fragment;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -19,7 +21,10 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
+import com.engingplan.womarketing.bl.UpdatePwdBL;
+import com.engingplan.womarketing.ui.activity.LoginActivity;
 import com.engingplan.womarketing.ui.activity.R;
 import com.engingplan.womarketing.ui.dialog.ConfirmDialog;
 
@@ -27,6 +32,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
@@ -49,6 +55,9 @@ public class FragmentMe extends Fragment {
     private String staffno;
     private String password;
     private Context mContext;
+    private UpdatePwdBL updatePwdBL;
+
+    LocalBroadcastManager broadcastManager;//分层语句
 
     public static FragmentMe newInstance(String name) {
         FragmentMe fragment = new FragmentMe();
@@ -59,6 +68,9 @@ public class FragmentMe extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.my_activity_main, container, false);//我的布局
+
+        broadcastManager = LocalBroadcastManager.getInstance(getContext());//分层语句
+
         return view;
     }
 
@@ -70,8 +82,8 @@ public class FragmentMe extends Fragment {
         mContext=getContext();
         Intent intentf=getActivity().getIntent();
         Bundle bundle=intentf.getExtras();
-        Integer staffno_intent = bundle.getInt("staffno");
-        this.password = bundle.getString("password");
+        Integer staffno_intent = bundle.getInt("staffNo");
+        this.password = bundle.getString("passWord");
         this.staffno=staffno_intent.toString();
         TextView staffNo_textview=view.findViewById(R.id.person_id);
         this.staffno_text="工号:"+staffno;
@@ -94,8 +106,45 @@ public class FragmentMe extends Fragment {
             }
         });
 
+
+        // 动态注册
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction("TASK_UPDATE_STAFFPWD");
+        broadcastManager.registerReceiver(mReceiver, intentFilter);
+
+
+        //网络通信实例
+        updatePwdBL=new UpdatePwdBL();
+
         //从这里结束
     }
+
+    //广播接收器
+    private BroadcastReceiver mReceiver = new ResultReceiver();
+    class ResultReceiver extends BroadcastReceiver{
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String result=intent.getExtras().getString("RESULT");
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText(mContext, result, Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        broadcastManager.unregisterReceiver(mReceiver);
+    }
+
+
+
+
+
+
 
 
 
@@ -123,7 +172,7 @@ public class FragmentMe extends Fragment {
                 String s_old_pwd=old_pwd.getText().toString();
                 String s_new_pwd=new_pwd.getText().toString();
                 String s_new_pwd_c=new_pwd_c.getText().toString();
-                update_pwd_http(s_old_pwd,s_new_pwd,s_new_pwd_c);
+                update_pwd_http(staffno,s_old_pwd,s_new_pwd,s_new_pwd_c);
                 dialog.dismiss();
             }
         });
@@ -155,6 +204,7 @@ public class FragmentMe extends Fragment {
             @Override
             public void onClick(View view) {
                 getActivity().finish();
+                getContext().startActivity(new Intent(getContext(), LoginActivity.class));
                 dialog.dismiss();
             }
         });
@@ -170,7 +220,7 @@ public class FragmentMe extends Fragment {
 
 
     //网络通信
-    private void update_pwd_http(String s_old_pwd,String s_new_pwd,String s_new_pwd_c){
+    private void update_pwd_http(String staffno,String s_old_pwd,String s_new_pwd,String s_new_pwd_c){
 
 
 
@@ -189,88 +239,13 @@ public class FragmentMe extends Fragment {
             return;
         }
 
-        //实例化OkHttpClient
-        OkHttpClient client = new OkHttpClient.Builder()
-                //读取超时
-                .readTimeout(10, TimeUnit.SECONDS)
-                //写入超时
-                .writeTimeout(10, TimeUnit.SECONDS)
-                //连接超时
-                .connectTimeout(10, TimeUnit.SECONDS)
-                .build();
-        //实例化JSONObject对象
-        JSONObject jsonObject = new JSONObject();
-        //JSON数据编码
-        try {
-            jsonObject.put("staffNo", staffno);
-            jsonObject.put("staffPwd", s_new_pwd_c);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        final String req = jsonObject.toString();
-        //设置请求体
-        RequestBody body = RequestBody.create(MediaType.parse("application/json;charset=UTF-8"), req);
-        //设置请求方法
-        final Request request = new Request.Builder()
-                //请求方式
-                .post(body)
-                //请求接口地址
-                .url(url)
-                .build();
+        Map param=new HashMap();
+        param.put("staffNo", staffno);
+        param.put("staffPwd", s_new_pwd_c);
 
-        //4.创建call对象
-        Call call = client.newCall(request);
-        //执行异步调用
-        call.enqueue(new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                Log.i(TAG, "请求失败......");
+        updatePwdBL.updateStaffPwd(param,getContext());
 
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Toast.makeText(mContext, "请求失败......", Toast.LENGTH_SHORT).show();
-                    }
-                });
-            }
 
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                Log.i(TAG, "请求成功......");
-                //从应答对象中返回应答体
-                ResponseBody responseBody = response.body();
-                // 获得JSON字符串
-                final String responseString = responseBody.string();
-                Log.i(TAG, responseString);
-
-                try {
-                    //JSON解码
-                    JSONObject jsonObject1 = new JSONObject(responseString);
-                    //取应答体中code  200成功否则失败
-                    String code = jsonObject1.getString("code");
-                    if ("200".equals(code)) {
-                        Log.i(TAG,"密码修改成功！！");
-                        getActivity().runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                Toast.makeText(mContext, "密码修改成功！！", Toast.LENGTH_SHORT).show();
-                            }
-                        });
-                    } else {
-                        Log.i(TAG,"密码修改失败！！");
-                        getActivity().runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                Toast.makeText(mContext, "密码修改失败！！", Toast.LENGTH_SHORT).show();
-                            }
-                        });
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-            }
-        });
 
     }
 
