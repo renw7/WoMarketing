@@ -10,6 +10,10 @@ public interface ConstantsUtil {
 
     String PERSON_INFO_RECEIVER = "com.engingplan.womarketing.fragment.FragmentMe.BroadcastReceiver";
 
+    String CALL_RECORD_RECEIVER = "com.engingplan.womarketing.fragment.FragmentPhoneRecord.BroadcastReceiver";
+
+    String CALL_RECORD_INFO_RECEIVER = "com.engingplan.womarketing.fragment.CallDetailActivity.BroadcastReceiver";
+
 
     //==============任务类型================*/
     //4G
@@ -55,4 +59,12 @@ public interface ConstantsUtil {
 
     //修改密码
     String URL_UPDATE_PWD = URL_HOME + "/tblstaffinfo/updatePwd";
+
+    //通话信息
+    String URL_CALL_REROD_LIST = URL_HOME + "tblcallrecord/page";
+
+    //通话详情
+    String URL_CALL_REROD_INFO = URL_HOME + "/tblcallrecord/info";
+
+
 }
