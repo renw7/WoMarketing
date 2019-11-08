@@ -14,9 +14,12 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
 import androidx.annotation.Nullable;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+import androidx.viewpager.widget.ViewPager;
 
 
 import com.engingplan.womarketing.bl.OkHttpTaskBL;
+import com.engingplan.womarketing.common.ViewPagerAdapter;
 import com.engingplan.womarketing.util.ConstantsUtil;
 
 import java.util.HashMap;
@@ -31,6 +34,7 @@ public class TaskListActivity extends Activity {
     private long taskId;
     private HashMap<String,String> map;
     private List<Map<String, String>> list;
+    private SwipeRefreshLayout swipeRefresh;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -54,11 +58,8 @@ public class TaskListActivity extends Activity {
         taskType = Integer.valueOf(bundle.getString("taskType"));
         Log.i(ConstantsUtil.LOG_TAG_ACTIVITY, "taskType:" + taskType+" staffId:"+staffId);
 
-        //实例化bl对象，调用bl对象的getUserInfoAllAsyn方法。
-        OkHttpTaskBL okHttpTaskBL = new OkHttpTaskBL();
-        Map param = new HashMap<>();
-        param.put("taskType", String.valueOf(taskType));
-        okHttpTaskBL.tasklistPostUserInfoAllAsyn(param, this.getApplicationContext());
+        //调用逻辑层请求数据
+        loadData();
 
         //返回对应上级页面
         ImageButton back = findViewById(R.id.ImageButton);
@@ -86,6 +87,25 @@ public class TaskListActivity extends Activity {
                 startActivity(it);
             }
         });
+
+        //实现页面下拉刷新
+        swipeRefresh = findViewById(R.id.swipeRefresh);
+        swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                loadData();
+                swipeRefresh.setRefreshing(false);
+            }
+        });
+    }
+
+
+    private void loadData(){
+        //实例化bl对象，调用bl对象的getUserInfoAllAsyn方法。
+        OkHttpTaskBL okHttpTaskBL = new OkHttpTaskBL();
+        Map param = new HashMap<>();
+        param.put("taskType", String.valueOf(taskType));
+        okHttpTaskBL.tasklistPostUserInfoAllAsyn(param, this.getApplicationContext());
     }
 
     private BroadcastReceiver myReceiver = new BroadcastReceiver() {
