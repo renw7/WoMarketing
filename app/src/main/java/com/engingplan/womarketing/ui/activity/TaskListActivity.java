@@ -26,8 +26,11 @@ public class TaskListActivity extends Activity {
 
 
     private ListView listView;
-    public int taskType;
-    public long staffId;
+    private int taskType;
+    private long staffId;
+    private long taskId;
+    private HashMap<String,String> map = new HashMap();
+    private List<Map<String, String>> list;
 
 
     @Override
@@ -72,12 +75,14 @@ public class TaskListActivity extends Activity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 System.out.println("The item setOnItemClickListener id" + i);
                 Intent it = new Intent(TaskListActivity.this, DialActivity.class);
-                int weiShu = i + 1;
-                long lieBiaoTask_id = (long)Integer.valueOf(String.valueOf(taskType) + "0" + String.valueOf(weiShu));
-                it.putExtra("taskId", lieBiaoTask_id);
+//                int weiShu = i + 1;
+//                long lieBiaoTask_id = (long)Integer.valueOf(String.valueOf(taskType) + "0" + String.valueOf(weiShu));
+                map=(HashMap<String, String>) list.get(i);
+                taskId=Integer.valueOf(map.get(String.valueOf(i)));
+                it.putExtra("taskId",taskId);
                 it.putExtra("number", "1");
                 it.putExtra("staffId", staffId);
-                System.out.println("taskId:" + lieBiaoTask_id);
+                System.out.println("taskId:" + taskId);
                 startActivity(it);
             }
         });
@@ -87,7 +92,8 @@ public class TaskListActivity extends Activity {
         @Override
         public void onReceive(Context context, Intent intent) {
 
-            List<Map<String, String>> list = (List<Map<String, String>>) intent.getExtras().get("list");
+            list= (List<Map<String, String>>) intent.getExtras().get("list");
+            //装适配器
             listView = findViewById(R.id.listView);
             listView.setAdapter(new SimpleAdapter(TaskListActivity.this, list,
                     R.layout.activity_tasklist_item, new String[]{"taskName","taskStatus"}, new int[]{R.id.textViewTaskName,R.id.textViewTaskStatus}));
@@ -99,10 +105,12 @@ public class TaskListActivity extends Activity {
     public void imageViewonClick(View v) {
 
         Intent it = new Intent(TaskListActivity.this, TaskDetailsActivity.class);
-        int weishu = listView.getPositionForView(v) + 1;
-        int xiangqingtask_id = Integer.valueOf(String.valueOf(taskType) + "0" + String.valueOf(weishu));
-        it.putExtra("taskId", xiangqingtask_id);
-        System.out.println("taskId:" + xiangqingtask_id);
+//        int weishu = listView.getPositionForView(v) + 1;
+//        int xiangqingtask_id = Integer.valueOf(String.valueOf(taskType) + "0" + String.valueOf(weishu));
+        map=(HashMap<String, String>) list.get(listView.getPositionForView(v));
+        taskId=Integer.valueOf(map.get(String.valueOf(listView.getPositionForView(v))));
+        it.putExtra("taskId", taskId);
+        System.out.println("taskId:" + taskId);
         startActivity(it);
 
     }

@@ -89,15 +89,18 @@ public class OkHttpTaskBL {
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject record = jsonArray.getJSONObject(i);
                     Map map = new HashMap();
+                    //放入taskName键值对
                     map.put("taskName", record.getString("taskName"));
                     taskStatus=record.getString("taskStatus");
-                    //数值转换
+                    //数值转换后，放入taskStatus键值对
                     if(taskStatus.equals("5")){
                         taskStatus="未完成";
                     }else if(taskStatus.equals("6")) {
                         taskStatus="已完成";
                     }
                     map.put("taskStatus",taskStatus);
+                    //放入map的顺序与taskId对应关系的键值对
+                    map.put(String.valueOf(i),record.getString("taskId"));
                     recordList.add(map);
                 }
             }
