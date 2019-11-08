@@ -44,4 +44,16 @@
     <string name="task_type_flow">流量包</string>
     <string name="task_type_broad">宽带套餐</string>
     <string name="task_type_mix">融合套餐</string>
+
+
+    <!-- 我的页面 -->
+    <string name="my_update_pwd">修改密码</string>
+    <string name="my_about">关于</string>
+    <string name="my_exit">退出登录</string>
+    <string name="my_help">帮助</string>
+    <string name="my_exit_confirm">是否退出登录？</string>
+    <string name="my_cancel">取消</string>
+    <string name="my_confirm">确定</string>
+
+
 </resources>

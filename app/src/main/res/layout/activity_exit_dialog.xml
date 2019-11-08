@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:gravity="center"
-        android:text="是否退出登录？"
+        android:text="@string/my_exit_confirm"
         android:textSize="14sp" />
 
 
@@ -30,7 +30,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@null"
-            android:text="取消"
+            android:text="@string/my_cancel"
             android:textSize="14sp" />
 
         <Button
@@ -39,7 +39,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@null"
-            android:text="确定"
+            android:text="@string/my_confirm"
             android:textSize="14sp" />
     </LinearLayout>
 

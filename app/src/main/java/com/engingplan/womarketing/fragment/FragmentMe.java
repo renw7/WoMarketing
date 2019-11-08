@@ -158,7 +158,7 @@ public class FragmentMe extends Fragment {
     private void exitDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
         LayoutInflater inflater = LayoutInflater.from(mContext);
-        final View v = inflater.inflate(R.layout.exit_dialog, null);
+        final View v = inflater.inflate(R.layout.activity_exit_dialog, null);
         Button btnSure = v.findViewById(R.id.dialog_btn_sure);
         Button btnCancel = v.findViewById(R.id.dialog_btn_cancel);
         final Dialog dialog = builder.create();
