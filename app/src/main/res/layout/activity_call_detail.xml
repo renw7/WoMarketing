@@ -125,7 +125,6 @@
             android:layout_marginTop="0dp"
             android:background="@color/white85"
             android:gravity="center_vertical|center_horizontal"
-            android:text="TextView"
             android:textColor="@color/black"
             android:textSize="13sp" />
     </LinearLayout>
@@ -155,7 +154,6 @@
             android:layout_marginTop="0dp"
             android:background="@color/white85"
             android:gravity="center_vertical|center_horizontal"
-            android:text="TextView"
             android:textColor="@color/black"
             android:textSize="13sp" />
     </LinearLayout>
@@ -183,7 +181,6 @@
             android:layout_marginTop="0dp"
             android:background="@color/white85"
             android:gravity="center_vertical|center_horizontal"
-            android:text="TextView"
             android:textColor="@color/black"
             android:textSize="13sp" />
     </LinearLayout>
@@ -191,7 +188,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="500dp"
+        android:layout_height="316dp"
         android:layout_marginLeft="5dp"
         android:layout_marginTop="10dp"
         android:layout_marginRight="5dp"
@@ -202,8 +199,8 @@
             android:id="@+id/detail_return"
             android:layout_width="70dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="150dp"
             android:layout_marginRight="20dp"
-            android:layout_marginTop="50dp"
             android:layout_weight="1"
             android:background="@color/white"
             android:text="返回"
@@ -213,12 +210,12 @@
             android:id="@+id/detail_recall"
             android:layout_width="70dp"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
             android:layout_weight="1"
             android:background="@color/white"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="50dp"
-            android:textColor="@color/black"
-            android:text="再次拨打" />
+            android:text="再次拨打"
+            android:layout_marginTop="150dp"
+            android:textColor="@color/black" />
     </LinearLayout>
 
 
