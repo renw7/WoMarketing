@@ -8,6 +8,8 @@ public interface ConstantsUtil {
 
     String TASK_DETAIL_ACTIVITY_RECEIVER = "com.engingplan.womarketing.ui.activity.TaskDetailsActivity.BroadcastReceiver";
 
+    String PERSON_INFO_RECEIVER = "com.engingplan.womarketing.fragment.FragmentMe.BroadcastReceiver";
+
 
     //==============任务类型================*/
     //4G
@@ -42,9 +44,15 @@ public interface ConstantsUtil {
 
 
     /*==============服务地址url================*/
+    //腾讯云服务器ip
+    String URL_HOME = "http://119.29.106.248";
+
     //根据任务类型获取任务明细
-    String URL_TASK_LIST = "http://119.29.106.248/tbltaskinfo/postInfoPage1";
+    String URL_TASK_LIST = URL_HOME + "/tbltaskinfo/postInfoPage1";
 
-    String URL_TASK_DETAIL = "http://119.29.106.248/tbltaskinfo/postInfoPage2";
+    //根据任务id查询任务详情
+    String URL_TASK_DETAIL = URL_HOME + "/tbltaskinfo/postInfoPage2";
 
+    //修改密码
+    String URL_UPDATE_PWD = URL_HOME + "/tblstaffinfo/updatePwd";
 }
