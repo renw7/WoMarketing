@@ -42,7 +42,7 @@
             android:layout_height="50dp"
             android:layout_marginLeft="30dp"
             android:gravity="center"
-            android:text="4G套餐"
+            android:text="@string/task_type_4g"
             android:textColor="@color/white80"
             android:textSize="19sp" />
 
@@ -52,7 +52,7 @@
             android:layout_height="50dp"
             android:layout_marginLeft="20dp"
             android:gravity="center"
-            android:text="流量包"
+            android:text="@string/task_type_flow"
             android:textColor="@color/white80"
             android:textSize="19sp" />
     </LinearLayout>
@@ -91,7 +91,7 @@
             android:layout_height="50dp"
             android:layout_marginLeft="30dp"
             android:gravity="center"
-            android:text="宽带套餐"
+            android:text="@string/task_type_broad"
             android:textColor="@color/white80"
             android:textSize="19sp" />
 
@@ -101,7 +101,7 @@
             android:layout_height="50dp"
             android:layout_marginLeft="20dp"
             android:gravity="center"
-            android:text="融合套餐"
+            android:text="@string/task_type_mix"
             android:textColor="@color/white80"
             android:textSize="19sp" />
     </LinearLayout>

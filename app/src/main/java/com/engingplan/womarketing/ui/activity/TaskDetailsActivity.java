@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 
 import com.engingplan.womarketing.bl.OkHttpTaskBL;
+import com.engingplan.womarketing.util.ConstantsUtil;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -24,34 +25,34 @@ public class TaskDetailsActivity extends AppCompatActivity {
 
         //动态注册广播接收器
         IntentFilter intentFilter = new IntentFilter();
-        intentFilter.addAction("TASK_DETAIL_ACTIVITY_RECEIVER");
+        intentFilter.addAction(ConstantsUtil.TASK_DETAIL_ACTIVITY_RECEIVER);
         getApplicationContext().registerReceiver(myReceiver, intentFilter);
 
 
         //获取传来页面意图的参数
-        Bundle bundle=this.getIntent().getExtras();
+        Bundle bundle = this.getIntent().getExtras();
         //特别注意，一定要getLong要不取不出来数，getInt后，强制转换也不行，put(1,2),第二个值是什么类型，get什么。
-        long taskId=bundle.getLong("taskId");
+        long taskId = bundle.getLong("taskId");
+
         //实例化bl对象，调用bl对象的getUserInfoAllAsyn方法。
         OkHttpTaskBL okHttpTaskBL = new OkHttpTaskBL();
         Map param = new HashMap<>();
-        param.put("taskId",String.valueOf(taskId));
+        param.put("taskId", String.valueOf(taskId));
         okHttpTaskBL.taskdetailPostUserInfoAllAsyn(param, this.getApplicationContext());
     }
 
     private BroadcastReceiver myReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-
             HashMap map = (HashMap<String,String>)intent.getExtras().get("map");
-            TextView taskName=findViewById(R.id.taskName);
-            TextView taskType=findViewById(R.id.taskType);
-            TextView taskStatus=findViewById(R.id.taskStatus);
-            TextView productId=findViewById(R.id.productId);
-            TextView productName=findViewById(R.id.productName);
-            TextView updateTime=findViewById(R.id.updateTime);
-            TextView voiceContent=findViewById(R.id.voiceContent);
-            TextView smsContent=findViewById(R.id.smsContent);
+            TextView taskName = findViewById(R.id.taskName);
+            TextView taskType = findViewById(R.id.taskType);
+            TextView taskStatus = findViewById(R.id.taskStatus);
+            TextView productId = findViewById(R.id.productId);
+            TextView productName = findViewById(R.id.productName);
+            TextView updateTime = findViewById(R.id.updateTime);
+            TextView voiceContent = findViewById(R.id.voiceContent);
+            TextView smsContent = findViewById(R.id.smsContent);
 
             taskName.setText((String)map.get("taskName"));
             taskType.setText((String)map.get("taskType"));
@@ -61,8 +62,6 @@ public class TaskDetailsActivity extends AppCompatActivity {
             updateTime.setText((String)map.get("updateTime"));
             voiceContent.setText((String)map.get("voiceContent"));
             smsContent.setText((String)map.get("smsContent"));
-
-
 
         }
     };
