@@ -2,24 +2,25 @@ package com.engingplan.womarketing.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.engingplan.womarketing.ui.activity.R;
 import com.engingplan.womarketing.ui.activity.TaskListActivity;
+import com.engingplan.womarketing.util.ConstantsUtil;
 
 
 public class FragmentTask extends Fragment {
-    private TextView tv;
     private int staffId;
 
     public static FragmentTask newInstance(String name) {
+        Log.i(ConstantsUtil.LOG_TAG_FRAGMENT, "实例化framgmet" + name);
         FragmentTask fragment = new FragmentTask();
         return fragment;
     }
@@ -35,18 +36,19 @@ public class FragmentTask extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        //获取staffId，给坤神套传
+        //获取staffId，给拨打功能页面传参
         Bundle bundle = getActivity().getIntent().getExtras();
-        staffId=bundle.getInt("staffId");
-        System.out.println("staffId"+staffId);
+        staffId = bundle.getInt("staffId");
+        Log.i(ConstantsUtil.LOG_TAG_FRAGMENT, "获得staffId=" + staffId);
+
         //4G业务对应任务页面
         ImageView imageFourg = view.findViewById(R.id.imageFourg);
         imageFourg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent it = new Intent(getContext(), TaskListActivity.class);
-                it.putExtra("taskType","1");
-                it.putExtra("staffId",staffId);
+                it.putExtra("staffId", staffId);
+                it.putExtra("taskType", ConstantsUtil.TASK_TYPE_4G);
                 startActivity(it);
             }
         });
@@ -57,8 +59,8 @@ public class FragmentTask extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent it = new Intent(getContext(), TaskListActivity.class);
-                it.putExtra("staffId",staffId);
-                it.putExtra("taskType","2");
+                it.putExtra("staffId", staffId);
+                it.putExtra("taskType", ConstantsUtil.TASK_TYPE_FLOW);
                 startActivity(it);
             }
         });
@@ -69,8 +71,8 @@ public class FragmentTask extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent it = new Intent(getContext(), TaskListActivity.class);
-                it.putExtra("staffId",staffId);
-                it.putExtra("taskType","3");
+                it.putExtra("staffId", staffId);
+                it.putExtra("taskType", ConstantsUtil.TASK_TYPE_BROAD);
                 startActivity(it);
             }
         });
@@ -81,8 +83,8 @@ public class FragmentTask extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent it = new Intent(getContext(), TaskListActivity.class);
-                it.putExtra("staffId",staffId);
-                it.putExtra("taskType","4");
+                it.putExtra("staffId", staffId);
+                it.putExtra("taskType", ConstantsUtil.TASK_TYPE_MIX);
                 startActivity(it);
             }
         });
