@@ -40,22 +40,14 @@ import java.util.Map;
  */
 public final class DialActivity extends AppCompatActivity {
 
+
+    String number;//标记从哪个页面跳转到此页面 1表示任务界面 2表示通话记录页面
     long staffId;//员工ID
-    String number;//标记从哪个页面跳转到此页面 1表示任务界面
 
     long taskId;//任务ID
-
     String dataId;//任务数据ID
     String serialNumber = "";//用户手机号码
     String custInfo = "用户画像";
-
-
-    boolean haveCAll = false;//是否点击拨打按钮打过电话
-    String startTime = "";//通话开始时间
-    String endTime = "";//通话结束时间
-    String resultCode = "-1";//沟通结果，即用户意向 1-同意，2-拒绝，3-有意向，4-未接通 -5其他  -1表示没有进行选择
-    long callTimes = 1;//通话次数
-    String remark;//备注
 
     String voiceContent = "你好，我们是中国联通";
     String smsContent = "你好，我们是中国联通";
@@ -63,6 +55,11 @@ public final class DialActivity extends AppCompatActivity {
     String productId = ""; //推荐产品id
 
     String recordId;//通话记录id
+    String startTime = "";//通话开始时间
+    String endTime = "";//通话结束时间
+    String resultCode = "-1";//沟通结果，即用户意向 1-同意，2-拒绝，3-有意向，4-未接通 -5其他  -1表示没有进行选择
+    long callTimes = 1;//通话次数
+    String remark;//备注
 
     TextView serialNumberView;//用户手机号码显示
 
@@ -78,6 +75,9 @@ public final class DialActivity extends AppCompatActivity {
     View dialSms; //发短信按钮
     View dialComplete;//完成按钮
 
+    boolean haveCAll = false;//是否点击拨打按钮打过电话
+    boolean onclick = true;//标记完成按钮是否可用
+
     DialHttpBL dialHttpBL = new DialHttpBL();//网络请求
 
     @Override
@@ -91,12 +91,12 @@ public final class DialActivity extends AppCompatActivity {
 
         //动态注册广播接收器 接收返回的数据
         IntentFilter intentFilter = new IntentFilter();
-        intentFilter.addAction(ConstantsUtil.ACTION_APP_INNER_BROADCAST);
+        intentFilter.addAction("SELECTTASKDATA");
+        intentFilter.addAction("INSERTCALLRECORD");
+        intentFilter.addAction("UPDATETASKDATA");
         registerReceiver(mReceiver, intentFilter);
 
         //网络请求
-        //networkRequestOne();
-        networkRequestTaskInfo();
         networkRequestTaskData();
 
         //获取页面的控件
@@ -148,10 +148,13 @@ public final class DialActivity extends AppCompatActivity {
         //完成按钮
         dialComplete.setOnClickListener((view) -> {
 
+                    if (onclick == false) {
+                        return;
+                    }
+
                     //获取用户输入的备注
                     remark = remarkContent.getText().toString();
                     /*if ("".equals(remark)) {
-
                         System.out.println("remarkContent======" + remark);
                     } else {
                         System.out.println("remarkContent======" + remark);
@@ -166,48 +169,36 @@ public final class DialActivity extends AppCompatActivity {
                     if (haveCAll == false) {
                         Toast.makeText(this, "您还未拨打电话与用户沟通", Toast.LENGTH_LONG).show();
                     } else {
-
                         //判断是否选择用户意向,若没有选择则提示选择用户意向，若选择则写入数据库
                         if (resultCode == "-1") {  //-1表示未选择
-
                             Toast.makeText(this, "请选择用户订购意向", Toast.LENGTH_LONG).show();
                         } else {
 
                             //获取通话开始结束时间
                             getTime();
 
-                            //在这里插入数据
+                            //插入通话记录
                             insertCallRecord();
 
-                            //若未接通，不修改任务数据，若接通，修改任务数据  修改是否被打状态，添加员工id  更新时间
-                            //如果没有接通，开始时间和结束时间一致
+                            //如果用户没有接通，开始时间和结束时间一致，不修改任务数据
+                            //如果电话接通，修改任务数据（修改是否被打状态，添加员工id，更新时间）
                             if (!endTime.equals(startTime)) {
                                 updateDataInfo();
                             }
 
+                            //修改任务数据成功之后再刷新显示下一条
+
                             //修改通话记录，记录用户意向
                             //updateCallRecord();
-
-                            if ("1".equals(number)) {
-                                //刷新显示下一条数据
-                                networkRequestTaskInfo();
-                                networkRequestTaskData();
-                                initActivity();
-                            }else if ("2".equals(number)){
-                                //有意向的拨打完成，返回有意向列表
-                                finish();
-                            }
-
                         }
                     }
                 }
         );
 
-
     }
 
     /**
-     * 获取上一个页面传递的参数:任务id（task_id）、number
+     * 获取上一个页面传递的参数:任务id（taskId）、number等
      */
     void getPara() {
 
@@ -216,23 +207,13 @@ public final class DialActivity extends AppCompatActivity {
         taskId = bundle.getLong("taskId");
         staffId = bundle.getLong("staffId");
 
-        if ("2".equals(number)) {
+        if ("2".equals(number)) {   //如果从通话记录页面跳转过来，获取任务数据id
             dataId = bundle.getString("dataId");
         }
 
-        //taskId = "301";
-        //number = 1;
         callTimes = Long.parseLong(number);
     }
 
-    /**
-     * 网络请求 请求任务信息
-     */
-    void networkRequestTaskInfo() {
-        Map param = new HashMap<>();
-        param.put("taskId", taskId);
-        dialHttpBL.getTaskInfoAsyn(param, this.getApplicationContext());
-    }
 
     /**
      * 网络请求 请求任务数据
@@ -245,7 +226,7 @@ public final class DialActivity extends AppCompatActivity {
         }
 
         if ("2".equals(number)) {
-            param.put("staffId", 5l);
+            param.put("dataId", dataId);
         }
         dialHttpBL.getTaskDataAsyn(param, this.getApplicationContext(), number);
     }
@@ -259,47 +240,74 @@ public final class DialActivity extends AppCompatActivity {
         @Override
         public void onReceive(Context context, Intent intent) {
 
-            //获取任务数据
-            List<Map<String, String>> list = (List) intent.getExtras().get("list");
-            if (list != null && list.size() > 0) {
-                System.out.println("任务数据list====" + list);
-                System.out.println("任务数据size====" + list.size());
+            switch (intent.getAction()) {
+                case "SELECTTASKDATA":
 
-                Map map = list.get(0);
-                //String isnull = (String) map.get("isnull");
-                //if (isnull == null) {
-                    dataId = (String) map.get("dataId");
-                    serialNumber = (String) map.get("serialNumber");
-                    custInfo = (String) map.get("custInfo");
-                //} else {
-                //    DialActivity.this.finish();
-                //}
-            }else if(list != null){
-                Toast.makeText(DialActivity.this, "该任务已完成", Toast.LENGTH_LONG).show();
+                    //获取任务数据
+                    List<Map<String, String>> list = (List) intent.getExtras().get("list");
+                    if (list != null && list.size() > 0) {
+                        System.out.println("任务数据list====" + list);
+
+                        Map map = list.get(0);
+                        dataId = (String) map.get("dataId");
+                        serialNumber = (String) map.get("serialNumber");
+                        custInfo = (String) map.get("custInfo");
+                        productId = (String) map.get("productId");
+                        productName = (String) map.get("productName");
+                        voiceContent = (String) map.get("voiceContent");
+                        smsContent = (String) map.get("smsContent");
+
+                        //初始化页面，控件实现查询得到的信息
+                        initActivity();
+                    }
+
+                    //若任务已完成，提示，修改完成按钮的状态
+                    if (list == null|| list.size() == 0) {
+                        //Toast.makeText(DialActivity.this, "该任务已完成", Toast.LENGTH_LONG).show();
+
+                        AlertDialog dialog=new AlertDialog.Builder(DialActivity.this)
+                                .setTitle("提示")
+                                .setMessage("当前任务已完成")
+                                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        onclick = false;
+                                    }
+                                })
+                                .create();
+                        dialog.show();
+                    }
+                    break;
+
+                case "INSERTCALLRECORD":
+
+                    //获取插入通话记录的记录id
+                    String recordIds = intent.getExtras().getString("recordId");
+
+                    if (recordIds != null) {
+                        recordId = recordIds;
+                    }
+                    break;
+
+                case "UPDATETASKDATA":
+
+                    //修改任务数据完成以后再取下一条
+                    if ("1".equals(number)) {
+
+                        //刷新显示下一条数据
+                        networkRequestTaskData();
+                        initActivity();
+                    } else if ("2".equals(number)) {
+
+                        //有意向用户的再次拨打完成，返回有意向列表
+                        finish();
+                    }
+                    break;
+
+                default:
+                    break;
             }
 
-            //获取任务信息
-            List<Map<String, String>> infoList = (List) intent.getExtras().get("infoList");
-            if (infoList != null) {
-                System.out.println("任务信息infoList====" + infoList);
-                System.out.println("任务信息infoListinfoListSize===" + infoList.size());
-
-                Map mapinfo = infoList.get(0);
-                productId = (String) mapinfo.get("productId");
-                productName = (String) mapinfo.get("productName");
-                voiceContent = (String) mapinfo.get("voiceContent");
-                smsContent = (String) mapinfo.get("smsContent");
-            }
-
-            //获取插入通话记录的记录id
-            String recordIds = intent.getExtras().getString("recordId");
-            System.out.println("记录recordId===" + recordIds);
-            if (recordIds != null) {
-                recordId = recordIds;
-            }
-
-            //初始化页面，控件实现查询得到的信息
-            initActivity();
         }
     }
 
@@ -308,11 +316,9 @@ public final class DialActivity extends AppCompatActivity {
      */
     void initActivity() {
 
-        //根据任务数据表，获取客户的手机号和客户画像
+        //设置客户的手机号、客户画像和产品id
         serialNumberView.setText(serialNumber);
         custInfoDetail.setText(custInfo);
-
-        //根据任务数据表，获取推荐的产品
         proRecommend.setText(productName);
 
         userIntention.setText("请选择");
@@ -365,7 +371,6 @@ public final class DialActivity extends AppCompatActivity {
         Intent intent = userBL.call(phoneno);
         startTime = userBL.time();
         System.out.println("开始时间" + startTime);
-        Log.d("listenstate", "开始时间" + startTime);
         startActivity(intent);
     }
 
@@ -472,11 +477,11 @@ public final class DialActivity extends AppCompatActivity {
     /**
      * 选择用户意向，点击完成，修改记录
      */
-    void updateCallRecord() {
+    /*void updateCallRecord() {
         Map putparam = new HashMap<>();
         putparam.put("recordId", recordId);
         dialHttpBL.putCallResultAsyn(putparam, DialActivity.this.getApplicationContext());
-    }
+    }*/
 
     /**
      * 完成，修改任务数据，标记拨打状态和员工编号
