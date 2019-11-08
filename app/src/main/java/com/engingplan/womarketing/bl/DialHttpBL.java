@@ -23,11 +23,11 @@ import java.util.Map;
 public class DialHttpBL {
 
     //本机
-    public static String URL="http://10.52.200.149";
-//    public static String URL = "http://192.168.0.102";
+    //public static String URL="http://10.52.200.149";
+    //public static String URL = "http://192.168.0.102";
 
     //服务器
-//    public static String URL="http://119.29.106.248";
+    public static String URL="http://119.29.106.248";
 
     //任务数据表
     //private String url_task_data = "http://10.52.200.150/tblstaffinfo/page";
