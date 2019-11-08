@@ -22,7 +22,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.engingplan.womarketing.bl.OkHttpDemoBL;
 import com.engingplan.womarketing.ui.activity.CallDetailActivity;
 import com.engingplan.womarketing.ui.activity.R;
-import com.engingplan.womarketing.ui.activity.TabLayoutActivity;
+import com.engingplan.womarketing.util.ConstantsUtil;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -32,15 +32,20 @@ import java.util.Map;
 
 public class FragmentPhoneRecord extends Fragment {
 
-    private ListView listview1 = null;
-    private ListView listview2 = null;
-    private int  staffId;
+    //全部通话listview
+    private ListView listViewAll = null;
 
-    LocalBroadcastManager broadcastManager;
+    //意向通话listview
+    private ListView listViewIntent = null;
 
-    SwipeRefreshLayout swipeRefresh;
+    private int staffId;
+
+    LocalBroadcastManager broadcastManager = null;
+
+    SwipeRefreshLayout swipeRefresh = null;
 
     public static FragmentPhoneRecord newInstance(String name) {
+        Log.i(ConstantsUtil.LOG_TAG_FRAGMENT, "实例化framgmet" + name);
         FragmentPhoneRecord fragment = new FragmentPhoneRecord();
         return fragment;
     }
@@ -64,84 +69,74 @@ public class FragmentPhoneRecord extends Fragment {
         tab.addTab(tab.newTabSpec("tab1").setIndicator("全部通话", null).setContent(R.id.tab1));
         tab.addTab(tab.newTabSpec("tab2").setIndicator("意向通话", null).setContent(R.id.tab2));
 
-        listview1 = view.findViewById(R.id.listview1);//获取列表视图
-        listview2 = view.findViewById(R.id.listview2);//获取列表视图
+        listViewAll = view.findViewById(R.id.listview1);//获取列表视图
+        listViewIntent = view.findViewById(R.id.listview2);//获取列表视图
 
-//选择号码，跳转到详情
-        listview2.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        //选择号码，跳转到详情
+        listViewIntent.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> var1, View view, int pos, long l) {
-                Map<String, String> map = (Map) var1.getItemAtPosition(pos);
-                Intent it = new Intent(
-                        getContext(),
-                        CallDetailActivity.class);
+            public void onItemClick(AdapterView<?> adapterView, View view, int pos, long l) {
+                Map<String, String> map = (Map) adapterView.getItemAtPosition(pos);
+                Intent it = new Intent(getContext(), CallDetailActivity.class);
                 it.putExtra("recordId", map.get("recordId"));
                 startActivity(it);
             }
         });
 
-        listview1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        listViewAll.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> var1, View view, int pos, long l) {
-                Map<String, String> map = new HashMap();
+            public void onItemClick(AdapterView<?> adapterView, View view, int pos, long l) {
+                Map<String, String> map = (Map) adapterView.getItemAtPosition(pos);
 //                Map<String,String> map2= new HashMap();
-                map = (Map) var1.getItemAtPosition(pos);
 //                map2.put("createUser",map.get("createUser"));
 
-                Intent it = new Intent(
-                        getContext(),
-                        CallDetailActivity.class);
+                Intent it = new Intent(getContext(), CallDetailActivity.class);
                 it.putExtra("recordId", map.get("recordId"));
                 startActivity(it);
             }
         });
+
         //获取staffId，并给坤神
         Bundle bundle = getActivity().getIntent().getExtras();
-        staffId=bundle.getInt("staffId");
-        System.out.println("staffId:"+staffId);
+        staffId = bundle.getInt("staffId");
+        Log.i(ConstantsUtil.LOG_TAG_FRAGMENT, "staffId:" + staffId);
 
         // 动态注册
         IntentFilter intentFilter = new IntentFilter();
-        intentFilter.addAction("abc");
+        intentFilter.addAction(ConstantsUtil.CALL_RECORD_RECEIVER);
         broadcastManager.registerReceiver(mReceiver, intentFilter);
-
 
         //调逻辑层取后台数据
         OkHttpDemoBL okHttpDemoBL = new OkHttpDemoBL();
 
         //传递参数
         Map param = new HashMap<>();
-        param.put("staffId", staffId+"");
+        param.put("staffId", String.valueOf(staffId));
         okHttpDemoBL.getUserInfoAllAsyn(param, getContext());
     }
 
-    private BroadcastReceiver mReceiver = new DataReceiver();
 
+    private BroadcastReceiver mReceiver = new DataReceiver();
     class DataReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
             List<Map<String, String>> list = (List) intent.getExtras().get("list");
             System.out.println("size=" + list.size());
 
-            SimpleAdapter adapter1 = new SimpleAdapter(getContext(), list, R.layout.activity_record,
+            SimpleAdapter adapterAll = new SimpleAdapter(getContext(), list, R.layout.activity_record,
                     new String[]{"serialNumber", "startTime"}, new int[]{R.id.call_number, R.id.call_time});
 
-            listview1.setAdapter(adapter1);
+            listViewAll.setAdapter(adapterAll);
             //判断
             List<Map<String, String>> list2 = new ArrayList();
-
             for (int i = 0; i < list.size(); i++) {
-
-                if ((list.get(i).get("resultCode") == "2") | (list.get(i).get("resultCode").equals("2"))) {
-
+                if ((list.get(i).get("resultCode").equals("2"))) {
                     list2.add(list.get(i));
                 }
-
             }
-            SimpleAdapter adapter2 = new SimpleAdapter(getContext(), list2, R.layout.activity_record,
+            SimpleAdapter adapterIntent = new SimpleAdapter(getContext(), list2, R.layout.activity_record,
                     new String[]{"serialNumber", "startTime"}, new int[]{R.id.call_number, R.id.call_time});
-
-            listview2.setAdapter(adapter2);
+            listViewIntent.setAdapter(adapterIntent);
         }
     }
 

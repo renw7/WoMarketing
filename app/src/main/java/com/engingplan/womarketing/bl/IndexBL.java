@@ -21,10 +21,15 @@ import okhttp3.ResponseBody;
 public class IndexBL  {
 
      private String url = "http://119.29.106.248/tblcallrecord/statistics";
-     private  int num;
+     private  int todayFinishNum ;
+     private  int todayIntentNum ;
+     private  int todayIncompNum ;
      private String ACTION_APP_BROADCAST = "com.engingplan.womarketing.fragment";
-
-
+     private int staffId ;
+     //接受传来的staffId
+     public IndexBL(int staffId){
+         this.staffId = staffId;
+     }
     /**
      * 这个方法用来从后台调取数据
      */
@@ -32,7 +37,7 @@ public class IndexBL  {
     public void setDataFirst(LocalBroadcastManager broadcastManager) {
 
 
-        String url1 = url + "?staffId=1001";
+        String url1 = url + "?staffId=" + staffId;
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder().url(url1).get().build();
         Call call = client.newCall(request);
@@ -58,17 +63,21 @@ public class IndexBL  {
                 try {
                     jsonArray = jsonObject.getJSONObject("data").getJSONArray("records");
                     JSONObject o = (JSONObject)jsonArray.get(0);
-                    num = (Integer) o.get("num");
+                    todayFinishNum = (Integer) o.get("finishNum");
+                    todayIntentNum = (Integer) o.get("intentNum");
+                    todayIncompNum = (Integer) o.get("incompNum");
 
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
 
-                System.out.println("取出的数值是：" + num);
+                System.out.println("取出的数值是：" + todayFinishNum);
 
                 Intent intent = new Intent();
                 intent.setAction(ACTION_APP_BROADCAST);
-                intent.putExtra("num", num);
+                intent.putExtra("finishNum", todayFinishNum);
+                intent.putExtra("intentNum",todayIntentNum);
+                intent.putExtra("incompNum",todayIncompNum);
                 broadcastManager.sendBroadcast(intent);
             }
         });
