@@ -14,6 +14,8 @@ public interface ConstantsUtil {
 
     String CALL_RECORD_INFO_RECEIVER = "com.engingplan.womarketing.fragment.CallDetailActivity.BroadcastReceiver";
 
+    String LOGIN_ACTIVITY_RECEIVER = "com.engingplan.womarketing.fragment.LoginActivity.BroadcastReceiver";
+
 
     //==============任务类型================*/
     //4G
@@ -36,8 +38,11 @@ public interface ConstantsUtil {
     //activity日志
     String LOG_TAG_ACTIVITY = "market.activity";
 
+    //BI层日志
     String LOG_TAG_BL = "market.bl";
 
+    //下载工具类日志
+    String LOG_TAG_DOWN_UTIL = "market.uitl.download";
 
     /*==============拨打次数================*/
     //首次拨打
@@ -46,10 +51,21 @@ public interface ConstantsUtil {
     //二次回拨
     String CALL_TIMES_SECOND = "2";
 
+    /*==============下载状态================*/
+    //开始
+    int flag_start = 0;
+
+    //正在下载
+    int flag_doing = 1;
+
+    //下载完成
+    int flag_finish = 2;
+
 
     /*==============服务地址url================*/
     //腾讯云服务器ip
     String URL_HOME = "http://119.29.106.248";
+//    String URL_HOME = "http://10.52.200.150";
 
     //根据任务类型获取任务明细
     String URL_TASK_LIST = URL_HOME + "/tbltaskinfo/postInfoPage1";
@@ -65,6 +81,12 @@ public interface ConstantsUtil {
 
     //通话详情
     String URL_CALL_REROD_INFO = URL_HOME + "/tblcallrecord/info";
+
+    //考核下载
+    String URL_WORK_REPORT = URL_HOME + "/tblworkreport/page";
+
+    //登录验证
+    String URL_CHECK_USER = URL_HOME + "/tblstaffinfo/checkuser";
 
 
 }

@@ -16,9 +16,7 @@ import com.engingplan.womarketing.common.ViewPagerAdapter;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class HomeActivity extends AppCompatActivity {
 

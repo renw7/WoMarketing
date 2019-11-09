@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.engingplan.womarketing.util.ConstantsUtil;
 import com.engingplan.womarketing.util.OkHttpClientUtils;
 
 import org.json.JSONArray;
@@ -16,17 +17,14 @@ import java.util.Map;
 
 public class OkhttpLoginBL {
 
-    //云服务器地址，查询员工信息表单
-    private String path = "http://119.29.106.248:80/tblstaffinfo/checkuser";
-
-    public void loginUser(Map param, String path, Context context) {
-        OkHttpClientUtils.getInstance().doPostAsyn(path, param, new OkHttpClientUtils.NetWorkCallBack() {
+    public void loginUser(Map param, Context context) {
+        OkHttpClientUtils.getInstance().doPostAsyn(ConstantsUtil.URL_CHECK_USER, param, new OkHttpClientUtils.NetWorkCallBack() {
             @Override
             public void onSuccess(String response) {
                 HashMap map = json2List(response);
 
                 //下面通过异常方式返回给ui层
-                Intent intent = new Intent("LOGIN_ACTIVITY_RECEIVER");
+                Intent intent = new Intent(ConstantsUtil.LOGIN_ACTIVITY_RECEIVER);
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("map", map);
                 intent.putExtras(bundle);
@@ -35,7 +33,7 @@ public class OkhttpLoginBL {
             }
             @Override
             public void onFail(String response) {
-                System.out.println(response);
+                Log.e(ConstantsUtil.LOG_TAG_BL, "response=" + response);
             }
         });
 
@@ -52,7 +50,6 @@ public class OkhttpLoginBL {
             if ("200".equals(code)) {
 
                 map = new HashMap();
-                String TAG = "";
                 JSONArray jsonArray = root.getJSONObject("data").getJSONArray("records");
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject record = jsonArray.getJSONObject(i);
@@ -61,7 +58,7 @@ public class OkhttpLoginBL {
                     map.put("userName", record.getString("staffUsername"));
                     map.put("passWord", record.getString("staffPwd"));
                     map.put("staffId", record.getInt("staffId"));
-                    Log.i(TAG, "map");
+                    Log.i(ConstantsUtil.LOG_TAG_BL, "map");
                 }
             }
         } catch (Exception e) {

@@ -19,18 +19,18 @@ import android.widget.EditText;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 import com.engingplan.womarketing.bl.OkhttpLoginBL;
+import com.engingplan.womarketing.util.ConstantsUtil;
+
 import java.util.HashMap;
 import java.util.Map;
 
 
 public class LoginActivity extends AppCompatActivity {
 
-    private static String TAG = "LoginActivity";
     private EditText staffUsername;
     private EditText staffPwd;
     private Button buttonLogin;
     private ToggleButton toggleButton;
-    private String path = "http://119.29.106.248:80/tblstaffinfo/checkuser";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,9 +41,9 @@ public class LoginActivity extends AppCompatActivity {
         staffPwd = (EditText) findViewById(R.id.et_login_password);
 
         //动态注册广播接收器
-        System.out.println("registerReceiver");
+        Log.i(ConstantsUtil.LOG_TAG_ACTIVITY,"registerReceiver");
         IntentFilter intentFilter = new IntentFilter();
-        intentFilter.addAction("LOGIN_ACTIVITY_RECEIVER");
+        intentFilter.addAction(ConstantsUtil.LOGIN_ACTIVITY_RECEIVER);
         registerReceiver(myReceiver, intentFilter);
 
         toggleButton = (ToggleButton) findViewById(R.id.pwd_show);
@@ -91,7 +91,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 //调用OkhttpLoginBL
                 OkhttpLoginBL okhttpLoginBL = new OkhttpLoginBL();
-                okhttpLoginBL.loginUser(param, path, LoginActivity.this);
+                okhttpLoginBL.loginUser(param, LoginActivity.this);
 
             }
         });
@@ -100,9 +100,7 @@ public class LoginActivity extends AppCompatActivity {
     private BroadcastReceiver myReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-
             HashMap map = (HashMap<String, String>) intent.getExtras().get("map");
-
             if (map != null && !map.isEmpty()) {
 
                 //从服务器返回的数据中取出指定参数赋值给相应变量
@@ -111,7 +109,7 @@ public class LoginActivity extends AppCompatActivity {
                 String userName = (String) map.get("staffUsername");
                 String passWord = (String) map.get("staffPwd");
                 Integer staffId = (Integer) map.get("staffId");
-                Log.i(TAG,"登录成功");
+                Log.i(ConstantsUtil.LOG_TAG_ACTIVITY,"登录成功");
 
                 //传参，跳转页面
                 Intent it = new Intent(LoginActivity.this, HomeActivity.class);
@@ -127,7 +125,7 @@ public class LoginActivity extends AppCompatActivity {
                 staffUsername.setText("");
                 staffPwd.setText("");
                 Toast.makeText(LoginActivity.this, "用户名或密码错误，请重新输入！", Toast.LENGTH_SHORT).show();
-                Log.i(TAG,"登录失败");
+                Log.i(ConstantsUtil.LOG_TAG_ACTIVITY,"登录失败");
             }
         }
     };
