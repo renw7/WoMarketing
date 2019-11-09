@@ -23,6 +23,7 @@ public class CallDetailActivity extends Activity {
     TextView detailEndTime = null;
     TextView detailResult = null;
     TextView remark = null;
+    TextView detailRecall = null;
 
     String taskId = null;
     String serialNumber = null;
@@ -39,10 +40,18 @@ public class CallDetailActivity extends Activity {
         detailEndTime = findViewById(R.id.detail_endtime);
         detailResult = findViewById(R.id.detail_result);
         remark = findViewById(R.id.detail_remark);
+        detailRecall = findViewById(R.id.detail_recall);
 
         Bundle bundle = this.getIntent().getExtras();
         String recordId = bundle.getString("recordId");
+        String tabSource = bundle.getString("tabSource");
+
         Log.i(ConstantsUtil.LOG_TAG_ACTIVITY, "recordId=" + recordId);
+
+        //1代表从全部通话页面跳转来，隐藏布局中的拨打控件
+        if ("1".equals(tabSource))
+            detailRecall.setVisibility(View.GONE);
+
 
         //返回键
         Button btn1 = findViewById(R.id.detail_return);

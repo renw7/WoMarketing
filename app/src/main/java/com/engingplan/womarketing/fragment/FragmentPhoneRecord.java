@@ -42,7 +42,9 @@ public class FragmentPhoneRecord extends Fragment {
 
     LocalBroadcastManager broadcastManager = null;
 
-    SwipeRefreshLayout swipeRefresh = null;
+    SwipeRefreshLayout swipeRefresh1 = null;
+
+    SwipeRefreshLayout swipeRefresh2 = null;
 
     public static FragmentPhoneRecord newInstance(String name) {
         Log.i(ConstantsUtil.LOG_TAG_FRAGMENT, "实例化framgmet" + name);
@@ -79,6 +81,7 @@ public class FragmentPhoneRecord extends Fragment {
                 Map<String, String> map = (Map) adapterView.getItemAtPosition(pos);
                 Intent it = new Intent(getContext(), CallDetailActivity.class);
                 it.putExtra("recordId", map.get("recordId"));
+                it.putExtra("tabSource", "2");
                 startActivity(it);
             }
         });
@@ -92,6 +95,7 @@ public class FragmentPhoneRecord extends Fragment {
 
                 Intent it = new Intent(getContext(), CallDetailActivity.class);
                 it.putExtra("recordId", map.get("recordId"));
+                it.putExtra("tabSource", "1");
                 startActivity(it);
             }
         });
@@ -106,6 +110,33 @@ public class FragmentPhoneRecord extends Fragment {
         intentFilter.addAction(ConstantsUtil.CALL_RECORD_RECEIVER);
         broadcastManager.registerReceiver(mReceiver, intentFilter);
 
+
+        //实现页面下拉刷新 全部通话
+        swipeRefresh1 = view.findViewById(R.id.swipeRefresh1);
+        swipeRefresh1.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                loadData();
+                swipeRefresh1.setRefreshing(false);
+            }
+        });
+
+        //实现页面下拉刷新 意向通话
+        swipeRefresh2 = view.findViewById(R.id.swipeRefresh2);
+        swipeRefresh2.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                loadData();
+                swipeRefresh2.setRefreshing(false);
+            }
+        });
+
+        //onViewCreated初始化fragment时候调用后台加载listview数据
+        loadData();
+    }
+
+
+    private void loadData(){
         //调逻辑层取后台数据
         OkHttpDemoBL okHttpDemoBL = new OkHttpDemoBL();
 
@@ -114,6 +145,7 @@ public class FragmentPhoneRecord extends Fragment {
         param.put("staffId", String.valueOf(staffId));
         okHttpDemoBL.getUserInfoAllAsyn(param, getContext());
     }
+
 
 
     private BroadcastReceiver mReceiver = new DataReceiver();
