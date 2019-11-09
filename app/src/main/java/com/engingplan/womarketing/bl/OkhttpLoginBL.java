@@ -4,18 +4,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-
 import com.engingplan.womarketing.util.OkHttpClientUtils;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
-
 import java.util.HashMap;
 import java.util.Map;
 
-
 public class OkhttpLoginBL {
-
     //云服务器地址，查询员工信息表单
     private String path = "http://119.29.106.248:80/tblstaffinfo/checkuser";
 
@@ -23,14 +18,13 @@ public class OkhttpLoginBL {
         OkHttpClientUtils.getInstance().doPostAsyn(path, param, new OkHttpClientUtils.NetWorkCallBack() {
             @Override
             public void onSuccess(String response) {
-                HashMap map = json2List(response);
 
-                //下面通过异常方式返回给ui层
+                HashMap map = json2List(response);
+                //隐式意图发送广播给ui层
                 Intent intent = new Intent("LOGIN_ACTIVITY_RECEIVER");
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("map", map);
                 intent.putExtras(bundle);
-                //向广播接收器传递数据
                 context.sendBroadcast(intent);
             }
             @Override
@@ -50,7 +44,7 @@ public class OkhttpLoginBL {
             String code = root.getString("code");
 
             if ("200".equals(code)) {
-
+                //json字符串解码，将数据放到map中
                 map = new HashMap();
                 String TAG = "";
                 JSONArray jsonArray = root.getJSONObject("data").getJSONArray("records");
