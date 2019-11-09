@@ -81,6 +81,7 @@ public class FragmentPhoneRecord extends Fragment {
                 Map<String, String> map = (Map) adapterView.getItemAtPosition(pos);
                 Intent it = new Intent(getContext(), CallDetailActivity.class);
                 it.putExtra("recordId", map.get("recordId"));
+                it.putExtra("tabSource", "2");
                 startActivity(it);
             }
         });
@@ -94,6 +95,7 @@ public class FragmentPhoneRecord extends Fragment {
 
                 Intent it = new Intent(getContext(), CallDetailActivity.class);
                 it.putExtra("recordId", map.get("recordId"));
+                it.putExtra("tabSource", "1");
                 startActivity(it);
             }
         });
