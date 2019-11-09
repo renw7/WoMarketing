@@ -4,10 +4,12 @@ package com.engingplan.womarketing.bl;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 
 
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
+import com.engingplan.womarketing.util.ConstantsUtil;
 import com.engingplan.womarketing.util.OkHttpClientUtils;
 
 import org.json.JSONArray;
@@ -26,9 +28,7 @@ import java.util.Map;
 public class OkHttpDemoBL {
 
     //云服务器地址  查询listview表单
-    private String url = "http://119.29.106.248/tblcallrecord/page";
-
-
+//    private String url = "http://119.29.106.248/tblcallrecord/page";
     //本机测试地址
 //    private String url = "http://10.52.200.150/tbluserinfo/page";
 
@@ -37,13 +37,13 @@ public class OkHttpDemoBL {
      * @param param
      */
     public void getUserInfoAllAsyn(Map param, Context context){
-        OkHttpClientUtils.getInstance().doGetAsyn(url, param,new OkHttpClientUtils.NetWorkCallBack(){
+        OkHttpClientUtils.getInstance().doGetAsyn(ConstantsUtil.URL_CALL_REROD_LIST, param, new OkHttpClientUtils.NetWorkCallBack(){
             @Override
             public void onSuccess(String response) {
                 ArrayList<Map> list = json2List(response);
 
                 //下面通过异常方式返回给ui层
-                Intent intent = new Intent("abc");
+                Intent intent = new Intent(ConstantsUtil.CALL_RECORD_RECEIVER);
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("list", list);
                 intent.putExtras(bundle);       //向广播接收器传递数据
@@ -52,7 +52,7 @@ public class OkHttpDemoBL {
 
             @Override
             public void onFail(String response) {
-                System.out.println(response);
+                Log.e(ConstantsUtil.LOG_TAG_BL, "response=" + response);
             }
         });
 
@@ -61,7 +61,6 @@ public class OkHttpDemoBL {
 
     private ArrayList<Map> json2List(String result){
         ArrayList<Map> recordList = new ArrayList<>();
-
         try {
             JSONObject root = new JSONObject(result);
             String code = root.getString("code");
@@ -99,38 +98,35 @@ public class OkHttpDemoBL {
 
         } catch (Exception e) {
             e.printStackTrace();
+            Log.e(ConstantsUtil.LOG_TAG_BL, "e=" + e.getMessage());
         } finally {
             return recordList;
         }
     }
-    public void getUserInfoAllAsyn2(Map param, String url2, Context context){
-        OkHttpClientUtils.getInstance().doGetAsyn(url2, param,new OkHttpClientUtils.NetWorkCallBack(){
+
+
+
+    public void getUserInfoAllAsyn2(Map param, Context context){
+        OkHttpClientUtils.getInstance().doGetAsyn(ConstantsUtil.URL_CALL_REROD_INFO, param, new OkHttpClientUtils.NetWorkCallBack(){
             @Override
             public void onSuccess(String response) {
                 ArrayList<Map> list = json2List(response);
 
-
                 //下面通过异常方式返回给ui层
-                Intent intent = new Intent("det");
+                Intent intent = new Intent(ConstantsUtil.CALL_RECORD_INFO_RECEIVER);
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("list", list);
                 intent.putExtras(bundle);       //向广播接收器传递数据
-               context.sendBroadcast(intent);
+                context.sendBroadcast(intent);
             }
 
             @Override
             public void onFail(String response) {
-                System.out.println(response);
+                Log.e(ConstantsUtil.LOG_TAG_BL, "response=" + response);
             }
         });
 
     }
-
-
-
-
-
-
 
 
 }

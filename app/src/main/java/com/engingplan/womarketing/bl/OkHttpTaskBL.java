@@ -3,8 +3,10 @@ package com.engingplan.womarketing.bl;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 
 
+import com.engingplan.womarketing.util.ConstantsUtil;
 import com.engingplan.womarketing.util.OkHttpClientUtils;
 
 import org.json.JSONArray;
@@ -15,13 +17,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class OkHttpTaskBL {
-    //云服务器地址
-    private String url1 = "http://119.29.106.248/tbltaskinfo/postInfoPage1";
-
-    private String url2 = "http://119.29.106.248/tbltaskinfo/postInfoPage2";
-
-    private String taskStatus;
-
 
     /**
      * TASKLISTACTIVITY异步http调用
@@ -30,13 +25,13 @@ public class OkHttpTaskBL {
      */
     public void tasklistPostUserInfoAllAsyn(Map param, Context context) {
         //无需再用变量接一下param,直接传递就可以。
-        OkHttpClientUtils.getInstance().doPostAsyn(url1, param, new OkHttpClientUtils.NetWorkCallBack() {
+        OkHttpClientUtils.getInstance().doPostAsyn(ConstantsUtil.URL_TASK_LIST, param, new OkHttpClientUtils.NetWorkCallBack() {
             @Override
             //返回结果是一个字符串类型的response
             public void onSuccess(String response) {
                 ArrayList<Map> list = jsonList(response);
                 //下面通过异常方式返回给ui层
-                Intent intent = new Intent("TASK_LIST_ACTIVITY_RECEIVER");
+                Intent intent = new Intent(ConstantsUtil.TASK_LIST_ACTIVITY_RECEIVER);
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("list", list);
                 intent.putExtras(bundle);       //向广播接收器传递数据
@@ -45,7 +40,7 @@ public class OkHttpTaskBL {
 
             @Override
             public void onFail(String response) {
-                System.out.println(response);
+                Log.e(ConstantsUtil.LOG_TAG_BL, "response=" + response);
             }
         });
 
@@ -58,13 +53,13 @@ public class OkHttpTaskBL {
      */
     public void taskdetailPostUserInfoAllAsyn(Map param, Context context) {
         //无需再用变量接一下param,直接传递就可以。
-        OkHttpClientUtils.getInstance().doPostAsyn(url2, param, new OkHttpClientUtils.NetWorkCallBack() {
+        OkHttpClientUtils.getInstance().doPostAsyn(ConstantsUtil.URL_TASK_DETAIL, param, new OkHttpClientUtils.NetWorkCallBack() {
             @Override
             //返回结果是一个字符串类型的response
             public void onSuccess(String response) {
                 HashMap map = jsonMap(response);
                 //下面通过异常方式返回给ui层
-                Intent intent = new Intent("TASK_DETAIL_ACTIVITY_RECEIVER");
+                Intent intent = new Intent(ConstantsUtil.TASK_DETAIL_ACTIVITY_RECEIVER);
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("map", map);
                 intent.putExtras(bundle);       //向广播接收器传递数据
@@ -73,7 +68,7 @@ public class OkHttpTaskBL {
 
             @Override
             public void onFail(String response) {
-                System.out.println(response);
+                Log.e(ConstantsUtil.LOG_TAG_BL, "response=" + response);
             }
         });
 
@@ -81,7 +76,6 @@ public class OkHttpTaskBL {
 
     private ArrayList<Map> jsonList(String result) {
         ArrayList<Map> recordList = new ArrayList<>();
-
         try {
             JSONObject jsonObject = new JSONObject(result);
             String code = jsonObject.getString("code");
@@ -93,7 +87,7 @@ public class OkHttpTaskBL {
                     Map map = new HashMap();
                     //放入taskName键值对
                     map.put("taskName", record.getString("taskName"));
-                    taskStatus = record.getString("taskStatus");
+                    String taskStatus = record.getString("taskStatus");
                     //数值转换后，放入taskStatus键值对
                     if (taskStatus.equals("5")) {
                         taskStatus = "未完成";
@@ -111,13 +105,13 @@ public class OkHttpTaskBL {
 
         } catch (Exception e) {
             e.printStackTrace();
+            Log.e(ConstantsUtil.LOG_TAG_BL, "e=" + e.getMessage());
         } finally {
             return recordList;
         }
     }
 
     private HashMap jsonMap(String result) {
-
         HashMap map = new HashMap();
         try {
             JSONObject jsonObject = new JSONObject(result);
@@ -140,6 +134,7 @@ public class OkHttpTaskBL {
 
         } catch (Exception e) {
             e.printStackTrace();
+            Log.e(ConstantsUtil.LOG_TAG_BL, "e=" + e.getMessage());
         } finally {
             return map;
         }

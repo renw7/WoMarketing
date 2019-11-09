@@ -15,9 +15,11 @@
 
     <string name="task_type2">2</string>
     <!-- 拨打界面 -->
+    <string name="dial_default_number">10010</string>
     <string name="dial_title">拨打电话</string>
     <string name="dial_cust_info_btn">用户画像</string>
     <string name="dial_voice_content_btn">话术</string>
+    <string name="dial_cust_info_content">你好，我们是中国联通</string>
     <string name="dial_pro_recommend">推荐产品</string>
     <string name="dial_pro_recommend_detail">冰激凌</string>
     <string name="dial_pro_intention">订购意向</string>
@@ -35,5 +37,23 @@
     <string name="endtime">通话结束时间：</string>
     <string name="result">沟通结果：</string>
     <string name="remark">备注：</string>
+
+
+    <!-- 任务分类 -->
+    <string name="task_type_4g">4G套餐</string>
+    <string name="task_type_flow">流量包</string>
+    <string name="task_type_broad">宽带套餐</string>
+    <string name="task_type_mix">融合套餐</string>
+
+
+    <!-- 我的页面 -->
+    <string name="my_update_pwd">修改密码</string>
+    <string name="my_about">关于</string>
+    <string name="my_exit">退出登录</string>
+    <string name="my_help">帮助</string>
+    <string name="my_exit_confirm">是否退出登录？</string>
+    <string name="my_cancel">取消</string>
+    <string name="my_confirm">确定</string>
+
 
 </resources>

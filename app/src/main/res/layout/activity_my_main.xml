@@ -23,7 +23,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:text="工号:0886666"
+            android:text=""
             android:textSize="20sp" />
 
         <ImageView
@@ -52,7 +52,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:text="修改密码"
+            android:text="@string/my_update_pwd"
             />
 
         <ImageView
@@ -84,7 +84,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:text="帮助"
+            android:text="@string/my_help"
             />
 
         <ImageView
@@ -113,7 +113,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:text="关于"
+            android:text="@string/my_about"
             />
 
         <ImageView
@@ -143,7 +143,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center|center_vertical"
-            android:text="退出登录"
+            android:text="@string/my_exit"
             />
 
     </FrameLayout>

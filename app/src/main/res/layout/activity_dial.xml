@@ -21,7 +21,7 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="30dp"
         android:layout_marginBottom="20dp"
-        android:text="11111111111"
+        android:text="@string/dial_default_number"
         android:textSize="24sp" />
 
     <LinearLayout
@@ -58,7 +58,6 @@
 
     <TextView
         android:id="@+id/cust_info_detail"
-
         android:layout_width="wrap_content"
         android:layout_height="172dp"
         android:layout_gravity="center"
@@ -68,8 +67,11 @@
         android:layout_marginBottom="20dp"
         android:gravity="center_vertical"
         android:lineSpacingExtra="5sp"
-        android:text="这是用户画像\n这是用户画像这是用户画像这是用户画像这是用户画像这是用户画像这是用户画像这是用户画像这是用户画像"
-        android:textSize="18sp" />
+        android:text="@string/dial_cust_info_content"
+        android:textSize="18sp"
+
+        android:scrollbars = "vertical"/>
+
 
     <!-- 产品推荐 -->
     <LinearLayout
