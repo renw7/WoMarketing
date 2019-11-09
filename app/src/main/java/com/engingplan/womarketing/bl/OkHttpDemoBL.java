@@ -42,7 +42,6 @@ public class OkHttpDemoBL {
             public void onSuccess(String response) {
                 ArrayList<Map> list = json2List(response);
 
-
                 //下面通过异常方式返回给ui层
                 Intent intent = new Intent("abc");
                 Bundle bundle = new Bundle();
