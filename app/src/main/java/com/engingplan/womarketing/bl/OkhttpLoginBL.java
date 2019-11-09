@@ -48,7 +48,7 @@ public class OkhttpLoginBL {
             String code = root.getString("code");
 
             if ("200".equals(code)) {
-
+                //json字符串解码，将数据放到map中
                 map = new HashMap();
                 JSONArray jsonArray = root.getJSONObject("data").getJSONArray("records");
                 for (int i = 0; i < jsonArray.length(); i++) {

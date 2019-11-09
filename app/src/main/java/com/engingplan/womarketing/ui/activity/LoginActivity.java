@@ -129,5 +129,12 @@ public class LoginActivity extends AppCompatActivity {
             }
         }
     };
+
+    //动态注销广播接收器
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(myReceiver);
+    }
 }
 
