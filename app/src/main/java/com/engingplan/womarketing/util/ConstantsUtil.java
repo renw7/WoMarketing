@@ -77,7 +77,7 @@ public interface ConstantsUtil {
     String URL_UPDATE_PWD = URL_HOME + "/tblstaffinfo/updatePwd";
 
     //通话信息
-    String URL_CALL_REROD_LIST = URL_HOME + "tblcallrecord/page";
+    String URL_CALL_REROD_LIST = URL_HOME + "/tblcallrecord/page";
 
     //通话详情
     String URL_CALL_REROD_INFO = URL_HOME + "/tblcallrecord/info";
