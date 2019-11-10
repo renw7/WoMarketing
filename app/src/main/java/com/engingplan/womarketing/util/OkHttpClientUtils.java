@@ -40,7 +40,6 @@ public final class OkHttpClientUtils {
         initOkHttp();
     }
 
-
     private static OkHttpClientUtils clientUtils;
 
     public static OkHttpClientUtils getInstance() {
