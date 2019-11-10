@@ -12,7 +12,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.engingplan.womarketing.ui.activity.R;
+import com.engingplan.womarketing.ui.R;
 
 
 public class ConfirmDialog extends Dialog {

@@ -13,7 +13,6 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.provider.CallLog;
 import android.text.method.ScrollingMovementMethod;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -25,7 +24,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.engingplan.womarketing.bl.DialBL;
 import com.engingplan.womarketing.bl.DialHttpBL;
-import com.engingplan.womarketing.util.ConstantsUtil;
+import com.engingplan.womarketing.ui.R;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

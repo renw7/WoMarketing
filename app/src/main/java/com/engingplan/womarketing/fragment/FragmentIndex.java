@@ -17,7 +17,7 @@ import androidx.fragment.app.Fragment;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.engingplan.womarketing.bl.IndexBL;
-import com.engingplan.womarketing.ui.activity.R;
+import com.engingplan.womarketing.ui.R;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;

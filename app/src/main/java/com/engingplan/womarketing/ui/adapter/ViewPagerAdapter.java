@@ -1,4 +1,4 @@
-package com.engingplan.womarketing.common;
+package com.engingplan.womarketing.ui.adapter;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;

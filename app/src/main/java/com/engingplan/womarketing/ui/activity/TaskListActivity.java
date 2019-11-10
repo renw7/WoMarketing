@@ -7,21 +7,20 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-import androidx.viewpager.widget.ViewPager;
-
-
 import com.engingplan.womarketing.bl.OkHttpTaskBL;
-import com.engingplan.womarketing.common.ViewPagerAdapter;
+import com.engingplan.womarketing.ui.R;
 import com.engingplan.womarketing.util.ConstantsUtil;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -35,11 +34,102 @@ public class TaskListActivity extends Activity {
     private HashMap<String,String> map;
     private List<Map<String, String>> list;
     private SwipeRefreshLayout swipeRefresh;
+    GestureDetector gestureDetector;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tasklist);
+
+
+        //2、实例化手势管理的对象,用于管理屏幕监听事件onTouchEvent(event)传递过来的手势动作
+         gestureDetector = new GestureDetector(this, new GestureDetector.SimpleOnGestureListener(){
+             @Override
+             public boolean onDown(MotionEvent e) {
+                 System.out.println("onDown");
+
+                 return false;
+             }
+
+             @Override
+             public void onShowPress(MotionEvent e) {
+                 System.out.println("onShowPress");
+             }
+
+             @Override
+             public boolean onSingleTapUp(MotionEvent e) {
+                 System.out.println("onSingleTapUp");
+                 return false;
+             }
+
+             @Override
+             public boolean onScroll(MotionEvent e1, MotionEvent e2,float distanceX, float distanceY) {
+                 System.out.println("onScroll");
+                 return false;
+             }
+
+             @Override
+             public void onLongPress(MotionEvent e) {
+                 System.out.println("onLongPress");
+
+             }
+
+
+            @Override
+            public boolean onFling(MotionEvent e1, MotionEvent e2,
+                                   float velocityX, float velocityY) {
+                //监听手势的移动 到底是从左往右还是从右往左
+                //e1:手指按下的移动事件.
+
+                float e1X = e1.getRawX();
+                float e1Y = e1.getRawY();
+                // e2 : 手指移动的动作事件.
+                float e2X = e2.getRawX();
+                float e2Y = e2.getRawY();
+
+                System.out.println("e1X:" + e1X + " e1Y:"+e1Y);
+                System.out.println("e2X:" + e2X + " e2Y:"+e2Y);
+                // 跳转判断方式一:手指滑动的X轴方向的如果小于50，无效果，单位是px
+                if (Math.abs(e2X - e1X) < 50) {
+                    Toast.makeText(getApplicationContext(),
+                            "左右滑动小于50px", Toast.LENGTH_SHORT).show();
+                    return false;
+                    // 跳转判断方式二:比较e2,e1得到的Y值，获取两数绝对值判断是否上下滑动
+                } else if (Math.abs(e2Y - e1Y) > 200) {
+                    Toast.makeText(getApplicationContext(), "手势上下滑动", Toast.LENGTH_SHORT)
+                            .show();
+                    return false;
+                    // 比较e2,e1得到的Y值，获取两数绝对值判断是否左右滑动
+                } else if (Math.abs(e2X - e1X) > 50) {
+                    // 判断是否左滑
+                    if ((e2X - e1X) > 0) {
+                        Toast.makeText(getApplicationContext(), "右滑", Toast.LENGTH_SHORT)
+                                .show();
+
+                        // 判断是否右滑
+                    } else {
+                        Toast.makeText(getApplicationContext(), "左滑", Toast.LENGTH_SHORT)
+                                .show();
+
+                    }
+                    return true;
+                }
+
+                //跳转判断方式三: 直接进行左右比值判断 稍微一有滑动就发生跳转
+                if(e1.getX()-e2.getX()>0){
+
+                    //子类实现跳转的方法
+//                    showNextPage();
+                }
+                if(e1.getX()-e2.getX()<0){
+
+                    //子类实现跳转的方法
+//                    showPrePage();
+                }
+                return super.onFling(e1, e2, velocityX, velocityY);
+            }
+        });
+
 
         listView = findViewById(R.id.listView);
         map = new HashMap();
@@ -99,6 +189,16 @@ public class TaskListActivity extends Activity {
         });
     }
 
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        //3、通过手势处理类,接收多种类型的事件,用作处理
+        System.out.println("onTouchEvent");
+        gestureDetector.onTouchEvent(event);
+        return super.onTouchEvent(event);
+    }
+
+
+
 
     private void loadData(){
         //实例化bl对象，调用bl对象的getUserInfoAllAsyn方法。
@@ -139,4 +239,36 @@ public class TaskListActivity extends Activity {
         //在registerReceiver(myReceiver, intentFilter)前+getApplicationContext()，注意在这加下面注销的时候也要加，否则报当前receiver没有被注册。
         getApplicationContext().unregisterReceiver(myReceiver);     //注销广播接收器
     }
+
+
+//    @Override
+//    public boolean onTouchEvent(MotionEvent event) {
+//        x1 = event.getX();
+//        y1 = event.getY();
+//        System.out.println("x1="+x1+" y1="+y1);
+//        //继承了Activity的onTouchEvent方法，直接监听点击事件
+//        if(event.getAction() == MotionEvent.ACTION_DOWN) {
+//            //当手指按下的时候
+//            x1 = event.getX();
+//            y1 = event.getY();
+//        }
+//        if(event.getAction() == MotionEvent.ACTION_UP) {
+//            //当手指离开的时候
+//            x2 = event.getX();
+//            y2 = event.getY();
+//            System.out.println("x1="+x1+" y1="+y1);
+//            System.out.println("x2="+x2+" y2="+y2);
+//
+//            if(y1 - y2 > 50) {
+//                Toast.makeText(this, "向上滑", Toast.LENGTH_SHORT).show();
+//            } else if(y2 - y1 > 50) {
+//                Toast.makeText(this, "向下滑", Toast.LENGTH_SHORT).show();
+//            } else if(x1 - x2 > 50) {
+//                Toast.makeText(this, "向左滑", Toast.LENGTH_SHORT).show();
+//            } else if(x2 - x1 > 50) {
+//                Toast.makeText(this, "向右滑", Toast.LENGTH_SHORT).show();
+//            }
+//        }
+//        return super.onTouchEvent(event);
+//    }
 }

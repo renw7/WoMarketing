@@ -41,7 +41,7 @@ public class TabLayoutBL {
      * @param param
      */
     public void getUserInfoAllAsyn(Map param, Context context){
-        OkHttpClientUtils.getInstance().doGetAsyn(url, param, new OkHttpClientUtils.NetWorkCallBack(){
+        OkHttpClientUtils.getInstance().doGetAsyn(ConstantsUtil.URL_CALL_REROD_LIST, param, new OkHttpClientUtils.NetWorkCallBack(){
             @Override
             public void onSuccess(String response) {
                 ArrayList<Map> list = json2List(response);
