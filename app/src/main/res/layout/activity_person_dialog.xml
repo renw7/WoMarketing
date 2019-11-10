@@ -12,7 +12,7 @@
         android:layout_gravity="center"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
-        android:text="修改密码"
+        android:text="@string/my_update_pwd"
         android:textColor="#333333"
         android:textSize="16sp"
         android:textStyle="bold"/>
@@ -21,7 +21,7 @@
         android:id="@+id/old_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="请输入原始密码"
+        android:hint="@string/my_old_pwd"
         android:layout_marginRight="5dp"
         android:layout_marginLeft="5dp"
         android:textSize="18sp">
@@ -43,7 +43,7 @@
         android:layout_height="wrap_content"
         android:layout_marginRight="5dp"
         android:layout_marginLeft="5dp"
-        android:hint="请再输入一遍新密码">
+        android:hint="@string/my_old_pwd_confirm">
     </EditText>
 
     <LinearLayout
@@ -61,7 +61,7 @@
             android:layout_marginRight="10dp"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="确定"
+            android:text="@string/my_confirm"
             android:textSize="24sp" />
 
         <TextView
@@ -71,7 +71,7 @@
             android:layout_marginLeft="10dp"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="取消"
+            android:text="@string/my_cancel"
             android:textSize="24sp" />
     </LinearLayout>
 

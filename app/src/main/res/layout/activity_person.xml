@@ -23,7 +23,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:text="工号:0886666"
+            android:text=""
             android:textColor="#3C3B3B"
             android:textSize="30sp" />
 
@@ -53,7 +53,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:text="修改密码"
+            android:text="@string/my_update_pwd"
             android:textColor="#3C3B3B"
             android:textSize="30sp" />
 
@@ -65,6 +65,36 @@
             android:src="@mipmap/rightpoint" />
     </FrameLayout>
 
+
+
+    <FrameLayout
+        android:id="@+id/fl_person_work_report"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/selector"
+        android:clickable="true"
+        android:paddingStart="20dp"
+        android:paddingTop="10dp"
+        android:paddingEnd="20dp"
+        android:paddingBottom="10dp">
+
+        <TextView
+            android:id="@+id/work_report"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="@string/my_work_report"
+            android:textColor="#3C3B3B"
+            android:textSize="30sp" />
+
+        <ImageView
+            android:id="@+id/work_report_iamge"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_gravity="end|center_vertical"
+            android:src="@mipmap/rightpoint" />
+    </FrameLayout>
 
 
 
@@ -86,7 +116,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:text="帮助"
+            android:text="@string/my_help"
             android:textColor="#3C3B3B"
             android:textSize="30sp" />
 
@@ -116,7 +146,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:text="关于"
+            android:text="@string/my_about"
             android:textColor="#3C3B3B"
             android:textSize="30sp" />
 
@@ -147,7 +177,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center|center_vertical"
-            android:text="退出登录"
+            android:text="@string/my_exit"
             android:textColor="#3C3B3B"
             android:textSize="30sp" />
 
