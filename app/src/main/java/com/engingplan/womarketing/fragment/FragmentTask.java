@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import com.engingplan.womarketing.ui.activity.R;
 
 import com.engingplan.womarketing.ui.R;
 import com.engingplan.womarketing.ui.activity.TaskListActivity;
