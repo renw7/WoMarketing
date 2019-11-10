@@ -101,7 +101,7 @@ public final class OkHttpClientUtils {
                     if (callBack != null) {
                         callBack.onSuccess(str);
                     }
-                    
+
                 } else {
                     if (callBack != null) {
                         callBack.onFail("");
