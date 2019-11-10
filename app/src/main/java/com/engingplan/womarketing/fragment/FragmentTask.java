@@ -7,10 +7,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-
 import com.engingplan.womarketing.ui.activity.R;
 import com.engingplan.womarketing.ui.activity.TaskListActivity;
 import com.engingplan.womarketing.util.ConstantsUtil;
@@ -27,7 +25,8 @@ public class FragmentTask extends Fragment {
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup
+            container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_taskmain, container, false);
         return view;
     }

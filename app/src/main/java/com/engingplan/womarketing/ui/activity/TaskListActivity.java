@@ -1,6 +1,5 @@
 package com.engingplan.womarketing.ui.activity;
 
-import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -12,21 +11,16 @@ import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
-
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-import androidx.viewpager.widget.ViewPager;
-
-
 import com.engingplan.womarketing.bl.OkHttpTaskBL;
-import com.engingplan.womarketing.common.ViewPagerAdapter;
 import com.engingplan.womarketing.util.ConstantsUtil;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class TaskListActivity extends Activity {
+public class TaskListActivity extends AppCompatActivity {
 
     private ListView listView;
     private int taskType;
