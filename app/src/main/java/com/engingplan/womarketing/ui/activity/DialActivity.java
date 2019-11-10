@@ -19,10 +19,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import androidx.appcompat.app.AppCompatActivity;
-
-
 import com.engingplan.womarketing.bl.DialBL;
 import com.engingplan.womarketing.bl.DialHttpBL;
 import com.engingplan.womarketing.ui.R;
@@ -40,7 +36,7 @@ import java.util.Map;
  * time   : 2019/10/31
  * desc   : 拨打界面
  */
-public final class DialActivity extends AppCompatActivity {
+public final class DialActivity extends BaseActivity {
 
 
     String number;//标记从哪个页面跳转到此页面 1表示任务界面 2表示通话记录页面
@@ -305,7 +301,7 @@ public final class DialActivity extends AppCompatActivity {
 
                         //刷新显示下一条数据
                         networkRequestTaskData();
-                        initActivity();
+                        init();
                     } else if (ConstantsUtil.CALL_TIMES_SECOND.equals(number)) {
 
                         //有意向用户的再次拨打完成，返回有意向列表
@@ -323,7 +319,7 @@ public final class DialActivity extends AppCompatActivity {
     /**
      * 刷新页面，控件显示查询得到的信息
      */
-    private void initActivity() {
+    protected void init() {
 
         //设置客户的手机号、客户画像和产品id
         serialNumberView.setText(serialNumber);

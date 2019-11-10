@@ -1,6 +1,5 @@
 package com.engingplan.womarketing.ui.activity;
 
-import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -17,7 +16,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class CallDetailActivity extends Activity {
+public class CallDetailActivity extends BaseActivity {
     TextView detailNun = null;
     TextView taskName = null;
     TextView detailStarTime = null;
