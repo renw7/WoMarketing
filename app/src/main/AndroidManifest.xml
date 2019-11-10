@@ -84,8 +84,10 @@
             android:alwaysRetainTaskState="true"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:launchMode="singleTask"
+            android:label="@string/detail_name"
+            android:theme="@style/ActTheme"
             android:screenOrientation="portrait"/>
-        
+
 
         <service android:name=".service.NoticeService"/>
 
