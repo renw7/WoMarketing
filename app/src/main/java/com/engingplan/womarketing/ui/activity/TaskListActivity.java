@@ -35,7 +35,6 @@ public class TaskListActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tasklist);
-
         listView = findViewById(R.id.listView);
         map = new HashMap();
 
@@ -71,8 +70,6 @@ public class TaskListActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Log.i(ConstantsUtil.LOG_TAG_ACTIVITY,"The item setOnItemClickListener id" + i);
                 Intent it = new Intent(TaskListActivity.this, DialActivity.class);
-//                int weiShu = i + 1;
-//                long lieBiaoTask_id = (long)Integer.valueOf(String.valueOf(taskType) + "0" + String.valueOf(weiShu));
                 map = (HashMap<String, String>) list.get(i);
                 taskId = Integer.valueOf(map.get(String.valueOf(i)));
                 it.putExtra("taskId", taskId);
@@ -114,7 +111,6 @@ public class TaskListActivity extends AppCompatActivity {
 
         }
     };
-
 
     public void imageViewonClick(View v) {
         Intent it = new Intent(TaskListActivity.this, TaskDetailsActivity.class);
