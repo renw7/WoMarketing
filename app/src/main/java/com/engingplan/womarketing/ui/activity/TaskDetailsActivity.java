@@ -25,7 +25,6 @@ public class TaskDetailsActivity extends BaseActivity {
         intentFilter.addAction(ConstantsUtil.TASK_DETAIL_ACTIVITY_RECEIVER);
         getApplicationContext().registerReceiver(myReceiver, intentFilter);
 
-
         //获取传来页面意图的参数
         Bundle bundle = this.getIntent().getExtras();
         //特别注意，一定要getLong要不取不出来数，getInt后，强制转换也不行，put(1,2),第二个值是什么类型，get什么。
