@@ -19,12 +19,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import androidx.appcompat.app.AppCompatActivity;
-
-
 import com.engingplan.womarketing.bl.DialBL;
 import com.engingplan.womarketing.bl.DialHttpBL;
+import com.engingplan.womarketing.ui.R;
 import com.engingplan.womarketing.util.ConstantsUtil;
 
 import java.text.SimpleDateFormat;
@@ -39,7 +36,7 @@ import java.util.Map;
  * time   : 2019/10/31
  * desc   : 拨打界面
  */
-public final class DialActivity extends AppCompatActivity {
+public final class DialActivity extends BaseActivity {
 
 
     String number;//标记从哪个页面跳转到此页面 1表示任务界面 2表示通话记录页面
@@ -92,9 +89,9 @@ public final class DialActivity extends AppCompatActivity {
 
         //动态注册广播接收器 接收返回的数据
         IntentFilter intentFilter = new IntentFilter();
-        intentFilter.addAction("SELECTTASKDATA");
-        intentFilter.addAction("INSERTCALLRECORD");
-        intentFilter.addAction("UPDATETASKDATA");
+        intentFilter.addAction(ConstantsUtil.TASK_DATA_ACTIVITY_RECEIVER);
+        intentFilter.addAction(ConstantsUtil.INSERT_CALLRECORD_ACTIVITY_RECEIVER);
+        intentFilter.addAction(ConstantsUtil.UPDATE_TASKDATA_ACTIVITY_RECEIVER);
         registerReceiver(mReceiver, intentFilter);
 
         //网络请求
@@ -164,18 +161,18 @@ public final class DialActivity extends AppCompatActivity {
                         System.out.println("remarkContent======" + remark);
                     }*/
 
-                    System.out.println("号码:" + serialNumber + ",任务id:" + taskId
+                    Log.i(ConstantsUtil.LOG_TAG_ACTIVITY, "号码:" + serialNumber + ",任务id:" + taskId
                             + "通话开始时间:" + startTime + "通话结束时间:" + endTime
                             + "用户意向:" + resultCode + "拨打次数:" + callTimes
                             + "备注:" + remark);
 
                     //判断客服是否已拨打过电话
-                    if (haveCAll == false) {
+                    if (!haveCAll) {
                         Toast.makeText(this, "您还未拨打电话与用户沟通", Toast.LENGTH_LONG).show();
                     } else {
 
                         //判断是否选择用户意向,若没有选择则提示选择用户意向，若选择则写入数据库
-                        if (resultCode == "-1") {  //-1表示未选择
+                        if ("-1".equals(resultCode)) {  //-1表示未选择
                             Toast.makeText(this, "请选择用户订购意向", Toast.LENGTH_LONG).show();
                         } else {
 
@@ -188,7 +185,7 @@ public final class DialActivity extends AppCompatActivity {
                             //如果用户没有接通，开始时间和结束时间一致，不修改任务数据
                             //如果电话接通，修改任务数据（修改是否被打状态，添加员工id，更新时间）
                             //修改任务数据成功之后再刷新显示下一条
-                            if (!endTime.equals(startTime)) {
+                            if (endTime != null && !endTime.equals(startTime)) {
                                 updateDataInfo();
                             }else{
 
@@ -208,14 +205,14 @@ public final class DialActivity extends AppCompatActivity {
     /**
      * 获取上一个页面传递的参数:任务id（taskId）、number等
      */
-    void getPara() {
+    private void getPara() {
 
         Bundle bundle = getIntent().getExtras();
         number = bundle.getString("number");
         taskId = bundle.getLong("taskId");
         staffId = bundle.getLong("staffId");
 
-        if ("2".equals(number)) {   //如果从通话记录页面跳转过来，获取任务数据id
+        if (ConstantsUtil.CALL_TIMES_SECOND.equals(number)) {   //如果从通话记录页面跳转过来，获取任务数据id
             dataId = bundle.getString("dataId");
         }
 
@@ -226,14 +223,14 @@ public final class DialActivity extends AppCompatActivity {
     /**
      * 网络请求 请求任务数据
      */
-    void networkRequestTaskData() {
+    private void networkRequestTaskData() {
 
         Map param = new HashMap<>();
-        if ("1".equals(number)) {
+        if (ConstantsUtil.CALL_TIMES_FIRST.equals(number)) {
             param.put("taskId", taskId);
         }
 
-        if ("2".equals(number)) {
+        if (ConstantsUtil.CALL_TIMES_SECOND.equals(number)) {
             param.put("dataId", dataId);
         }
         dialHttpBL.getTaskDataAsyn(param, this.getApplicationContext(), number);
@@ -249,12 +246,12 @@ public final class DialActivity extends AppCompatActivity {
         public void onReceive(Context context, Intent intent) {
 
             switch (intent.getAction()) {
-                case "SELECTTASKDATA":
+                case ConstantsUtil.TASK_DATA_ACTIVITY_RECEIVER:
 
                     //获取任务数据
                     List<Map<String, String>> list = (List) intent.getExtras().get("list");
                     if (list != null && list.size() > 0) {
-                        System.out.println("任务数据list====" + list);
+                        Log.i(ConstantsUtil.LOG_TAG_ACTIVITY, "任务数据list====" + list);
 
                         Map map = list.get(0);
                         dataId = (String) map.get("dataId");
@@ -288,7 +285,7 @@ public final class DialActivity extends AppCompatActivity {
                     }
                     break;
 
-                case "INSERTCALLRECORD":
+                case ConstantsUtil.INSERT_CALLRECORD_ACTIVITY_RECEIVER:
 
                     //获取插入通话记录的记录id
                     String recordIds = intent.getExtras().getString("recordId");
@@ -297,15 +294,15 @@ public final class DialActivity extends AppCompatActivity {
                     }
                     break;
 
-                case "UPDATETASKDATA":
+                case ConstantsUtil.UPDATE_TASKDATA_ACTIVITY_RECEIVER:
 
                     //修改任务数据完成以后再取下一条
                     if ("1".equals(number)) {
 
                         //刷新显示下一条数据
                         networkRequestTaskData();
-                        initActivity();
-                    } else if ("2".equals(number)) {
+                        init();
+                    } else if (ConstantsUtil.CALL_TIMES_SECOND.equals(number)) {
 
                         //有意向用户的再次拨打完成，返回有意向列表
                         finish();
@@ -322,7 +319,7 @@ public final class DialActivity extends AppCompatActivity {
     /**
      * 刷新页面，控件显示查询得到的信息
      */
-    void initActivity() {
+    protected void init() {
 
         //设置客户的手机号、客户画像和产品id
         serialNumberView.setText(serialNumber);
@@ -341,7 +338,7 @@ public final class DialActivity extends AppCompatActivity {
     /**
      * 用户意向对话框
      */
-    void userIntent(TextView userIntention) {
+    private void userIntent(TextView userIntention) {
 
         AlertDialog dialog = new AlertDialog.Builder(DialActivity.this)
                 .setTitle("客户订购情况")
@@ -373,7 +370,7 @@ public final class DialActivity extends AppCompatActivity {
     /**
      * 拨打电话
      */
-    void dial(String phoneno) {
+    private void dial(String phoneno) {
 
         DialBL userBL = new DialBL();
         Intent intent = userBL.call(phoneno);
@@ -385,10 +382,10 @@ public final class DialActivity extends AppCompatActivity {
     /**
      * 发送短信
      */
-    void sms(String phoneno, String message) {
+    private void sms(String phoneno, String message) {
 
         DialBL userBL = new DialBL();
-        Intent sentIntent = new Intent("SENT_SMS_ACTION");
+        Intent sentIntent = new Intent(ConstantsUtil.SENT_SMS_ACTIVITY_RECEIVER);
         PendingIntent sentPI = PendingIntent.getBroadcast(DialActivity.this, 0, sentIntent, 0);
         userBL.sendMessage(phoneno, message, sentPI);
 
@@ -407,13 +404,13 @@ public final class DialActivity extends AppCompatActivity {
                     Toast.makeText(DialActivity.this, "短信发送失败", Toast.LENGTH_SHORT).show();
                 }
             }
-        }, new IntentFilter("SENT_SMS_ACTION"));
+        }, new IntentFilter(ConstantsUtil.SENT_SMS_ACTIVITY_RECEIVER));
     }
 
     /**
      * 添加短信发送记录
      */
-    void insertSmsRecord() {
+    private void insertSmsRecord() {
         Map putparam = new HashMap<>();
         putparam.put("serialNumber", serialNumber);
         putparam.put("taskId", taskId);
@@ -423,13 +420,13 @@ public final class DialActivity extends AppCompatActivity {
     /**
      * 读取通话记录，获取通话开始时间和结束时间
      */
-    void getTime() {
+    private void getTime() {
         @SuppressLint("MissingPermission") Cursor cursor = DialActivity.this.getContentResolver().query(CallLog.Calls.CONTENT_URI,
                 null, null, null, null);
         if (cursor.moveToLast()) {
             //号码
             String number = cursor.getString(cursor.getColumnIndex(CallLog.Calls.NUMBER));
-            System.out.println(number);
+            Log.i(ConstantsUtil.LOG_TAG_ACTIVITY, number);
             //呼叫类型
             String type;
             switch (Integer.parseInt(cursor.getString(cursor.getColumnIndex(CallLog.Calls.TYPE)))) {
@@ -459,15 +456,15 @@ public final class DialActivity extends AppCompatActivity {
             endTime = sfd.format(date.getTime() + duration1 * 1000);
 
 
-            System.out.println("startTime===========" + startTime);
-            System.out.println("endTime===========" + endTime);
+            Log.i(ConstantsUtil.LOG_TAG_ACTIVITY, "startTime===========" + startTime);
+            Log.i(ConstantsUtil.LOG_TAG_ACTIVITY, "endTime===========" + endTime);
         }
     }
 
     /**
      * 点击完成插入一条记录
      */
-    void insertCallRecord() {
+    private void insertCallRecord() {
         Map putparam = new HashMap<>();
         putparam.put("serialNumber", serialNumber);
         putparam.put("taskId", taskId);
@@ -494,7 +491,7 @@ public final class DialActivity extends AppCompatActivity {
     /**
      * 完成，修改任务数据，标记拨打状态和员工编号
      */
-    void updateDataInfo() {
+    private void updateDataInfo() {
         Map putparam = new HashMap<>();
         putparam.put("dataId", dataId);
         putparam.put("isLock", 0);
@@ -506,7 +503,7 @@ public final class DialActivity extends AppCompatActivity {
     /**
      * 解锁任务数据  情况一：点击用户未接通，点击完成  情况二：拨打界面返回
      */
-    void updateDataUnLock() {
+    protected void updateDataUnLock() {
         Map putparam = new HashMap<>();
         putparam.put("dataId", dataId);
         putparam.put("isLock", 0);

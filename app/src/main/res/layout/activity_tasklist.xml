@@ -7,12 +7,12 @@
 
     <ImageButton
         android:id="@+id/ImageButton"
-        android:layout_width="43dp"
-        android:layout_height="33dp"
+        android:layout_width="33dp"
+        android:layout_height="27dp"
         android:layout_gravity="left"
-        android:layout_marginTop="6dp"
-        android:layout_marginBottom="6dp"
-        android:background="@color/colorButtonDisable"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:background="#00000000"
         android:src="@drawable/back" />
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -21,7 +21,6 @@
         android:id = "@+id/swipeRefresh"
         android:layout_width = "match_parent"
         android:layout_height = "match_parent">
-
 
     <ListView
         android:id="@+id/listView"

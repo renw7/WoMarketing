@@ -2,9 +2,9 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!-- 选中状态 -->
-    <item android:color="@color/tab_checked" android:state_checked="true" />
+    <item android:color="@color/item_checked" android:state_checked="true" />
 
     <!-- 默认状态 -->
-    <item android:color="@color/tab_unchecked" android:state_checked="false"/>
+    <item android:color="@color/item_unchecked" android:state_checked="false"/>
 
 </selector>
