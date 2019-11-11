@@ -6,7 +6,10 @@ import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Bundle;
@@ -17,6 +20,7 @@ import androidx.core.app.NotificationCompat;
 import com.engingplan.womarketing.ui.R;
 import com.engingplan.womarketing.ui.activity.HomeActivity;
 import com.engingplan.womarketing.ui.activity.LoginActivity;
+import com.engingplan.womarketing.ui.receive.NotificationReceiver;
 
 
 public class NoticeService extends IntentService {
@@ -50,9 +54,8 @@ public class NoticeService extends IntentService {
         NotificationChannel channel = new NotificationChannel(channelId, channelName, importance);
         NotificationManager notificationManager = (NotificationManager) getSystemService(
                 NOTIFICATION_SERVICE);
-
         //设置点击通知栏的动作为启动另外一个广播
-        Intent broadcastIntent = new Intent(this, LoginActivity.class);
+        Intent broadcastIntent = new Intent(this, NotificationReceiver.class);
         pendingIntent = PendingIntent.
                 getBroadcast(this, 0, broadcastIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
@@ -72,4 +75,6 @@ public class NoticeService extends IntentService {
                 .build();
         manager.notify(1, notification);
     }
+
+
 }
