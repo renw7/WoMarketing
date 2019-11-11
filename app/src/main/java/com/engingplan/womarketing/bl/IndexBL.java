@@ -8,6 +8,8 @@ import android.util.Log;
 
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
+import com.engingplan.womarketing.util.ConstantsUtil;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -23,15 +25,12 @@ import okhttp3.ResponseBody;
 
 public class IndexBL {
 
-    private String url = "http://119.29.106.248/tblcallrecord/statistics";
     private int todayFinishNum;
     private int todayIntentNum;
     private int todayIncompNum;
     private int weekFinishNum;
     private int weekIncompNum;
     private int weekIntentNum;
-    private String ACTION_APP_BROADCAST = "today";
-    private String ACTION_APP_BROADCAST2 = "week";
     private int staffId;
 
     //接受传来的staffId
@@ -45,9 +44,8 @@ public class IndexBL {
 
     public void setDataFirst(LocalBroadcastManager broadcastManager) {
 
-
-        String url1 = url + "?staffId=" + staffId;
-        String url2 = url + "/tblcallrecord/statisticsweek" + staffId;
+        String url1 = ConstantsUtil.URL_INDEX_DAY + "?staffId=" + staffId;
+        String url2 = ConstantsUtil.URL_INDEX_WEAK + "?staffId=" + staffId;
         OkHttpClient client = new OkHttpClient();
         Request request1 = new Request.Builder().url(url1).get().build();
         Request request2 = new Request.Builder().url(url2).get().build();
@@ -56,7 +54,7 @@ public class IndexBL {
         call1.enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                System.out.println("调取失败");
+                Log.e(ConstantsUtil.LOG_TAG_BL, "response=" + e.getLocalizedMessage());
             }
 
             @Override
@@ -86,7 +84,7 @@ public class IndexBL {
                 System.out.println("取出的数值是：" + todayFinishNum);
 
                 Intent intent = new Intent();
-                intent.setAction(ACTION_APP_BROADCAST);
+                intent.setAction(ConstantsUtil.INDEX_RECEIVER);
                 intent.putExtra("finishNum", todayFinishNum);
                 intent.putExtra("intentNum", todayIntentNum);
                 intent.putExtra("incompNum", todayIncompNum);
@@ -98,7 +96,7 @@ public class IndexBL {
         call2.enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                System.out.println("调取失败");
+                Log.e(ConstantsUtil.LOG_TAG_BL, "response=" + e.getLocalizedMessage());
             }
 
             @Override
@@ -127,7 +125,7 @@ public class IndexBL {
 
 
                 Intent intent = new Intent();
-                intent.setAction(ACTION_APP_BROADCAST);
+                intent.setAction(ConstantsUtil.INDEX_RECEIVER);
                 intent.putExtra("finishNum", weekFinishNum);
                 intent.putExtra("intentNum", weekIntentNum);
                 intent.putExtra("incompNum", weekIncompNum);

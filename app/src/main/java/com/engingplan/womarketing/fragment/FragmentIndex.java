@@ -15,9 +15,11 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.engingplan.womarketing.bl.IndexBL;
 import com.engingplan.womarketing.ui.R;
+import com.engingplan.womarketing.util.ConstantsUtil;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
@@ -32,8 +34,6 @@ import java.util.List;
 
 public class FragmentIndex extends Fragment {
 
-
-    private String ACTION_APP_BROADCAST = "today";
     LocalBroadcastManager broadcastManager;
     private String newStaffName;
     private int todayFinishNum;
@@ -47,6 +47,8 @@ public class FragmentIndex extends Fragment {
 
     BarChart barChart = null;
     BarChart barChart1 = null;
+
+    private SwipeRefreshLayout swipeRefresh;
 
     public static FragmentIndex newInstance(String name) {
         FragmentIndex fragment = new FragmentIndex();
@@ -77,12 +79,11 @@ public class FragmentIndex extends Fragment {
 
         //这里注册广播接收器
         IntentFilter intentFilter = new IntentFilter();
-        intentFilter.addAction(ACTION_APP_BROADCAST);
+        intentFilter.addAction(ConstantsUtil.INDEX_RECEIVER);
         broadcastManager.registerReceiver(mReceiver, intentFilter);
-        //实例化IndexBL调取方法
-        IndexBL indexBL = new IndexBL(staffId);
-        indexBL.setDataFirst(broadcastManager);
 
+        //调用后台
+        loadData();
 
         barChart = view.findViewById(R.id.ChartTest);//定义界面控件
         barChart1 = view.findViewById(R.id.ChartTest1);//定义界面控件
@@ -90,6 +91,22 @@ public class FragmentIndex extends Fragment {
         barChart1 = initBarChart(barChart1);//调用方法初始化柱状图
 
 
+        //实现页面下拉刷新
+        swipeRefresh = view.findViewById(R.id.swipeRefresh);
+        swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                loadData();
+                swipeRefresh.setRefreshing(false);
+            }
+        });
+    }
+
+
+    private void loadData(){
+        //实例化IndexBL调取方法
+        IndexBL indexBL = new IndexBL(staffId);
+        indexBL.setDataFirst(broadcastManager);
     }
 
     //这个方法用来初始化柱状图
@@ -167,8 +184,8 @@ public class FragmentIndex extends Fragment {
                     break;
                 case 2:
                     weekFinishNum = intent.getIntExtra("finishNum", 0);
-                    weekIncompNum = intent.getIntExtra("intentNum", 0);
-                    weekIntentNum = intent.getIntExtra("incompNum", 0);
+                    weekIntentNum = intent.getIntExtra("intentNum", 0);
+                    weekIncompNum = intent.getIntExtra("incompNum", 0);
                     BarData barData1 = setbarData2();//调用方法初始化数据
                     barChart1.setData(barData1);//将数据用到柱状图上显示
                     barChart1.invalidate();//在柱状图填充数据以后进行刷新
