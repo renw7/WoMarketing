@@ -42,7 +42,8 @@ public class TaskListActivity extends AppCompatActivity {
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(ConstantsUtil.TASK_LIST_ACTIVITY_RECEIVER);
         //报Activity has leaked IntentReceiver或者receiver is not registered错误，是找不到当前context对象，
-        //在registerReceiver(myReceiver, intentFilter)前+getApplicationContext()，注意在这加下面注销的时候也要加，否则报当前receiver没有被注册。
+        //在registerReceiver(myReceiver, intentFilter)前+getApplicationContext()，注意在这加下面注销的时候也要加，
+        // 否则报当前receiver没有被注册。
         getApplicationContext().registerReceiver(myReceiver, intentFilter);
 
         // 获取传来页面的参数
@@ -64,7 +65,7 @@ public class TaskListActivity extends AppCompatActivity {
             }
         });
 
-        //跳坤神的页面，并传递taskId,staffId
+        //跳立坤的页面，并传递taskId,staffId
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -107,15 +108,14 @@ public class TaskListActivity extends AppCompatActivity {
             //装适配器
             listView = findViewById(R.id.listView);
             listView.setAdapter(new SimpleAdapter(TaskListActivity.this, list,
-                    R.layout.activity_tasklist_item, new String[]{"taskName", "taskStatus"}, new int[]{R.id.textViewTaskName, R.id.textViewTaskStatus}));
+                    R.layout.activity_tasklist_item, new String[]{"taskName", "taskStatus"},
+                    new int[]{R.id.textViewTaskName, R.id.textViewTaskStatus}));
 
         }
     };
 
     public void imageViewonClick(View v) {
         Intent it = new Intent(TaskListActivity.this, TaskDetailsActivity.class);
-//        int weishu = listView.getPositionForView(v) + 1;
-//        int xiangqingtask_id = Integer.valueOf(String.valueOf(taskType) + "0" + String.valueOf(weishu));
         map = (HashMap<String, String>) list.get(listView.getPositionForView(v));
         taskId = Integer.valueOf(map.get(String.valueOf(listView.getPositionForView(v))));
         it.putExtra("taskId", taskId);
@@ -127,7 +127,8 @@ public class TaskListActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         Log.i(ConstantsUtil.LOG_TAG_ACTIVITY, "destroy");
-        //在registerReceiver(myReceiver, intentFilter)前+getApplicationContext()，注意在这加下面注销的时候也要加，否则报当前receiver没有被注册。
+        //在registerReceiver(myReceiver, intentFilter)前+getApplicationContext()，
+        // 注意在这加下面注销的时候也要加，否则报当前receiver没有被注册。
         getApplicationContext().unregisterReceiver(myReceiver);     //注销广播接收器
     }
 }
