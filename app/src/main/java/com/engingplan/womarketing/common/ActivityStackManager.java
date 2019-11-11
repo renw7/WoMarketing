@@ -23,36 +23,18 @@ public final class ActivityStackManager {
     private ActivityStackManager() {}
 
     public static ActivityStackManager getInstance() {
-        // 加入双重校验锁
+        // 单例模式
         if(sInstance == null) {
-            synchronized (ActivityStackManager.class) {
-                if(sInstance == null){
-                    sInstance = new ActivityStackManager();
-                }
-            }
+            sInstance = new ActivityStackManager();
         }
         return sInstance;
-    }
-
-    /**
-     * 获取 Application 对象
-     */
-    public Application getApplication() {
-        return getTopActivity().getApplication();
-    }
-
-    /**
-     * 获取栈顶的 Activity
-     */
-    public Activity getTopActivity() {
-        return mActivitySet.get(mCurrentTag);
     }
 
     /**
      * 销毁所有的 Activity
      */
     public void finishAllActivities() {
-        finishAllActivities((Class<? extends Activity>) null);
+        finishAllActivities(null);
     }
 
     /**
@@ -86,7 +68,7 @@ public final class ActivityStackManager {
      */
     public void onCreated(Activity activity) {
         mCurrentTag = getObjectTag(activity);
-        mActivitySet.put(getObjectTag(activity), activity);
+        mActivitySet.put(mCurrentTag, activity);
     }
 
     /**

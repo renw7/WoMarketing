@@ -163,7 +163,7 @@ public class FragmentMe extends Fragment {
 
             //获取后台报告数据生成excel 并触发通知服务
             if (list != null && list.size() > 0) {
-                String filePath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + "/123.xls";
+                String filePath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + "/" + reportName + ".xls";
 //                String filePath = Environment.getDataDirectory()  +"/data/com.engingplan.womarketing/123.xls";
                 ExcelUtil.writeObjListToExcel(list, filePath, reportName, cols, context);
                 flag = ConstantsUtil.flag_finish;
