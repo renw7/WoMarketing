@@ -18,6 +18,7 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.engingplan.womarketing.bl.IndexBL;
 import com.engingplan.womarketing.ui.R;
+import com.engingplan.womarketing.util.ConstantsUtil;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
@@ -32,8 +33,6 @@ import java.util.List;
 
 public class FragmentIndex extends Fragment {
 
-
-    private String ACTION_APP_BROADCAST = "today";
     LocalBroadcastManager broadcastManager;
     private String newStaffName;
     private int todayFinishNum;
@@ -77,7 +76,7 @@ public class FragmentIndex extends Fragment {
 
         //这里注册广播接收器
         IntentFilter intentFilter = new IntentFilter();
-        intentFilter.addAction(ACTION_APP_BROADCAST);
+        intentFilter.addAction(ConstantsUtil.INDEX_RECEIVER);
         broadcastManager.registerReceiver(mReceiver, intentFilter);
         //实例化IndexBL调取方法
         IndexBL indexBL = new IndexBL(staffId);

@@ -26,6 +26,7 @@ public interface ConstantsUtil {
 
     String SENT_SMS_ACTIVITY_RECEIVER = "com.engingplan.womarketing.fragment.DialActivity.sendSms.BroadcastReceiver";
 
+    String INDEX_RECEIVER = "com.engingplan.womarketing.fragment.FragmentIndex.BroadcastReceiver";
 
     //==============任务类型================*/
     //4G
@@ -116,5 +117,8 @@ public interface ConstantsUtil {
     //短信记录表
     String URL_SMS_INFO = URL_HOME + "/tblsmsinfo/saveSms";
 
+    String URL_INDEX_DAY = URL_HOME + "/tblcallrecord/statistics";
+
+    String URL_INDEX_WEAK = URL_HOME + "/tblcallrecord/statisticsweek";
 
 }
