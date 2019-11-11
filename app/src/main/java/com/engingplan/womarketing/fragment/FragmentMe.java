@@ -27,16 +27,17 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.Nullable;
+import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import com.engingplan.womarketing.bl.UpdatePwdBL;
+import com.engingplan.womarketing.common.ActivityStackManager;
 import com.engingplan.womarketing.ui.R;
 import com.engingplan.womarketing.ui.activity.LoginActivity;
 import com.engingplan.womarketing.ui.service.NoticeService;
 import com.engingplan.womarketing.util.ConstantsUtil;
 import com.engingplan.womarketing.util.ExcelUtil;
 
-import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -51,6 +52,8 @@ public class FragmentMe extends Fragment {
     private int staffId;
     private List<Map<String, String>> list;
     private int flag = 0;
+    private String reportName = "考评报告";
+    private String[] cols = new String[]{"月份", "KPI", "完成率", "岗级"};
 
     LocalBroadcastManager broadcastManager;
 
@@ -121,21 +124,17 @@ public class FragmentMe extends Fragment {
                         Toast.makeText(mContext, "正在下载！请稍后", Toast.LENGTH_SHORT).show();
                         return;
                     //下载完成点击打开excel
-                    case ConstantsUtil.flag_finish:
-                        String filePath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + "/123.xls";
-                        File file = getContext().getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS + "/123.xls");
-
-//                      String filePath = Environment.getDataDirectory() + "/data/com.engingplan.womarketing/123.xls";
-                        Intent intent = new Intent("android.intent.action.VIEW");
-                        intent.addCategory("android.intent.category.DEFAULT");
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                      Uri uri = Uri.fromFile(new File(filePath));
-                        String path = file.getAbsolutePath();
-                        Uri uri =   Uri.parse("file://" + path);
-//                      Uri uri = FileProvider.getUriForFile(getActivity(), getActivity().getPackageName() + ".fileprovider", new File(filePath));
-                        intent.setDataAndType(uri, "application/vnd.ms-excel");
-                        startActivity(intent);
-                        return;
+//                    case ConstantsUtil.flag_finish:
+//                        String filePath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + "/123.xls";
+//                        File file = getContext().getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS + "/123.xls");
+//                        Intent intent = new Intent("android.intent.action.VIEW");
+//                        intent.addCategory("android.intent.category.DEFAULT");
+//                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                        String path = file.getAbsolutePath();
+//                         Uri uri = FileProvider.getUriForFile(getActivity(), getActivity().getPackageName() + ".fileprovider", new File(filePath));
+//                        intent.setDataAndType(uri, "application/vnd.ms-excel");
+//                        startActivity(intent);
+//                        return;
                 }
 
             }
@@ -171,7 +170,7 @@ public class FragmentMe extends Fragment {
             if (list != null && list.size() > 0) {
                 String filePath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + "/123.xls";
 //                String filePath = Environment.getDataDirectory()  +"/data/com.engingplan.womarketing/123.xls";
-                ExcelUtil.writeObjListToExcel(list, filePath, "考评报告", new String[]{"月份", "KPI", "完成率", "岗级"}, context);
+                ExcelUtil.writeObjListToExcel(list, filePath, reportName, cols, context);
                 flag = ConstantsUtil.flag_finish;
                 Toast.makeText(getContext(), "下载完成", Toast.LENGTH_SHORT).show();
                 Intent intentNotice = new Intent(getContext(), NoticeService.class);
@@ -247,6 +246,7 @@ public class FragmentMe extends Fragment {
             @Override
             public void onClick(View view) {
                 getActivity().finish();
+                ActivityStackManager.getInstance().finishAllActivities();
                 getContext().startActivity(new Intent(getContext(), LoginActivity.class));
                 dialog.dismiss();
             }
