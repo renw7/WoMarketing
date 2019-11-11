@@ -15,6 +15,7 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.engingplan.womarketing.bl.IndexBL;
 import com.engingplan.womarketing.ui.R;
@@ -47,6 +48,8 @@ public class FragmentIndex extends Fragment {
     BarChart barChart = null;
     BarChart barChart1 = null;
 
+    private SwipeRefreshLayout swipeRefresh;
+
     public static FragmentIndex newInstance(String name) {
         FragmentIndex fragment = new FragmentIndex();
         return fragment;
@@ -78,10 +81,9 @@ public class FragmentIndex extends Fragment {
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(ConstantsUtil.INDEX_RECEIVER);
         broadcastManager.registerReceiver(mReceiver, intentFilter);
-        //实例化IndexBL调取方法
-        IndexBL indexBL = new IndexBL(staffId);
-        indexBL.setDataFirst(broadcastManager);
 
+        //调用后台
+        loadData();
 
         barChart = view.findViewById(R.id.ChartTest);//定义界面控件
         barChart1 = view.findViewById(R.id.ChartTest1);//定义界面控件
@@ -89,6 +91,22 @@ public class FragmentIndex extends Fragment {
         barChart1 = initBarChart(barChart1);//调用方法初始化柱状图
 
 
+        //实现页面下拉刷新
+        swipeRefresh = view.findViewById(R.id.swipeRefresh);
+        swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                loadData();
+                swipeRefresh.setRefreshing(false);
+            }
+        });
+    }
+
+
+    private void loadData(){
+        //实例化IndexBL调取方法
+        IndexBL indexBL = new IndexBL(staffId);
+        indexBL.setDataFirst(broadcastManager);
     }
 
     //这个方法用来初始化柱状图
