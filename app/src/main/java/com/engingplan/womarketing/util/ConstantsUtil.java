@@ -16,6 +16,14 @@ public interface ConstantsUtil {
 
     String LOGIN_ACTIVITY_RECEIVER = "com.engingplan.womarketing.fragment.LoginActivity.BroadcastReceiver";
 
+    String TASK_DATA_ACTIVITY_RECEIVER = "com.engingplan.womarketing.fragment.DialActivity.TaskData.BroadcastReceiver";
+
+    String INSERT_CALLRECORD_ACTIVITY_RECEIVER = "com.engingplan.womarketing.fragment.DialActivity.insCallRecord.BroadcastReceiver";
+
+    String UPDATE_TASKDATA_ACTIVITY_RECEIVER = "com.engingplan.womarketing.fragment.DialActivity.updTaskData.BroadcastReceiver";
+
+    String SENT_SMS_ACTIVITY_RECEIVER = "com.engingplan.womarketing.fragment.DialActivity.sendSms.BroadcastReceiver";
+
 
     //==============任务类型================*/
     //4G

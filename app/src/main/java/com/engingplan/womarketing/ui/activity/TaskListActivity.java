@@ -12,7 +12,6 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.engingplan.womarketing.bl.OkHttpTaskBL;
 import com.engingplan.womarketing.ui.R;
@@ -21,7 +20,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class TaskListActivity extends AppCompatActivity {
+public class TaskListActivity extends BaseActivity {
 
     private ListView listView;
     private int taskType;

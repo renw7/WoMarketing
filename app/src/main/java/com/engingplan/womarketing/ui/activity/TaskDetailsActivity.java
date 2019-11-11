@@ -6,11 +6,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.widget.TextView;
-
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-
-
 import com.engingplan.womarketing.bl.OkHttpTaskBL;
 import com.engingplan.womarketing.ui.R;
 import com.engingplan.womarketing.util.ConstantsUtil;
@@ -18,7 +14,7 @@ import com.engingplan.womarketing.util.ConstantsUtil;
 import java.util.HashMap;
 import java.util.Map;
 
-public class TaskDetailsActivity extends AppCompatActivity {
+public class TaskDetailsActivity extends BaseActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
