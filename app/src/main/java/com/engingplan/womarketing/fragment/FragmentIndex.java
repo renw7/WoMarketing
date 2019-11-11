@@ -167,8 +167,8 @@ public class FragmentIndex extends Fragment {
                     break;
                 case 2:
                     weekFinishNum = intent.getIntExtra("finishNum", 0);
-                    weekIncompNum = intent.getIntExtra("intentNum", 0);
-                    weekIntentNum = intent.getIntExtra("incompNum", 0);
+                    weekIntentNum = intent.getIntExtra("intentNum", 0);
+                    weekIncompNum = intent.getIntExtra("incompNum", 0);
                     BarData barData1 = setbarData2();//调用方法初始化数据
                     barChart1.setData(barData1);//将数据用到柱状图上显示
                     barChart1.invalidate();//在柱状图填充数据以后进行刷新

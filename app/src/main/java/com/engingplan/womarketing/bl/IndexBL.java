@@ -23,7 +23,7 @@ import okhttp3.ResponseBody;
 
 public class IndexBL {
 
-    private String url = "http://119.29.106.248/tblcallrecord/statistics";
+    private String url = "http://119.29.106.248";
     private int todayFinishNum;
     private int todayIntentNum;
     private int todayIncompNum;
@@ -46,8 +46,8 @@ public class IndexBL {
     public void setDataFirst(LocalBroadcastManager broadcastManager) {
 
 
-        String url1 = url + "?staffId=" + staffId;
-        String url2 = url + "/tblcallrecord/statisticsweek" + staffId;
+        String url1 = url + "/tblcallrecord/statistics?staffId=" + staffId;
+        String url2 = url + "/tblcallrecord/statisticsweek?staffId=" + staffId;
         OkHttpClient client = new OkHttpClient();
         Request request1 = new Request.Builder().url(url1).get().build();
         Request request2 = new Request.Builder().url(url2).get().build();
