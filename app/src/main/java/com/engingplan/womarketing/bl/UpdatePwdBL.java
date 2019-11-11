@@ -7,8 +7,13 @@ import android.util.Log;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import com.engingplan.womarketing.util.ConstantsUtil;
 import com.engingplan.womarketing.util.OkHttpClientUtils;
+
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 public class UpdatePwdBL {
@@ -60,4 +65,63 @@ public class UpdatePwdBL {
             }
         });
     }
+
+
+    /**
+     * 调服务获取工作报告
+     * @param param
+     * @param context
+     */
+    public void workReport(Map param, Context context){
+        OkHttpClientUtils.getInstance().doPostAsyn(ConstantsUtil.URL_WORK_REPORT, param, new OkHttpClientUtils.NetWorkCallBack(){
+            @Override
+            public void onSuccess(String response) {
+                ArrayList<Map> list = json2List(response);
+                Intent intent = new Intent();
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("list", list);
+                intent.putExtras(bundle); //向广播接收器传递数据
+                intent.setAction(ConstantsUtil.PERSON_INFO_RECEIVER);
+                LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
+            }
+
+            @Override
+            public void onFail(String response) {
+                Log.e(ConstantsUtil.LOG_TAG_BL, "response=" + response);
+            }
+        });
+    }
+
+
+
+    private ArrayList<Map> json2List(String result){
+        ArrayList<Map> recordList = new ArrayList<>();
+        try {
+            JSONObject root = new JSONObject(result);
+            String code = root.getString("code");
+
+            if ("200".equals(code)) {
+                JSONArray jsonArray = root.getJSONObject("data").getJSONArray("records");
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    JSONObject record = jsonArray.getJSONObject(i);
+                    Map map = new HashMap();
+                    map.put("cycleId", record.getString("cycleId"));
+                    map.put("kpi", String.valueOf(record.getInt("kpi")));
+                    map.put("compRate", record.getString("compRate"));
+                    map.put("level", record.getString("level"));
+                    recordList.add(map);
+                }
+            }
+            else{
+                throw new Exception("连接异常["+code+"]");
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            Log.e(ConstantsUtil.LOG_TAG_BL, "e=" + e.getMessage());
+        } finally {
+            return recordList;
+        }
+    }
+
 }

@@ -7,7 +7,17 @@
     android:orientation="vertical"
     tools:context="com.engingplan.womarketing.ui.activity.DialActivity">
 
-    <!--com.hjq.bar.TitleBar-->
+
+    <ImageButton
+        android:id="@+id/ImageButton"
+        android:layout_width="33dp"
+        android:layout_height="23dp"
+        android:layout_gravity="left"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:background="@color/colorButtonDisable"
+        android:src="@drawable/back" />
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

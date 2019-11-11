@@ -16,6 +16,14 @@ public interface ConstantsUtil {
 
     String LOGIN_ACTIVITY_RECEIVER = "com.engingplan.womarketing.fragment.LoginActivity.BroadcastReceiver";
 
+    String TASK_DATA_ACTIVITY_RECEIVER = "com.engingplan.womarketing.fragment.DialActivity.TaskData.BroadcastReceiver";
+
+    String INSERT_CALLRECORD_ACTIVITY_RECEIVER = "com.engingplan.womarketing.fragment.DialActivity.insCallRecord.BroadcastReceiver";
+
+    String UPDATE_TASKDATA_ACTIVITY_RECEIVER = "com.engingplan.womarketing.fragment.DialActivity.updTaskData.BroadcastReceiver";
+
+    String SENT_SMS_ACTIVITY_RECEIVER = "com.engingplan.womarketing.fragment.DialActivity.sendSms.BroadcastReceiver";
+
 
     //==============任务类型================*/
     //4G
@@ -77,7 +85,7 @@ public interface ConstantsUtil {
     String URL_UPDATE_PWD = URL_HOME + "/tblstaffinfo/updatePwd";
 
     //通话信息
-    String URL_CALL_REROD_LIST = URL_HOME + "tblcallrecord/page";
+    String URL_CALL_REROD_LIST = URL_HOME + "/tblcallrecord/page";
 
     //通话详情
     String URL_CALL_REROD_INFO = URL_HOME + "/tblcallrecord/info";

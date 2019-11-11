@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
@@ -12,13 +11,14 @@ import com.engingplan.womarketing.fragment.FragmentIndex;
 import com.engingplan.womarketing.fragment.FragmentMe;
 import com.engingplan.womarketing.fragment.FragmentPhoneRecord;
 import com.engingplan.womarketing.fragment.FragmentTask;
-import com.engingplan.womarketing.common.ViewPagerAdapter;
+import com.engingplan.womarketing.ui.R;
+import com.engingplan.womarketing.ui.adapter.ViewPagerAdapter;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class HomeActivity extends AppCompatActivity {
+public class HomeActivity extends BaseActivity {
 
     private ViewPager mViewPager;
     private BottomNavigationView bottomNavigationView;

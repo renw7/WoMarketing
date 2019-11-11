@@ -1,6 +1,5 @@
 package com.engingplan.womarketing.ui.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -19,13 +18,14 @@ import android.widget.EditText;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 import com.engingplan.womarketing.bl.OkhttpLoginBL;
+import com.engingplan.womarketing.ui.R;
 import com.engingplan.womarketing.util.ConstantsUtil;
 
 import java.util.HashMap;
 import java.util.Map;
 
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends BaseActivity {
 
     private EditText staffUsername;
     private EditText staffPwd;
