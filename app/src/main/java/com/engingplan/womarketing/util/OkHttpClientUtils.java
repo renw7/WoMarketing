@@ -40,7 +40,6 @@ public final class OkHttpClientUtils {
         initOkHttp();
     }
 
-
     private static OkHttpClientUtils clientUtils;
 
     public static OkHttpClientUtils getInstance() {
@@ -83,14 +82,10 @@ public final class OkHttpClientUtils {
         mClient.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                mHandler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (callBack != null) {
-                            callBack.onFail("error");
-                        }
-                    }
-                });
+                if (callBack != null) {
+                    callBack.onFail("error");
+                }
+
             }
 
             @Override
@@ -102,14 +97,10 @@ public final class OkHttpClientUtils {
                     Log.d(TAG, "获取数据成功了");
                     Log.d(TAG, "response.code()==" + response.code());
                     Log.d(TAG, "response.body().string()==" + str);
-                    mHandler.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            if (callBack != null) {
-                                callBack.onSuccess(str);
-                            }
-                        }
-                    });
+                    if (callBack != null) {
+                        callBack.onSuccess(str);
+                    }
+
                 } else {
                     if (callBack != null) {
                         callBack.onFail("");
@@ -154,14 +145,10 @@ public final class OkHttpClientUtils {
         mClient.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                mHandler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (callBack != null) {
-                            callBack.onFail("error");
-                        }
-                    }
-                });
+                if (callBack != null) {
+                    callBack.onFail("error");
+                }
+
             }
 
             @Override
@@ -172,15 +159,11 @@ public final class OkHttpClientUtils {
                     Log.d(TAG, "获取数据成功了");
                     Log.d(TAG, "response.code()==" + response.code());
                     Log.d(TAG, "response.body().string()==" + str);
+                    //可以直接在主线程执行回调任务
+                    if (callBack != null) {
+                        callBack.onSuccess(str);
+                    }
 
-                    mHandler.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            if (callBack != null) {
-                                callBack.onSuccess(str);
-                            }
-                        }
-                    });
                 } else {
                     if (callBack != null) {
                         callBack.onFail("");

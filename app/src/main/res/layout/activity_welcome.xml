@@ -8,7 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/imageView"
-        android:src="@drawable/welcome1"
+        android:src="@drawable/welcome"
         android:scaleType="fitXY"/>
-    <!--android:scaleType="fitXY" 图片沿XY方向拉伸。  -->
+    android:scaleType="fitXY" 图片沿XY方向拉伸。
 </LinearLayout>
