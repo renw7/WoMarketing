@@ -15,6 +15,7 @@
 
     <string name="task_type2">2</string>
     <!-- 拨打界面 -->
+    <string name="dial_name">拨打电话</string>
     <string name="dial_default_number">10010</string>
     <string name="dial_title">拨打电话</string>
     <string name="dial_cust_info_btn">用户画像</string>
@@ -57,6 +58,7 @@
     <string name="my_old_pwd">请输入原始密码</string>
     <string name="my_old_pwd_confirm">请再输入一遍新密码</string>
     <string name="my_work_report">考评报告</string>
+    <string name="my_down_report">是否下载</string>
 
 
 </resources>

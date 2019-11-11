@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-
 import com.engingplan.womarketing.ui.R;
 import com.engingplan.womarketing.ui.activity.TaskListActivity;
 import com.engingplan.womarketing.util.ConstantsUtil;
@@ -19,7 +18,7 @@ public class FragmentTask extends Fragment {
     private int staffId;
 
     public static FragmentTask newInstance(String name) {
-        Log.i(ConstantsUtil.LOG_TAG_FRAGMENT, "实例化framgmet" + name);
+        Log.i(ConstantsUtil.LOG_TAG_FRAGMENT, "实例化framgment" + name);
         FragmentTask fragment = new FragmentTask();
         return fragment;
     }

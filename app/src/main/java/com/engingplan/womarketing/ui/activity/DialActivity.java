@@ -14,11 +14,13 @@ import android.os.Bundle;
 import android.provider.CallLog;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.engingplan.womarketing.bl.DialBL;
 import com.engingplan.womarketing.bl.DialHttpBL;
 import com.engingplan.womarketing.ui.R;
@@ -83,6 +85,10 @@ public final class DialActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_dial);
+
+        initActivity();
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         //获取上一个页面传递的参数 taskId 上一个页面的标记
         getPara();
@@ -187,7 +193,7 @@ public final class DialActivity extends BaseActivity {
                             //修改任务数据成功之后再刷新显示下一条
                             if (endTime != null && !endTime.equals(startTime)) {
                                 updateDataInfo();
-                            }else{
+                            } else {
 
                                 //如果没有接通，修改数据锁定状态
                                 updateDataUnLock();
@@ -263,14 +269,14 @@ public final class DialActivity extends BaseActivity {
                         smsContent = (String) map.get("smsContent");
 
                         //初始化页面，控件实现查询得到的信息
-                        initActivity();
+                        init();
                     }
 
                     //若任务已完成，提示，修改完成按钮的状态
-                    if (list == null|| list.size() == 0) {
+                    if (list == null || list.size() == 0) {
                         //Toast.makeText(DialActivity.this, "该任务已完成", Toast.LENGTH_LONG).show();
 
-                        AlertDialog dialog=new AlertDialog.Builder(DialActivity.this)
+                        AlertDialog dialog = new AlertDialog.Builder(DialActivity.this)
                                 .setIcon(R.drawable.pointer)
                                 .setTitle("提示")
                                 .setMessage("当前任务已完成")
@@ -510,6 +516,16 @@ public final class DialActivity extends BaseActivity {
         dialHttpBL.updateDataUnLockAsyn(putparam, DialActivity.this.getApplicationContext());
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:   //返回键的id
+                this.finish();
+                return false;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 
     @Override
     protected void onDestroy() {

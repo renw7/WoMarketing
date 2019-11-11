@@ -112,17 +112,12 @@ public class FragmentMe extends Fragment {
                 switch (flag){
                     //开始下载
                     case ConstantsUtil.flag_start:
-                        flag = ConstantsUtil.flag_doing;
-                        Toast.makeText(mContext, "开始下载！", Toast.LENGTH_SHORT).show();
-                        Map m = new HashMap();
-                        m.put("staffId", staffId);
-                        UpdatePwdBL updatePwdBL = new UpdatePwdBL();
-                        updatePwdBL.workReport(m, getContext());
-                        return;
+                        downloadDialog();
+                        break;
                     //下载中
                     case ConstantsUtil.flag_doing:
                         Toast.makeText(mContext, "正在下载！请稍后", Toast.LENGTH_SHORT).show();
-                        return;
+                        break;
                     //下载完成点击打开excel
 //                    case ConstantsUtil.flag_finish:
 //                        String filePath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + "/123.xls";
@@ -287,6 +282,40 @@ public class FragmentMe extends Fragment {
 
     }
 
+
+
+    //下载对话框
+    private void downloadDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+        LayoutInflater inflater = LayoutInflater.from(mContext);
+        final View v = inflater.inflate(R.layout.activity_down_dialog, null);
+        Button btnSure = v.findViewById(R.id.dialog_btn_sure);
+        Button btnCancel = v.findViewById(R.id.dialog_btn_cancel);
+        final Dialog dialog = builder.create();
+        dialog.show();
+        dialog.getWindow().setContentView(v);
+        dialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
+
+        btnSure.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+                flag = ConstantsUtil.flag_doing;
+                Toast.makeText(mContext, "开始下载！", Toast.LENGTH_SHORT).show();
+                Map m = new HashMap();
+                m.put("staffId", staffId);
+                UpdatePwdBL updatePwdBL = new UpdatePwdBL();
+                updatePwdBL.workReport(m, getContext());
+            }
+        });
+
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+    }
 
 
     //从这里结束

@@ -47,9 +47,9 @@ public class TaskListActivity extends BaseActivity {
 
         // 获取传来页面的参数
         Bundle bundle = this.getIntent().getExtras();
-        Log.i(ConstantsUtil.LOG_TAG_ACTIVITY, bundle.getString("taskType"));
         staffId = (long)bundle.getInt("staffId");
         taskType = Integer.valueOf(bundle.getString("taskType"));
+        //判断taskType和staffId
         Log.i(ConstantsUtil.LOG_TAG_ACTIVITY, "taskType:" + taskType+" staffId:"+staffId);
 
         //调用逻辑层请求数据
@@ -90,7 +90,6 @@ public class TaskListActivity extends BaseActivity {
             }
         });
     }
-
 
     private void loadData(){
         //实例化bl对象，调用bl对象的getUserInfoAllAsyn方法。
