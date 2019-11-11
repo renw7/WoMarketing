@@ -20,10 +20,10 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 /**
- *    author : Android
- *    github : https://github.com/renw7/AndroidProject
- *    time   : 2018/10/31
- *    desc   : 网络请求框架okhttp工具类
+ * author : Android
+ * github : https://github.com/renw7/AndroidProject
+ * time   : 2018/10/31
+ * desc   : 网络请求框架okhttp工具类
  */
 public final class OkHttpClientUtils {
 
@@ -123,12 +123,14 @@ public final class OkHttpClientUtils {
     public void doPostAsyn(String url, Map<String, String> map, final NetWorkCallBack callBack) {
         //创建表单请求体
 //        FormBody.Builder formBody = new FormBody.Builder();
+        System.out.println("111");
 
         String content = "";
         if (map != null) {
             JSONObject req = new JSONObject(map);
             content = req.toString();
         }
+        System.out.println("222");
 
 
         RequestBody body = RequestBody.create(MediaType.parse("application/json;charset=UTF-8"), content);
@@ -147,6 +149,8 @@ public final class OkHttpClientUtils {
                 //传递请求体
                 .post(body)
                 .build();
+        System.out.println("333");
+
         mClient.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
