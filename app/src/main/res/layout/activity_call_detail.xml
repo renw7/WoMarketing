@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+   >
 
 
 
@@ -178,28 +179,19 @@
             android:textSize="13sp" />
     </LinearLayout>
 
-
-    <LinearLayout
+    <Button
+        android:id="@+id/detail_recall"
+        style="@style/ButtonStyle"
         android:layout_width="match_parent"
-        android:layout_height="316dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="5dp"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginRight="40dp"
+        android:background="@drawable/btlogon_shape"
+        android:text="再次拨打"
+        android:textColor="#F3FFFFFF"
 
-
-
-        <Button
-            android:id="@+id/detail_recall"
-            android:layout_width="70dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_weight="1"
-            android:background="@color/white"
-            android:text="再次拨打"
-            android:layout_marginTop="150dp"
-            android:textColor="@color/black" />
-    </LinearLayout>
+        android:textSize="18sp" />
 
 
 </LinearLayout>
