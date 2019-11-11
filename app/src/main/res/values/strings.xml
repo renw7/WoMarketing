@@ -15,6 +15,7 @@
 
     <string name="task_type2">2</string>
     <!-- 拨打界面 -->
+    <string name="dial_name">拨打电话</string>
     <string name="dial_default_number">10010</string>
     <string name="dial_title">拨打电话</string>
     <string name="dial_cust_info_btn">用户画像</string>

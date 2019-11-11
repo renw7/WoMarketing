@@ -118,11 +118,11 @@ public class FragmentMe extends Fragment {
                         m.put("staffId", staffId);
                         UpdatePwdBL updatePwdBL = new UpdatePwdBL();
                         updatePwdBL.workReport(m, getContext());
-                        return;
+                        break;
                     //下载中
                     case ConstantsUtil.flag_doing:
                         Toast.makeText(mContext, "正在下载！请稍后", Toast.LENGTH_SHORT).show();
-                        return;
+                        break;
                     //下载完成点击打开excel
 //                    case ConstantsUtil.flag_finish:
 //                        String filePath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + "/123.xls";
