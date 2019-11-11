@@ -118,7 +118,7 @@ public class OkHttpTaskBL {
             String code = jsonObject.getString("code");
             if (code.equals("200")) {
                 JSONArray jsonArray = jsonObject.getJSONObject("data").getJSONArray("records");
-                
+
                 //取数组中的一个值  暂时固定为第一个
                 JSONObject record = jsonArray.getJSONObject(0);
                 map.put("taskName", record.getString("taskName"));
