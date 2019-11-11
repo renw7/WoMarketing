@@ -4,15 +4,12 @@ package com.engingplan.womarketing.util;
 import android.os.Handler;
 import android.util.Log;
 
-
 import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.Map;
-
 import okhttp3.Call;
 import okhttp3.Callback;
-import okhttp3.FormBody;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -20,10 +17,10 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 /**
- *    author : Android
- *    github : https://github.com/renw7/AndroidProject
- *    time   : 2018/10/31
- *    desc   : 网络请求框架okhttp工具类
+ * author : Android
+ * github : https://github.com/renw7/AndroidProject
+ * time   : 2018/10/31
+ * desc   : 网络请求框架okhttp工具类
  */
 public final class OkHttpClientUtils {
 
@@ -170,7 +167,7 @@ public final class OkHttpClientUtils {
     }
 
 
-    public void test(){
+    public void test() {
         System.out.println("test");
     }
 
