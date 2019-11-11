@@ -22,43 +22,6 @@ import java.util.Map;
  */
 public class DialHttpBL {
 
-    //本机
-    //public static String URL="http://10.52.200.149";
-    //public static String URL = "http://192.168.0.104";
-
-    //服务器
-    public static String URL="http://119.29.106.248";
-
-    //任务数据表
-    //private String url_task_data = "http://10.52.200.150/tblstaffinfo/page";
-
-    //任务信息表
-    //private String url_task_info = "http://10.52.200.150/tblstaffinfo/page";
-
-    //获取任务数据
-    private String url_task_data = URL + "/tbltaskdata/selectOnePost";
-
-    //获取指定任务数据
-    //private String url_task_data_spe =URL+"/tbltaskdata/selectSpePost";
-
-    //修改任务数据
-    private String url_taskdata_update = URL + "/tbltaskdata/update";
-
-    //解锁任务数据
-    private String url_taskdata_unlock = URL + "/tbltaskdata/updateUnLock";
-
-    //获取任务信息
-    private String url_task_info = URL + "/tbltaskinfo/selectOnePost";
-
-    //通话记录表 post方式
-    private String url_call_record = URL + "/tblcallrecord/saveCall";
-
-    //通话记录表 post方式  修改记录
-    private String url_call_update = URL + "/tblcallrecord/updateCall";
-
-    //短信记录表 post方式
-    private String url_sms_info = URL + "/tblsmsinfo/saveSms";
-
 
     /**
      * 异步http调用  获取任务数据
@@ -67,11 +30,12 @@ public class DialHttpBL {
      */
     public void getTaskDataAsyn(Map param, Context context, String number) {
 
+        String url = ConstantsUtil.URL_TASK_DATA;
         if ("2".equals(number)) {
-            url_task_data = URL + "/tbltaskdata/selectSpePost";
+            url = ConstantsUtil.URL_HOME + "/tbltaskdata/selectSpePost";
         }
 
-        OkHttpClientUtils.getInstance().doPostAsyn(url_task_data, param, new OkHttpClientUtils.NetWorkCallBack() {
+        OkHttpClientUtils.getInstance().doPostAsyn(url, param, new OkHttpClientUtils.NetWorkCallBack() {
 
             @Override
             public void onSuccess(String response) {
@@ -122,7 +86,7 @@ public class DialHttpBL {
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("list", recordList);
                 intent.putExtras(bundle); //向广播接收器传递数据
-                intent.setAction("SELECTTASKDATA");
+                intent.setAction(ConstantsUtil.TASK_DATA_ACTIVITY_RECEIVER);
                 context.sendBroadcast(intent);
             }
 
@@ -142,7 +106,7 @@ public class DialHttpBL {
      */
     public void putCallRecordAsyn(Map param, Context context) {
 
-        OkHttpClientUtils.getInstance().doPostAsyn(url_call_record, param, new OkHttpClientUtils.NetWorkCallBack() {
+        OkHttpClientUtils.getInstance().doPostAsyn(ConstantsUtil.URL_CALL_RECORD, param, new OkHttpClientUtils.NetWorkCallBack() {
 
             @Override
             public void onSuccess(String response) {
@@ -152,7 +116,7 @@ public class DialHttpBL {
                 //返回新增通话记录的recordId给ui层
                 Intent intent = new Intent();
                 intent.putExtra("recordId", response);
-                intent.setAction("INSERTCALLRECORD");
+                intent.setAction(ConstantsUtil.INSERT_CALLRECORD_ACTIVITY_RECEIVER);
                 context.sendBroadcast(intent);
             }
 
@@ -170,7 +134,7 @@ public class DialHttpBL {
      */
     public void putCallResultAsyn(Map param, Context context) {
 
-        OkHttpClientUtils.getInstance().doPostAsyn(url_call_update, param, new OkHttpClientUtils.NetWorkCallBack() {
+        OkHttpClientUtils.getInstance().doPostAsyn(ConstantsUtil.URL_CALL_UPDATE, param, new OkHttpClientUtils.NetWorkCallBack() {
 
             @Override
             public void onSuccess(String response) {
@@ -192,12 +156,12 @@ public class DialHttpBL {
      */
     public void putSmsAsyn(Map param, Context context) {
 
-        OkHttpClientUtils.getInstance().doPostAsyn(url_sms_info, param, new OkHttpClientUtils.NetWorkCallBack() {
+        OkHttpClientUtils.getInstance().doPostAsyn(ConstantsUtil.URL_SMS_INFO, param, new OkHttpClientUtils.NetWorkCallBack() {
 
             @Override
             public void onSuccess(String response) {
 
-                System.out.println("putSmsSuccess"+response);
+                System.out.println("putSmsSuccess" + response);
             }
 
             @Override
@@ -214,16 +178,16 @@ public class DialHttpBL {
      */
     public void updateCallStatesAsyn(Map param, Context context) {
 
-        OkHttpClientUtils.getInstance().doPostAsyn(url_taskdata_update, param, new OkHttpClientUtils.NetWorkCallBack() {
+        OkHttpClientUtils.getInstance().doPostAsyn(ConstantsUtil.URL_TASKDATA_UPDATE, param, new OkHttpClientUtils.NetWorkCallBack() {
 
             @Override
             public void onSuccess(String response) {
 
                 Intent intent = new Intent();
-                intent.setAction("UPDATETASKDATA");
+                intent.setAction(ConstantsUtil.UPDATE_TASKDATA_ACTIVITY_RECEIVER);
                 context.sendBroadcast(intent);
 
-                System.out.println("updateCallStatesAsyn"+response);
+                System.out.println("updateCallStatesAsyn" + response);
             }
 
             @Override
@@ -240,16 +204,16 @@ public class DialHttpBL {
      */
     public void updateDataUnLockAsyn(Map param, Context context) {
 
-        OkHttpClientUtils.getInstance().doPostAsyn(url_taskdata_unlock, param, new OkHttpClientUtils.NetWorkCallBack() {
+        OkHttpClientUtils.getInstance().doPostAsyn(ConstantsUtil.URL_TASKDATA_UNLOCK, param, new OkHttpClientUtils.NetWorkCallBack() {
 
             @Override
             public void onSuccess(String response) {
 
                 Intent intent = new Intent();
-                intent.setAction("UPDATETASKDATAUNLOCK");
+                intent.setAction(ConstantsUtil.UNLOCK_TASKDATA_ACTIVITY_RECEIVER);
                 context.sendBroadcast(intent);
 
-                System.out.println("updateDataUnLockAsyn"+response);
+                System.out.println("updateDataUnLockAsyn" + response);
             }
 
             @Override

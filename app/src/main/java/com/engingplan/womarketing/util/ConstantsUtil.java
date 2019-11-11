@@ -22,6 +22,8 @@ public interface ConstantsUtil {
 
     String UPDATE_TASKDATA_ACTIVITY_RECEIVER = "com.engingplan.womarketing.fragment.DialActivity.updTaskData.BroadcastReceiver";
 
+    String UNLOCK_TASKDATA_ACTIVITY_RECEIVER = "com.engingplan.womarketing.fragment.DialActivity.unLockTaskData.BroadcastReceiver";
+
     String SENT_SMS_ACTIVITY_RECEIVER = "com.engingplan.womarketing.fragment.DialActivity.sendSms.BroadcastReceiver";
 
 
@@ -95,6 +97,24 @@ public interface ConstantsUtil {
 
     //登录验证
     String URL_CHECK_USER = URL_HOME + "/tblstaffinfo/checkuser";
+
+    //获取任务数据
+    String URL_TASK_DATA = URL_HOME + "/tbltaskdata/selectOnePost";
+
+    //修改任务数据
+    String URL_TASKDATA_UPDATE = URL_HOME + "/tbltaskdata/update";
+
+    //解锁任务数据
+    String URL_TASKDATA_UNLOCK = URL_HOME + "/tbltaskdata/updateUnLock";
+
+    //通话记录表
+    String URL_CALL_RECORD = URL_HOME + "/tblcallrecord/saveCall";
+
+    //通话记录表  修改记录
+    String URL_CALL_UPDATE = URL_HOME + "/tblcallrecord/updateCall";
+
+    //短信记录表
+    String URL_SMS_INFO = URL_HOME + "/tblsmsinfo/saveSms";
 
 
 }
