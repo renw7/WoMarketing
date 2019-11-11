@@ -20,6 +20,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.engingplan.womarketing.bl.DialBL;
 import com.engingplan.womarketing.bl.DialHttpBL;
 import com.engingplan.womarketing.ui.R;
@@ -84,6 +85,9 @@ public final class DialActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_dial);
+
+        initActivity();
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         //获取上一个页面传递的参数 taskId 上一个页面的标记
@@ -265,7 +269,7 @@ public final class DialActivity extends BaseActivity {
                         smsContent = (String) map.get("smsContent");
 
                         //初始化页面，控件实现查询得到的信息
-                        initActivity();
+                        init();
                     }
 
                     //若任务已完成，提示，修改完成按钮的状态

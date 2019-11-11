@@ -86,7 +86,7 @@ public class DialHttpBL {
                 Bundle bundle = new Bundle();
                 bundle.putSerializable("list", recordList);
                 intent.putExtras(bundle); //向广播接收器传递数据
-                intent.setAction("SELECTTASKDATA");
+                intent.setAction(ConstantsUtil.TASK_DATA_ACTIVITY_RECEIVER);
                 context.sendBroadcast(intent);
             }
 
@@ -116,7 +116,7 @@ public class DialHttpBL {
                 //返回新增通话记录的recordId给ui层
                 Intent intent = new Intent();
                 intent.putExtra("recordId", response);
-                intent.setAction("INSERTCALLRECORD");
+                intent.setAction(ConstantsUtil.INSERT_CALLRECORD_ACTIVITY_RECEIVER);
                 context.sendBroadcast(intent);
             }
 
@@ -184,7 +184,7 @@ public class DialHttpBL {
             public void onSuccess(String response) {
 
                 Intent intent = new Intent();
-                intent.setAction("UPDATETASKDATA");
+                intent.setAction(ConstantsUtil.UPDATE_TASKDATA_ACTIVITY_RECEIVER);
                 context.sendBroadcast(intent);
 
                 System.out.println("updateCallStatesAsyn" + response);
@@ -210,7 +210,7 @@ public class DialHttpBL {
             public void onSuccess(String response) {
 
                 Intent intent = new Intent();
-                intent.setAction("UPDATETASKDATAUNLOCK");
+                intent.setAction(ConstantsUtil.UNLOCK_TASKDATA_ACTIVITY_RECEIVER);
                 context.sendBroadcast(intent);
 
                 System.out.println("updateDataUnLockAsyn" + response);

@@ -8,16 +8,6 @@
     tools:context="com.engingplan.womarketing.ui.activity.DialActivity">
 
 
-    <ImageButton
-        android:id="@+id/ImageButton"
-        android:layout_width="33dp"
-        android:layout_height="23dp"
-        android:layout_gravity="left"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
-        android:background="@color/colorButtonDisable"
-        android:src="@drawable/back" />
-
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -29,7 +19,7 @@
         android:layout_width="273dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
         android:layout_marginBottom="20dp"
         android:text="@string/dial_default_number"
         android:textSize="24sp" />
@@ -48,8 +38,8 @@
             android:layout_marginLeft="20dp"
             android:layout_marginRight="10dp"
             android:layout_weight="1"
-            android:textColor="@color/white"
             android:text="@string/dial_cust_info_btn"
+            android:textColor="@color/white"
             android:textSize="18sp" />
 
         <Button
@@ -61,8 +51,8 @@
             android:layout_marginRight="20dp"
             android:layout_weight="1"
             android:text="@string/dial_voice_content_btn"
-            android:textSize="18sp"
-            android:textColor="@color/white"/>
+            android:textColor="@color/white"
+            android:textSize="18sp" />
 
     </LinearLayout>
 
@@ -77,10 +67,10 @@
         android:layout_marginBottom="20dp"
         android:gravity="center_vertical"
         android:lineSpacingExtra="5sp"
+        android:scrollbars="vertical"
         android:text="@string/dial_cust_info_content"
-        android:textSize="18sp"
 
-        android:scrollbars = "vertical"/>
+        android:textSize="18sp" />
 
 
     <!-- 产品推荐 -->
@@ -92,9 +82,9 @@
         android:gravity="start|center_vertical"
         android:orientation="horizontal"
         android:paddingLeft="20dp"
-        android:paddingTop="20dp"
+        android:paddingTop="18dp"
         android:paddingRight="20dp"
-        android:paddingBottom="20dp">
+        android:paddingBottom="18dp">
 
         <TextView
 
@@ -171,9 +161,9 @@
         android:gravity="start|center_vertical"
         android:orientation="horizontal"
         android:paddingLeft="20dp"
-        android:paddingTop="15dp"
+        android:paddingTop="12dp"
         android:paddingRight="20dp"
-        android:paddingBottom="15dp">
+        android:paddingBottom="12dp">
 
         <TextView
             android:layout_width="71dp"
@@ -190,8 +180,7 @@
             android:gravity="center_vertical"
             android:paddingLeft="10dp"
             android:textColor="#99000000"
-            android:textSize="14sp"
-           />
+            android:textSize="14sp" />
     </LinearLayout>
 
 

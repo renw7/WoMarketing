@@ -174,7 +174,7 @@ public final class OkHttpClientUtils {
     }
 
 
-    public void test(){
+    public void test() {
         System.out.println("test");
     }
 

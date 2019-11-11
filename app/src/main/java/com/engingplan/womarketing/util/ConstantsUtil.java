@@ -22,6 +22,8 @@ public interface ConstantsUtil {
 
     String UPDATE_TASKDATA_ACTIVITY_RECEIVER = "com.engingplan.womarketing.fragment.DialActivity.updTaskData.BroadcastReceiver";
 
+    String UNLOCK_TASKDATA_ACTIVITY_RECEIVER = "com.engingplan.womarketing.fragment.DialActivity.unLockTaskData.BroadcastReceiver";
+
     String SENT_SMS_ACTIVITY_RECEIVER = "com.engingplan.womarketing.fragment.DialActivity.sendSms.BroadcastReceiver";
 
 

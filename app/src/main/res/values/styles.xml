@@ -6,7 +6,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
 
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorAccent">@color/select_transparent</item>
         <!-- ActionMode覆盖Actionbar，不顶下来 -->
         <item name="windowActionModeOverlay">true</item>
         <item name="android:windowContentOverlay">@null</item>
@@ -22,7 +22,7 @@
         <item name="colorPrimary">@color/select_transparent</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
 
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorAccent">@color/select_transparent</item>
         <!-- ActionMode覆盖Actionbar，不顶下来 -->
         <item name="windowActionModeOverlay">true</item>
         <item name="android:windowContentOverlay">@null</item>
@@ -32,7 +32,6 @@
         <item name="android:textAllCaps">false</item>
         <item name="actionBarSize">50dp</item>
     </style>
-
 
 
     <style name="EditTextStyle">
@@ -56,7 +55,7 @@
         <item name="android:background">@color/colorCall</item>
     </style>
 
-    <style name="MyDialog" parent="Theme.AppCompat.Light.DarkActionBar"/>
+    <style name="MyDialog" parent="Theme.AppCompat.Light.DarkActionBar" />
 
 
     <!-- 获取验证码样式 -->
