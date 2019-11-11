@@ -98,6 +98,10 @@
 
         <service android:name=".service.NoticeService" />
 
+        <receiver android:name=".receive.NotificationReceiver"
+            android:enabled="true"
+            android:exported="true" />
+
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="com.engingplan.womarketing.fileprovider"
