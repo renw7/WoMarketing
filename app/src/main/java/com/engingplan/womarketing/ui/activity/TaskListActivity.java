@@ -61,6 +61,7 @@ public class TaskListActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 finish();
+                
             }
         });
 
@@ -77,6 +78,7 @@ public class TaskListActivity extends BaseActivity {
                 it.putExtra("staffId", staffId);
                 Log.i(ConstantsUtil.LOG_TAG_ACTIVITY,"taskId:" + taskId);
                 startActivity(it);
+
             }
         });
 
@@ -87,6 +89,7 @@ public class TaskListActivity extends BaseActivity {
             public void onRefresh() {
                 loadData();
                 swipeRefresh.setRefreshing(false);
+
             }
         });
     }
@@ -97,6 +100,7 @@ public class TaskListActivity extends BaseActivity {
         Map param = new HashMap<>();
         param.put("taskType", String.valueOf(taskType));
         okHttpTaskBL.tasklistPostUserInfoAllAsyn(param, this.getApplicationContext());
+
     }
 
     private BroadcastReceiver myReceiver = new BroadcastReceiver() {
@@ -129,5 +133,6 @@ public class TaskListActivity extends BaseActivity {
         //在registerReceiver(myReceiver, intentFilter)前+getApplicationContext()，
         // 注意在这加下面注销的时候也要加，否则报当前receiver没有被注册。
         getApplicationContext().unregisterReceiver(myReceiver);     //注销广播接收器
+
     }
 }
