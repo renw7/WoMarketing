@@ -119,6 +119,7 @@ public class TaskListActivity extends BaseActivity {
         it.putExtra("taskId", taskId);
         Log.i(ConstantsUtil.LOG_TAG_ACTIVITY,"taskId:" + taskId);
         startActivity(it);
+
     }
 
     @Override
