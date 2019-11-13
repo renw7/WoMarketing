@@ -4,20 +4,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-
-
 import com.engingplan.womarketing.util.ConstantsUtil;
 import com.engingplan.womarketing.util.OkHttpClientUtils;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 public class OkHttpTaskBL {
-
     /**
      * TASKLISTACTIVITY异步http调用
      *
@@ -85,9 +80,11 @@ public class OkHttpTaskBL {
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject record = jsonArray.getJSONObject(i);
                     Map map = new HashMap();
+
                     //放入taskName键值对
                     map.put("taskName", record.getString("taskName"));
                     String taskStatus = record.getString("taskStatus");
+
                     //数值转换后，放入taskStatus键值对
                     if (taskStatus.equals("5")) {
                         taskStatus = "未完成";
@@ -95,6 +92,7 @@ public class OkHttpTaskBL {
                         taskStatus = "已完成";
                     }
                     map.put("taskStatus", taskStatus);
+
                     //放入map的顺序与taskId对应关系的键值对
                     map.put(String.valueOf(i), record.getString("taskId"));
                     recordList.add(map);
@@ -102,7 +100,6 @@ public class OkHttpTaskBL {
             } else {
                 throw new Exception("连接异常[" + code + "]");
             }
-
         } catch (Exception e) {
             e.printStackTrace();
             Log.e(ConstantsUtil.LOG_TAG_BL, "e=" + e.getMessage());
@@ -118,6 +115,7 @@ public class OkHttpTaskBL {
             String code = jsonObject.getString("code");
             if (code.equals("200")) {
                 JSONArray jsonArray = jsonObject.getJSONObject("data").getJSONArray("records");
+
                 //取数组中的一个值  暂时固定为第一个
                 JSONObject record = jsonArray.getJSONObject(0);
                 map.put("taskName", record.getString("taskName"));
