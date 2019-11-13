@@ -26,21 +26,23 @@ public class DialBL {
     }
 
     //获取时间
+    /*
     public String time(){
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");// HH:mm:ss
         // 获取当前时间
         Date date = new Date(System.currentTimeMillis());
         return simpleDateFormat.format(date);
     }
-
+    */
+    
     //发送短信
     public void sendMessage(String phoneNo, String message, PendingIntent sentPI){
         SmsManager smsManager = SmsManager.getDefault();
         if (message.length()<=70) {
             smsManager.sendTextMessage(phoneNo, null, message, sentPI, null);
         }else{
-            List<String> Message = smsManager.divideMessage(message);
-            for(String dividemessage:Message) {
+            List<String> message1 = smsManager.divideMessage(message);
+            for(String dividemessage: message1) {
                 smsManager.sendTextMessage(phoneNo,null, dividemessage,sentPI,null);
             }
         }

@@ -434,6 +434,7 @@ public final class DialActivity extends BaseActivity {
             String number = cursor.getString(cursor.getColumnIndex(CallLog.Calls.NUMBER));
             Log.i(ConstantsUtil.LOG_TAG_ACTIVITY, number);
             //呼叫类型
+            /*
             String type;
             switch (Integer.parseInt(cursor.getString(cursor.getColumnIndex(CallLog.Calls.TYPE)))) {
                 case CallLog.Calls.INCOMING_TYPE:
@@ -449,6 +450,7 @@ public final class DialActivity extends BaseActivity {
                     type = "挂断";//应该是挂断.根据我手机类型判断出的
                     break;
             }
+            */
 
             SimpleDateFormat sfd = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             Date date = new Date(Long.parseLong(cursor.getString(cursor.getColumnIndexOrThrow(CallLog.Calls.DATE))));
